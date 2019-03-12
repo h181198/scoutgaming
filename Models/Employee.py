@@ -19,4 +19,4 @@ class Employee(Base):
 
 
     def __repr__(self):
-        return "<Employee (id='%s', country='%s', unit='%s') >" % (self.id, self.country, self.unit)
+        return "<Employee (id='%i', name='%s', department_id='%s', start_date='%s', end_date='%s') >" % (self.id, self.name, self.department_id, self.start_date, self.end_date)
