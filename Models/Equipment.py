@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.types import Date
 
@@ -13,7 +13,7 @@ class Equipment(Base):
     id = Column(Integer, primary_key=True)
     model = Column(String)
     buy_date = Column(Date)
-    receipt = Column(String)
+    receipt_id = Column(String, ForeignKey("receipts.id"))
     price = Column(Integer)
     description = Column(String)
     note = Column(String)
