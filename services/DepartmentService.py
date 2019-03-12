@@ -1,13 +1,11 @@
-from Models.Department import Department
-from sqlalchemy.orm import sessionmaker
-from Services.ConnectionService import database
+from Services.ConnectionService import database, create_session
 
+import Models.Department as Model
 
 # Add a new department
 def add_department(country, unit):
-    department = Department(country=country, unit=unit)
-    Session = sessionmaker(database)
-    session = Session()
+    department = Model.Department(country=country, unit=unit)
+    session = create_session()
 
     session.add(department)
     session.commit()
@@ -15,17 +13,18 @@ def add_department(country, unit):
 
 # Remove department based on id
 def delete_department(id):
-    Session = sessionmaker(database)
-    session = Session()
+    session = create_session()
 
-    department = session.query(Department).filter_by(id=id).first()
+    department = find_department(id)
     session.delete(department)
     session.commit()
 
 
 # Get a list of all departments
 def get_all_departments():
-    Session = sessionmaker(database)
-    session = Session()
+    return create_session().query(Model.Department)
 
-    return session.query(Department)
+
+# Get one department from id
+def find_department(id):
+    return create_session().query(Model.Department).filter_by(id=id).first()
