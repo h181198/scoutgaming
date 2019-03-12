@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.types import Date
 
@@ -11,8 +11,8 @@ class Transaction(Base):
     __tablename__ = 'transactions'
 
     id = Column(Integer, primary_key=True)
-    employee_id = Column(Integer)
-    equipment_id = Column(Integer)
+    employee_id = Column(Integer, ForeignKey("employees.id"))
+    equipment_id = Column(Integer, ForeignKey("equipments.id"))
     transfer_date = Column(Date)
 
     def __repr__(self):

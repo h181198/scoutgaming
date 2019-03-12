@@ -1,5 +1,5 @@
 from app import database
-from sqlalchemy import Column, Integer, String
+from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.types import Date
 
@@ -13,7 +13,7 @@ class Employee(Base):
 
     id = Column(Integer, primary_key=True)
     name = Column(String)
-    department_id = Column(String)
+    department_id = Column(String, ForeignKey("departments.id"))
     start_date = Column(Date)
     end_date = Column(Date)
 
