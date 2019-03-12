@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS departments CASCADE;
 DROP TABLE IF EXISTS receipts CASCADE;
 
 CREATE TABLE departments (
-    id INTEGER PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     country VARCHAR(128) NOT NULL,
     unit VARCHAR(256) NOT NULL
 );
@@ -26,7 +26,7 @@ CREATE TABLE employees (
 );
 
 CREATE TABLE equipments (
-    id INTEGER PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     price INTEGER NOT NULL,
     model INTEGER,
     buy_date TIMESTAMP,
@@ -37,7 +37,7 @@ CREATE TABLE equipments (
 );
 
 CREATE TABLE transactions (
-    id INTEGER PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
     equipment_id INTEGER NOT NULL,
     employee_id VARCHAR(64) NOT NULL,
     transfer_date TIMESTAMP NOT NULL,
