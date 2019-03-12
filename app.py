@@ -3,6 +3,7 @@ from flask_admin import Admin
 from sqlalchemy import create_engine
 
 
+
 app = Flask(__name__)
 database = create_engine('postgres://localhost:5432/myDatabase')
 database.connect()
