@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.types import TIMESTAMP
 from Models.BaseModel import Base
+from sqlalchemy.sql import func
 
 # This is only a test, not sure if it will be a part of the finished product like this
 
@@ -11,7 +12,7 @@ class Employee(Base):
     id = Column(String, primary_key=True)
     name = Column(String)
     department_id = Column(Integer, ForeignKey("departments.id"))
-    start_date = Column(TIMESTAMP)
+    start_date = Column(TIMESTAMP, default=func.now())
     end_date = Column(TIMESTAMP)
 
 
