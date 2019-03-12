@@ -1,7 +1,7 @@
 from app import database
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.types import Date
+from sqlalchemy.types import DateTime
 
 Base = declarative_base()
 
@@ -14,8 +14,8 @@ class Employee(Base):
     id = Column(Integer, primary_key=True)
     name = Column(String)
     department_id = Column(String, ForeignKey("departments.id"))
-    start_date = Column(Date)
-    end_date = Column(Date)
+    start_date = Column(DateTime)
+    end_date = Column(DateTime)
 
 
     def __repr__(self):
