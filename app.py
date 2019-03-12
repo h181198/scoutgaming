@@ -3,7 +3,12 @@ from flask_admin import Admin
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy.types import DateTime
 from Models.Department import Department
+from Models.Equipment import Equipment
+from Models.Employee import Employee
+from Models.Receipt import Receipt
+from Models.Transaction import Transaction
 
 
 app = Flask(__name__)
@@ -20,6 +25,22 @@ session = Session()
 
 test_department = Department(country="Norway", unit="Oslo")
 session.add(test_department)
+session.commit()
+
+test_employee = Employee(name="Endre", department_id=test_department.id, start_date=DateTime())
+session.add(test_employee)
+session.commit()
+
+test_receipt = Receipt(supplement="UAB", year=2019)
+session.add(test_receipt)
+session.commit()
+
+test_equipment = Equipment(model="Apple Pay", price=1992, description="make me", note="hehe")
+session.add(test_equipment)
+session.commit()
+
+test_transaction = Transaction(equipment_id=test_equipment.id, employee_id=test_employee.id, transfer_date=DateTime())
+session.add(test_transaction)
 session.commit()
 
 myList = session.query(Department)

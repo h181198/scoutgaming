@@ -1,7 +1,5 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.types import Date
-from Department import Base
+from sqlalchemy import Column, Integer, String
+from Models.BaseModel import Base
 
 # This is only a test, not sure if it will be a part of the finished product like this
 
@@ -9,7 +7,7 @@ from Department import Base
 class Receipt(Base):
     __tablename__ = 'receipts'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(String, primary_key=True)
     supplement = Column(String)
     year = Column(Integer)
 
