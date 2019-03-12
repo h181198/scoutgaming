@@ -1,5 +1,5 @@
 from sqlalchemy import Column, Integer, String, ForeignKey
-from sqlalchemy.types import DateTime
+from sqlalchemy.types import TIMESTAMP
 from Models.BaseModel import Base
 
 # This is only a test, not sure if it will be a part of the finished product like this
@@ -8,12 +8,12 @@ from Models.BaseModel import Base
 class Employee(Base):
     __tablename__ = 'employees'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(String, primary_key=True)
     name = Column(String)
-    department_id = Column(String, ForeignKey("departments.id"))
-    start_date = Column(DateTime)
-    end_date = Column(DateTime)
+    department_id = Column(Integer, ForeignKey("departments.id"))
+    start_date = Column(TIMESTAMP)
+    end_date = Column(TIMESTAMP)
 
 
     def __repr__(self):
-        return "<Employee (id='%i', name='%s', department_id='%s', start_date='%s', end_date='%s') >" % (self.id, self.name, self.department_id, self.start_date, self.end_date)
+        return "<Employee (id='%s', name='%s', department_id='%i', start_date='%s', end_date='%s') >" % (self.id, self.name, self.department_id, self.start_date, self.end_date)
