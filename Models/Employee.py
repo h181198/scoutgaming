@@ -2,8 +2,7 @@ from app import database
 from sqlalchemy import Column, Integer, String, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.types import DateTime
-
-Base = declarative_base()
+from Department import Base
 
 # This is only a test, not sure if it will be a part of the finished product like this
 
