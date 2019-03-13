@@ -1,8 +1,7 @@
-from sqlalchemy import Column, Integer, String
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.types import Date
-
-Base = declarative_base()
+from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy.types import TIMESTAMP
+from Models.BaseModel import Base
+from sqlalchemy.sql import func
 
 # This is only a test, not sure if it will be a part of the finished product like this
 
@@ -11,9 +10,9 @@ class Transaction(Base):
     __tablename__ = 'transactions'
 
     id = Column(Integer, primary_key=True)
-    employee_id = Column(Integer)
-    equipment_id = Column(Integer)
-    transfer_date = Column(Date)
+    employee_id = Column(String, ForeignKey("employees.id"))
+    equipment_id = Column(Integer, ForeignKey("equipments.id"))
+    transfer_date = Column(TIMESTAMP, default=func.now())
 
     def __repr__(self):
-        return "<Department (id='%s', employee_id='%i', equipment_id='%i', transfer_date='%s') >" % (self.id, self.employee_id, self.equipment_id, self.transfer_date)
+        return "<Transaction (id='%i', employee_id='%s', equipment_id='%i', transfer_date='%s') >" % (self.id, self.employee_id, self.equipment_id, self.transfer_date)
