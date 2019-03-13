@@ -12,7 +12,7 @@ CREATE TABLE departments (
 
 CREATE TABLE receipts (
     id VARCHAR(64) PRIMARY KEY,
-    supplements VARCHAR(256) NOT NULL,
+    supplement VARCHAR(256) NOT NULL,
     year INTEGER NOT NULL
 );
 
@@ -28,7 +28,7 @@ CREATE TABLE employees (
 CREATE TABLE equipments (
     id SERIAL PRIMARY KEY,
     price INTEGER NOT NULL,
-    model INTEGER,
+    model VARCHAR(128),
     buy_date TIMESTAMP,
     receipt_id VARCHAR(64),
     description VARCHAR(256),

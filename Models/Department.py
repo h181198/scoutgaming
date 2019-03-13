@@ -1,7 +1,5 @@
-from sqlalchemy.ext.declarative import declarative_base
+from Models.BaseModel import Base
 from sqlalchemy import Column, Integer, String
-
-Base = declarative_base()
 
 # This is only a test, not sure if it will be a part of the finished product like this
 
