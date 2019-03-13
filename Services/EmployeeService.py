@@ -1,37 +1,45 @@
 from Services.ConnectionService import create_session
-from sqlalchemy.types import DateTime
+from Models.Department import Department
+from Models.Employee import Employee as Model
 
-import Models.Employee as Model
 
-
-# Add employee
-def add_employee(name, department_id, start_date):
+# Add employee return True if successful, start_date is optional
+def add_employee(name, department_id, start_date=None):
     if start_date is None:
-        start_date = DateTime()
+        employee = Model(name=name, department_id=department_id)
+    else:
+        # Try not to use
+        employee = Model(name=name, department_id=department_id, start_date=start_date)
 
     session = create_session()
+    department = session.query(Department).filter_by(id=department_id).first()
 
-    employee = Model.Employee(name=name, department_id=department_id, start_date=start_date)
+    if employee is None or name is None or department is None:
+        return False
+
     session.add(employee)
-
     session.commit()
+    return True
 
 
-# Delete employee
-def delete_employee(id):
+# Delete employee return true if successful
+def delete_employee(emp_id):
+    employee = find_employee(emp_id)
+
+    if employee is None:
+        return False
+
     session = create_session()
-
-    employee = find_employee(id)
     session.delete(employee)
-
     session.commit()
+    return True
 
 
 # Get a list of all employees
 def get_all_employees():
-    return create_session().query(Model.Employee)
+    return create_session().query(Model)
 
 
 # Find an employee from id
-def find_employee(id):
-    return create_session().query(Model.Employee).filter_by(id=id).first()
+def find_employee(emp_id):
+    return create_session().query(Model).filter_by(id=emp_id).first()
