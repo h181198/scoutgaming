@@ -1,23 +1,27 @@
 from flask import Flask
-from flask_admin import Admin
+from flask_admin import Admin, BaseView, expose
 from sqlalchemy import create_engine
-from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+from flask_admin.contrib.sqla import ModelView
 from Models.Department import Department
+<<<<<<< HEAD
 from Models.Equipment import Equipment
 from Models.Employee import Employee
 from Models.Receipt import Receipt
 from Models.Transaction import Transaction
+=======
+from Models.Employee import Employee
+
+>>>>>>> flaskAdminViews
 
 app = Flask(__name__)
-database = create_engine('postgres://localhost:5432/myDatabase')
+database = create_engine('postgres://postgres:admin@localhost:5432/mydatabase')
 database.connect()
-
-Base = declarative_base()
 
 Session = sessionmaker(database)
 session = Session()
 
+<<<<<<< HEAD
 # Comment in if you want it to create the database for you
 # Base.metadata.create_all(database)
 
@@ -52,7 +56,11 @@ def hello_world():
     return 'Hello World!'
 
 
+=======
+>>>>>>> flaskAdminViews
 admin = Admin(app)
+admin.add_view(ModelView(Department, session))
+admin.add_view(ModelView())
 
 if __name__ == '__main__':
     app.run(debug=True)
