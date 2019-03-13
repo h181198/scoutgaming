@@ -13,9 +13,7 @@ __pycache__/
 *.so
 
 # .idea files
-.idea/workspace.xml
-.idea/*.iws
-.idea/tasks.xml
+.idea/
 
 # Distribution / packaging
 .Python
