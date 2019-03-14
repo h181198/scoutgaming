@@ -1,45 +1,54 @@
-from Services.ConnectionService import create_session
-from Models.Department import Department
+from Services.DepartmentService import DepartmentService as DS
 from Models.Employee import Employee as Model
+import datetime
 
 
-# Add employee return True if successful, start_date is optional
-def add_employee(name, department_id, start_date=None):
-    if start_date is None:
-        employee = Model(name=name, department_id=department_id)
-    else:
-        # Try not to use
-        employee = Model(name=name, department_id=department_id, start_date=start_date)
+class EmployeeService:
+    # Add employee return True if successful
+    @staticmethod
+    def add_employee(session, employee_id=None, name=None, department_id=None, start_date=None, employee=None):
+        is_correct_instance = (isinstance(name, str) and isinstance(department_id, int) and
+                               isinstance(employee_id, str) and isinstance(start_date, (datetime.datetime, type(None))))
 
-    session = create_session()
-    department = session.query(Department).filter_by(id=department_id).first()
+        if start_date is not None and employee is None and is_correct_instance:
+            employee = Model(id=employee_id, name=name, department_id=department_id, start_date=start_date)
+        elif employee is None and is_correct_instance:
+            employee = Model(id=employee_id, name=name, department_id=department_id)
 
-    if employee is None or name is None or department is None:
+        if isinstance(employee, Model) and DS.find_department(session, employee.department_id) is not None:
+            session.add(employee)
+            session.commit()
+            return True
+
         return False
 
-    session.add(employee)
-    session.commit()
-    return True
+    # Delete employee return true if successful
+    @staticmethod
+    def delete_employee(session, emp_id):
+        employee = EmployeeService.find_employee(session, emp_id)
 
+        if employee is None:
+            return False
 
-# Delete employee return true if successful
-def delete_employee(emp_id):
-    employee = find_employee(emp_id)
+        session.delete(employee)
+        session.commit()
+        return True
 
-    if employee is None:
-        return False
+    # Get a list of all employees
+    @staticmethod
+    def get_all_employees(session):
+        return session.query(Model)
 
-    session = create_session()
-    session.delete(employee)
-    session.commit()
-    return True
+    # Find an employee from id
+    @staticmethod
+    def find_employee(session, emp_id):
+        return session.query(Model).filter_by(id=emp_id).first()
 
+    # Add date they quit or got fired
+    @staticmethod
+    def add_end_date(session, employee_id, end_date=None):
+        if end_date is None or not isinstance(end_date, datetime.datetime):
+            end_date = datetime.datetime.now()
 
-# Get a list of all employees
-def get_all_employees():
-    return create_session().query(Model)
-
-
-# Find an employee from id
-def find_employee(emp_id):
-    return create_session().query(Model).filter_by(id=emp_id).first()
+        session.query(Model).filter_by(id=employee_id).update({"end_date": end_date})
+        session.commit()
