@@ -1,0 +1,59 @@
+<table class="table">
+    <thead class="thead-dark">
+    <tr>
+        <th><input type="checkbox" onClick="toggle(this)"></th>
+        <th>Price</th>
+        <th>Model</th>
+        <th>Buy date</th>
+        <th>Receipt id</th>
+        <th>Description</th>
+        <th>Note</th>
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    {% for equ in data %}
+        <tr>
+            <th><input type="checkbox" name="foo"></th>
+            <th>
+                {{ equ.price }}
+            </th>
+            <th>
+                {{ equ.model }}
+            </th>
+            <th>
+                {{ equ.buy_date }}
+            </th>
+            <th>
+                {{ equ.receipt_id }}
+            </th>
+            <th>
+                {{ equ.description }}
+            </th>
+            <th>
+                {{ equ.note }}
+            </th>
+            <th>
+                <form action="/equipment/edit/{{ equ.id }}">
+                   <button class="btn btn-secondary">Edit</button>
+                </form>
+            </th>
+            <th>
+                <form action="/equipment/delete/{{ equ.id }}" method="POST">
+                   <input class="btn btn-danger" type="submit" value="Delete"/>
+                </form>
+            </th>
+        </tr>
+    {% endfor %}
+</table>
+<button>Delete selected</button>
+<button>Add new</button>
+
+<script>
+    function toggle(source) {
+        let checkboxes = document.getElementsByName('foo');
+        for (let i = 0, n = checkboxes.length; i < n; i++) {
+            checkboxes[i].checked = source.checked;
+        }
+    }
+</script>

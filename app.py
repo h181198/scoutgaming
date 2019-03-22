@@ -3,6 +3,7 @@ from flask_admin import Admin
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 from Models.Employee import Employee
+from Services import EquipmentService
 
 
 app = Flask(__name__)
@@ -45,7 +46,8 @@ def edit_employee(empID):
 
 @app.route('/equipment')
 def equipment():
-    return render_template('Views/Equipment/index.html')
+    data = EquipmentService.get_all_equipment()
+    return render_template('Views/Equipment/index.html', data=data)
 
 
 @app.route('/receipt')
