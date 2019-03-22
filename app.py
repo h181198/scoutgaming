@@ -7,7 +7,7 @@ from Models.Employee import Employee
 
 app = Flask(__name__)
 
-database = create_engine('postgres://postgres:admin@localhost:5432/mydatabase')
+database = create_engine('postgres://elisabeth@localhost:5432/postgres')
 database.connect()
 
 admin = Admin(app)
