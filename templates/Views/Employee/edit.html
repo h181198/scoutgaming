@@ -1,0 +1,24 @@
+{% extends 'UIElements/layout.html' %}
+{% block body %}
+
+    <div class="container">
+        <form method="POST">
+            <div class="form-group">
+                <input type="hidden" value="{{ data.id }}">
+                Name:
+                <input type="text" placeholder="{{ data.name }}">
+            </div>
+            <div class="form-group">
+                Starting date:
+                <input type="date" value="{{ data.start_date }}">
+            </div>
+            <div class="form-group">
+                <button type="submit">Update Employee</button>
+            </div>
+
+
+        </form>
+    </div>
+
+
+{% endblock %}
