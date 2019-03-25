@@ -30,8 +30,8 @@ def delete_department(dep_id):
 
 
 # Get a list of all departments
-def get_all_departments():
-    return create_session().query(Model)
+def get_all_departments(session):
+    return session.query(Model)
 
 
 # Get one department from id
