@@ -1,16 +1,13 @@
 from flask import Flask, render_template, redirect, url_for, request
-from flask_admin import Admin
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from Models.Employee import Employee
+from Services import EmployeeService
 
 
 app = Flask(__name__)
 
 database = create_engine('postgres://postgres:admin@localhost:5432/mydatabase')
 database.connect()
-
-admin = Admin(app)
 
 app.config['SECRET_KEY'] = 'lameKey'
 
@@ -25,22 +22,21 @@ def index():
 
 @app.route('/employee')
 def employee():
-    data = session.query(Employee)
+    data = EmployeeService.get_all_employees(session)
     return render_template('Views/Employee/index.html', data=data)
 
 
-@app.route('/employee/delete/<int:postID>', methods=['POST'])
-def delete_employee(postID):
-    print(postID)
+@app.route('/employee/delete/<string:emp_id>', methods=['POST'])
+def delete_employee(emp_id):
+    EmployeeService.delete_employee(emp_id, session)
     return redirect(url_for('employee'))
 
 
-@app.route('/employee/edit/<int:empID>')
-def edit_employee(empID):
-    empID = str(empID)
-    person = session.query(Employee).get(empID)
-    print(person.start_date)
-    return render_template('Views/Employee/edit.html', data=person)
+@app.route('/employee/update/<string:emp_id>/<string:emp_name>/<string:emp_department>/<string:emp_start_date'
+           '>/<string:emp_end_date>')
+def update_employee(emp_id, emp_name, emp_department, emp_start_date, emp_end_date):
+    print(emp_id + " : " + emp_start_date)
+    return redirect(url_for('employee'))
 
 
 @app.route('/equipment')
