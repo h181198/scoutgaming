@@ -1,7 +1,6 @@
 <table class="table table-hover">
     <thead class="thead-dark">
     <tr>
-        <th><input type="checkbox" onClick="toggle(this)"></th>
         <th>Id</th>
         <th>Name</th>
         <th>Department Id</th>
@@ -13,7 +12,6 @@
     </thead>
     {% for emp in data %}
         <tr id="{{ emp.id }}">
-            <th><input type="checkbox" name="foo"></th>
             <th>
                 {{ emp.id }}
             </th>
@@ -21,7 +19,11 @@
                 {{ emp.name }}
             </th>
             <th>
-                {{ emp.department }}
+                {% for dep in department_data %}
+                    {% if emp.department_id == dep.id %}
+                        {{ dep.unit }}
+                    {% endif %}
+                {% endfor %}
             </th>
             <th>
                 {{ emp.start_date }}
@@ -30,7 +32,9 @@
                 {{ emp.end_date }}
             </th>
             <th>
-                <button type="button" class="btn btn-secondary" id="editButton" onclick="editEmployee({{ emp.id }})">Edit</button>
+                <button type="button" class="btn btn-secondary" id="editButton" onclick="editEmployee({{ emp.id }})">
+                    Edit
+                </button>
             </th>
 
             <th>
@@ -43,53 +47,6 @@
         </tr>
     {% endfor %}
 </table>
-<button class="btn btn-outline-danger">Delete selected</button>&nbsp;
 <button class="btn btn-secondary">Add new</button>
 
-<script>
-    function toggle(source) {
-        let checkboxes = document.getElementsByName('foo');
-        for (let i = 0, n = checkboxes.length; i < n; i++) {
-            checkboxes[i].checked = source.checked;
-        }
-    }
-
-    function editEmployee(id) {
-
-        let row = document.getElementById(id).cells;
-
-        for (let i = 1; i < row.length - 2; i++) {
-
-            let value = row[i].innerHTML;
-            value = value.split(' ').join('');
-
-            if (value.match('None') != null) {
-                row[i].innerHTML = '<input class="fool" type="date">';
-            } else if (value.match('([12]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))')) {
-                value = value.split('\n').join('');
-                row[i].innerHTML = '<input class="fool" type="date" value="' + value + '" >';
-            } else {
-                row[i].innerHTML = '<input class="fool" type="text" size="8" value="' + value + '">';
-            }
-        }
-
-        row[6].innerHTML = '';
-        let x = document.createElement("INPUT");
-        x.setAttribute("type", "submit");
-        x.setAttribute("value", "Confirm");
-
-
-        x.addEventListener("click", function () {
-            let a = document.getElementsByClassName('fool');
-            let valueString = "";
-            for (let i = 0; i < a.length; i++) {
-                valueString += "/" + a[i].getAttribute('value');
-            }
-            location.replace("/employee/update" + valueString);
-        });
-
-        row[6].appendChild(x);
-
-
-    }
-</script>
+<script type="text/javascript" src="{{ url_for('static', filename = 'employee.js') }}"></script>
