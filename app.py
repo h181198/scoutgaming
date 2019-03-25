@@ -1,8 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, request
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from Models.Employee import Employee
-from Services import EquipmentService
+from Services import EquipmentService, EmployeeService
 
 
 app = Flask(__name__)
