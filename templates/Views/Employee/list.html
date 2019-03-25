@@ -49,4 +49,43 @@
 </table>
 <button class="btn btn-secondary">Add new</button>
 
-<script type="text/javascript" src="{{ url_for('static', filename = 'employee.js') }}"></script>
+<script>
+    function editEmployee(id) {
+
+        let row = document.getElementById(id).cells;
+
+        for (let i = 1; i < row.length - 2; i++) {
+
+            let value = row[i].innerHTML;
+            value = value.split(' ').join('');
+
+            if (value.match('None') != null) {
+                row[i].innerHTML = '<input class="fool" type="date">';
+            } else if (value.match('([12]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))')) {
+                value = value.split('\n').join('');
+                row[i].innerHTML = '<input class="fool" type="date" value="' + value + '" >';
+            } else {
+                row[i].innerHTML = '<input class="fool" type="text" size="8" value="' + value + '">';
+            }
+        }
+
+        row[6].innerHTML = '';
+        let x = document.createElement("INPUT");
+        x.setAttribute("type", "submit");
+        x.setAttribute("value", "Confirm");
+
+
+        x.addEventListener("click", function () {
+            let a = document.getElementsByClassName('fool');
+            let valueString = "";
+            for (let i = 0; i < a.length; i++) {
+                valueString += "/" + a[i].getAttribute('value');
+            }
+            location.replace("/employee/update" + valueString);
+        });
+
+        row[6].appendChild(x);
+
+
+    }
+</script>
