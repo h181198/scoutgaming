@@ -2,6 +2,20 @@ from Models.Department import Department
 from Models.Employee import Employee as Model
 
 
+# Update existing employee
+def update_employee(emp_id, name, department_id, start_date, end_date, session):
+    employee = find_employee(emp_id, session)
+
+    employee.id = emp_id
+    employee.name = name
+    employee.department_id = department_id
+    employee.start_date = start_date
+    if end_date != "None":
+        employee.end_date = end_date
+
+    session.commit()
+
+
 # Add employee return True if successful, start_date is optional
 def add_employee(name, department_id, session, start_date=None):
     if start_date is None:

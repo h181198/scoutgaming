@@ -1,7 +1,6 @@
 <table class="table table-hover">
     <thead class="thead-dark">
     <tr>
-        <th><input type="checkbox" onClick="toggle(this)"></th>
         <th>Id</th>
         <th>Name</th>
         <th>Department Id</th>
@@ -13,7 +12,6 @@
     </thead>
     {% for emp in data %}
         <tr id="{{ emp.id }}">
-            <th><input type="checkbox" name="foo"></th>
             <th>
                 {{ emp.id }}
             </th>
@@ -21,7 +19,11 @@
                 {{ emp.name }}
             </th>
             <th>
-                {{ emp.department }}
+                {% for dep in department_data %}
+                    {% if emp.department_id == dep.id %}
+                        {{ dep.unit }}
+                    {% endif %}
+                {% endfor %}
             </th>
             <th>
                 {{ emp.start_date }}
@@ -30,7 +32,9 @@
                 {{ emp.end_date }}
             </th>
             <th>
-                <button type="button" class="btn btn-secondary" id="editButton" onclick="editEmployee({{ emp.id }})">Edit</button>
+                <button type="button" class="btn btn-secondary" id="editButton" onclick="editEmployee({{ emp.id }})">
+                    Edit
+                </button>
             </th>
 
             <th>
@@ -43,7 +47,6 @@
         </tr>
     {% endfor %}
 </table>
-<button class="btn btn-outline-danger">Delete selected</button>&nbsp;
 <button class="btn btn-secondary">Add new</button>
 
 <script>
