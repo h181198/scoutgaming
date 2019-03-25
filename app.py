@@ -1,12 +1,13 @@
 from flask import Flask, render_template, redirect, url_for, request
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from Services import EmployeeService
+from Models.Employee import Employee
+from Services import EquipmentService
 
 
 app = Flask(__name__)
 
-database = create_engine('postgres://postgres:admin@localhost:5432/mydatabase')
+database = create_engine('postgres://elisabeth@localhost:5432/postgres')
 database.connect()
 
 app.config['SECRET_KEY'] = 'lameKey'
@@ -41,7 +42,8 @@ def update_employee(emp_id, emp_name, emp_department, emp_start_date, emp_end_da
 
 @app.route('/equipment')
 def equipment():
-    return render_template('Views/Equipment/index.html')
+    data = EquipmentService.get_all_equipment()
+    return render_template('Views/Equipment/index.html', data=data)
 
 
 @app.route('/receipt')
