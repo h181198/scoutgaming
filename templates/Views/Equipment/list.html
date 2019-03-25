@@ -1,7 +1,7 @@
 <table class="table">
     <thead class="thead-dark">
     <tr>
-        <th><input type="checkbox" onClick="toggle(this)"></th>
+    <tr>
         <th>Price</th>
         <th>Model</th>
         <th>Buy date</th>
@@ -14,7 +14,6 @@
     </thead>
     {% for equ in data %}
         <tr>
-            <th><input type="checkbox" name="foo"></th>
             <th>
                 {{ equ.price }}
             </th>
@@ -46,14 +45,4 @@
         </tr>
     {% endfor %}
 </table>
-<button class="btn btn-outline-danger">Delete selected</button>&nbsp;
 <button class="btn btn-secondary">Add new</button>
-
-<script>
-    function toggle(source) {
-        let checkboxes = document.getElementsByName('foo');
-        for (let i = 0, n = checkboxes.length; i < n; i++) {
-            checkboxes[i].checked = source.checked;
-        }
-    }
-</script>
