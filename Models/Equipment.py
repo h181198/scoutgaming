@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, ForeignKey
+from sqlalchemy import Column, Integer, String, ForeignKey, DATE
 from sqlalchemy.types import TIMESTAMP
 from Models.BaseModel import Base
 # This is only a test, not sure if it will be a part of the finished product like this
@@ -9,7 +9,7 @@ class Equipment(Base):
 
     id = Column(Integer, primary_key=True)
     model = Column(String)
-    buy_date = Column(TIMESTAMP)
+    buy_date = Column(DATE)
     receipt_id = Column(String, ForeignKey("receipts.id"))
     price = Column(Integer)
     description = Column(String)
