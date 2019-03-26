@@ -14,7 +14,6 @@ class EmployeeService:
             employee = Model(id=employee_id, name=name, department_id=department_id, start_date=start_date)
         elif employee is None and is_correct_instance:
             employee = Model(id=employee_id, name=name, department_id=department_id)
-
         if isinstance(employee, Model) and DS.find_department(session, employee.department_id) is not None:
             session.add(employee)
             session.commit()
@@ -26,7 +25,6 @@ class EmployeeService:
     @staticmethod
     def delete_employee(session, emp_id):
         employee = EmployeeService.find_employee(session, emp_id)
-
         if employee is None:
             return False
 

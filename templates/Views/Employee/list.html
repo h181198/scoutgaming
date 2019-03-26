@@ -1,0 +1,91 @@
+<table class="table table-hover">
+    <thead class="thead-dark">
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Department Id</th>
+        <th>Start Date</th>
+        <th>End Date</th>
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    {% for emp in data %}
+        <tr id="{{ emp.id }}">
+            <th>
+                {{ emp.id }}
+            </th>
+            <th>
+                {{ emp.name }}
+            </th>
+            <th>
+                {% for dep in department_data %}
+                    {% if emp.department_id == dep.id %}
+                        {{ dep.unit }}
+                    {% endif %}
+                {% endfor %}
+            </th>
+            <th>
+                {{ emp.start_date }}
+            </th>
+            <th>
+                {{ emp.end_date }}
+            </th>
+            <th>
+                <button type="button" class="btn btn-secondary" id="editButton" onclick="editEmployee({{ emp.id }})">
+                    Edit
+                </button>
+            </th>
+
+            <th>
+                <form action="/employee/delete/{{ emp.id }}" method="POST">
+                    <input class="btn btn-danger" type="submit" value="Delete"/>
+
+
+                </form>
+            </th>
+        </tr>
+    {% endfor %}
+</table>
+<button class="btn btn-secondary">Add new</button>
+
+<script>
+    function editEmployee(id) {
+
+        let row = document.getElementById(id).cells;
+
+        for (let i = 1; i < row.length - 2; i++) {
+
+            let value = row[i].innerHTML;
+            value = value.split(' ').join('');
+
+            if (value.match('None') != null) {
+                row[i].innerHTML = '<input class="fool" type="date">';
+            } else if (value.match('([12]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))')) {
+                value = value.split('\n').join('');
+                row[i].innerHTML = '<input class="fool" type="date" value="' + value + '" >';
+            } else {
+                row[i].innerHTML = '<input class="fool" type="text" size="8" value="' + value + '">';
+            }
+        }
+
+        row[6].innerHTML = '';
+        let x = document.createElement("INPUT");
+        x.setAttribute("type", "submit");
+        x.setAttribute("value", "Confirm");
+
+
+        x.addEventListener("click", function () {
+            let a = document.getElementsByClassName('fool');
+            let valueString = "";
+            for (let i = 0; i < a.length; i++) {
+                valueString += "/" + a[i].getAttribute('value');
+            }
+            location.replace("/employee/update" + valueString);
+        });
+
+        row[6].appendChild(x);
+
+
+    }
+</script>

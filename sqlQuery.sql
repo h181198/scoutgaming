@@ -12,24 +12,24 @@ CREATE TABLE departments (
 
 CREATE TABLE receipts (
     id VARCHAR(64) PRIMARY KEY,
-    supplements VARCHAR(256) NOT NULL,
+    supplement VARCHAR(256) NOT NULL,
     year INTEGER NOT NULL
 );
 
 CREATE TABLE employees (
     id VARCHAR(64) PRIMARY KEY,
-    department_id INTEGER NOT NULL,
+    department_id INTEGER,
     name VARCHAR(256) NOT NULL,
-    start_date TIMESTAMP NOT NULL,
-    end_date TIMESTAMP,
+    start_date DATE NOT NULL,
+    end_date DATE,
     FOREIGN KEY (department_id) REFERENCES departments (id)
 );
 
 CREATE TABLE equipments (
     id SERIAL PRIMARY KEY,
     price INTEGER NOT NULL,
-    model INTEGER,
-    buy_date TIMESTAMP,
+    model VARCHAR(128),
+    buy_date DATE,
     receipt_id VARCHAR(64),
     description VARCHAR(256),
     note VARCHAR(256),
@@ -38,9 +38,9 @@ CREATE TABLE equipments (
 
 CREATE TABLE transactions (
     id SERIAL PRIMARY KEY,
-    equipment_id INTEGER NOT NULL,
-    employee_id VARCHAR(64) NOT NULL,
-    transfer_date TIMESTAMP NOT NULL,
-    FOREIGN KEY (equipment_id) REFERENCES equipments (id),
-    FOREIGN KEY (employee_id) REFERENCES employees (id)
+    equipment_id INTEGER,
+    employee_id VARCHAR(64),
+    transfer_date DATE NOT NULL,
+    FOREIGN KEY (equipment_id) REFERENCES equipments (id)
+    --FOREIGN KEY (employee_id) REFERENCES employees (id)
 );
