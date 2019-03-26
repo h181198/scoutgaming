@@ -21,6 +21,16 @@ class EmployeeService:
 
         return False
 
+    # Update employee values
+    @staticmethod
+    def update_employee(session, emp_id, name, department_id, start_date, end_date):
+        employee = EmployeeService.find_employee(emp_id)
+        employee.name = name
+        employee.department_id = department_id
+        employee.start_date = start_date
+        employee.end_date = end_date
+        session.commit()
+
     # Delete employee return true if successful
     @staticmethod
     def delete_employee(session, emp_id):
