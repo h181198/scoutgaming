@@ -25,10 +25,15 @@ class EmployeeService:
     @staticmethod
     def update_employee(session, emp_id, name, department_id, start_date, end_date):
         employee = EmployeeService.find_employee(emp_id)
-        employee.name = name
-        employee.department_id = department_id
-        employee.start_date = start_date
-        employee.end_date = end_date
+        if isinstance(name, str):
+            employee.name = name
+        if isinstance(department_id, int):
+            employee.department_id = department_id
+        if isinstance(start_date, datetime.datetime):
+            employee.start_date = start_date
+        if isinstance(end_date, datetime.date):
+            employee.end_date = end_date
+
         session.commit()
 
     # Delete employee return true if successful
@@ -58,5 +63,5 @@ class EmployeeService:
         if end_date is None or not isinstance(end_date, datetime.datetime):
             end_date = datetime.datetime.now()
 
-        session.query(Model).filter_by(id=employee_id).update({"end_date": end_date})
+        session.query(Model).filter_by(id=employee_id).update({"end_date": end_date.strftime("%x")})
         session.commit()
