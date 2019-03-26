@@ -24,7 +24,7 @@ class EmployeeService:
     # Update employee values
     @staticmethod
     def update_employee(session, emp_id, name, department_id, start_date, end_date):
-        employee = EmployeeService.find_employee(emp_id)
+        employee = EmployeeService.find_employee(session, emp_id)
         if isinstance(name, str):
             employee.name = name
         if isinstance(department_id, int):
