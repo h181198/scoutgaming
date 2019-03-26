@@ -21,6 +21,15 @@ class ReceiptService:
 
         return False
 
+    # Update receipt in database
+    @staticmethod
+    def update_receipt(session, rec_id, supplement, year):
+        receipt = ReceiptService.find_receipt(session, rec_id)
+        receipt.supplement = supplement
+        if isinstance(year, int):
+            receipt.year = year
+        session.commit()
+
     # Delete a receipt return True if successful
     @staticmethod
     def delete_receipt(session, rec_id):
@@ -41,4 +50,6 @@ class ReceiptService:
     # Find receipt from id
     @staticmethod
     def find_receipt(session, rec_id):
-        return session.query(Model).filter_by(id=rec_id).first()
+        if isinstance(rec_id, str):
+            return session.query(Model).filter_by(id=rec_id).first()
+        return None

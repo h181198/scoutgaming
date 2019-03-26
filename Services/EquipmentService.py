@@ -13,10 +13,11 @@ class EquipmentService:
                                isinstance(receipt_id, (str, type(None))) and
                                isinstance(description, (str, type(None))) and
                                isinstance(note, (str, type(None))) and
-                               isinstance(buy_date, (datetime.datetime, type(None))))
+                               isinstance(buy_date, (str, type(None))))
 
         if is_correct_instance and not (receipt_id is None) and RS.find_receipt(session, receipt_id) is not None:
-            equipment = Model(price, model, buy_date, receipt_id, description, note)
+            equipment = Model(price=price, model=model, buy_date=buy_date, receipt_id=receipt_id,
+                              description=description, note=note)
             session.add(equipment)
             session.commit()
             return True
@@ -34,9 +35,28 @@ class EquipmentService:
         if equipment is None:
             return False
 
-        session.add(equipment)
+        session.delete(equipment)
         session.commit()
         return True
+
+    # Update equipment
+    @staticmethod
+    def update_equipment(session, equ_id, price, model, buy_date, receipt_id, description, note):
+        equipment = EquipmentService.find_equipment(session, equ_id)
+        if isinstance(price, int):
+            equipment.price = price
+        if model != "None":
+            equipment.model = model
+        if buy_date != "None":
+            equipment.buy_date = buy_date
+        if receipt_id != "None":
+            equipment.receipt_id = receipt_id
+        if description != "None":
+            equipment.description = description
+        if note != "None":
+            equipment.note = note
+
+        session.commit()
 
     # Get a list of all equipment
     @staticmethod
@@ -46,16 +66,6 @@ class EquipmentService:
     # Find equipment from id
     @staticmethod
     def find_equipment(session, equ_id):
-        return session.query(Model).filter_by(id=equ_id).first()
-
-    # Update fields
-    @staticmethod
-    def update_fields(session, equ_id, fields_values):
-        for (f, v) in fields_values:
-            EquipmentService.__update_field(session, equ_id, f, v)
-
-    # Private method used in class to update specific field
-    @staticmethod
-    def __update_field(session, equ_id, field, value):
-        session.query(Model).filter_by(id=equ_id).update({field: value})
-        session.commit()
+        if isinstance(equ_id, int):
+            return session.query(Model).filter_by(id=equ_id).first()
+        return None

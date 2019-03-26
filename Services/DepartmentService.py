@@ -50,5 +50,7 @@ class DepartmentService:
     def find_department(session, dep_id=None, unit=None):
         if unit is None:
             return session.query(Model).filter_by(id=dep_id).first()
-        else:
+        if isinstance(dep_id, int):
             return session.query(Model).filter_by(unit=unit).first()
+
+        return None

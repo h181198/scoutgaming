@@ -41,6 +41,6 @@ CREATE TABLE transactions (
     equipment_id INTEGER,
     employee_id VARCHAR(64),
     transfer_date DATE NOT NULL,
-    FOREIGN KEY (equipment_id) REFERENCES equipments (id)
-    --FOREIGN KEY (employee_id) REFERENCES employees (id)
+    FOREIGN KEY (equipment_id) REFERENCES equipments (id),
+    FOREIGN KEY (employee_id) REFERENCES employees (id)
 );

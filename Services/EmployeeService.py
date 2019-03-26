@@ -8,7 +8,7 @@ class EmployeeService:
     @staticmethod
     def add_employee(session, employee_id=None, name=None, department_id=None, start_date=None, employee=None):
         is_correct_instance = (isinstance(name, str) and isinstance(department_id, int) and
-                               isinstance(employee_id, str) and isinstance(start_date, (datetime.datetime, type(None))))
+                               isinstance(employee_id, str) and isinstance(start_date, (str, type(None))))
 
         if start_date is not None and employee is None and is_correct_instance:
             employee = Model(id=employee_id, name=name, department_id=department_id, start_date=start_date)
@@ -55,13 +55,16 @@ class EmployeeService:
     # Find an employee from id
     @staticmethod
     def find_employee(session, emp_id):
-        return session.query(Model).filter_by(id=emp_id).first()
+        if isinstance(emp_id, str):
+            return session.query(Model).filter_by(id=emp_id).first()
+        return None
 
     # Add date they quit or got fired
     @staticmethod
     def add_end_date(session, employee_id, end_date=None):
         if end_date is None or not isinstance(end_date, datetime.datetime):
-            end_date = datetime.datetime.now()
+            now = datetime.datetime.now()
+            end_date = now.strftime("%Y") + "-" + now.strftime("%m") + "-" + now.strftime("%d")
 
         session.query(Model).filter_by(id=employee_id).update({"end_date": end_date.strftime("%x")})
         session.commit()
