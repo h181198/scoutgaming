@@ -1,4 +1,4 @@
-function editEmployee(id) {
+function editEmployee(id, url) {
 
         let row = document.getElementById(id).cells;
 
@@ -17,18 +17,18 @@ function editEmployee(id) {
             }
         }
 
-        row[5].innerHTML = '';
-        let x = document.createElement("INPUT");
-        x.setAttribute("type", "submit");
-        x.setAttribute("value", "Confirm");
+
+        row[row.length-2].innerHTML = '';
+        let confirmButton = document.createElement("INPUT");
+        confirmButton.setAttribute("type", "submit");
+        confirmButton.setAttribute("value", "Confirm");
 
 
-        x.addEventListener("click", function () {
+        confirmButton.addEventListener("click", function () {
             let valueList = document.getElementsByClassName('fool');
             let valueString = "";
 
             for (let i = 0; i < valueList.length; i++) {
-                console.log(valueList[i].value);
                 if (!(valueList[i].value.localeCompare(""))) {
                     valueString += "/None"
                 } else {
@@ -36,12 +36,12 @@ function editEmployee(id) {
 
                 }
             }
-            console.log(valueString)
+            console.log(valueString);
 
-            location.replace("/employee/update" + valueString);
+            location.replace(url + valueString);
         });
 
-        row[5].appendChild(x);
+        row[row.length-2].appendChild(confirmButton);
 
 
     }
