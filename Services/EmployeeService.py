@@ -29,9 +29,9 @@ class EmployeeService:
             employee.name = name
         if isinstance(department_id, int):
             employee.department_id = department_id
-        if isinstance(start_date, datetime.datetime):
+        if not isinstance(start_date, str):
             employee.start_date = start_date
-        if isinstance(end_date, datetime.date):
+        if not isinstance(end_date, str):
             employee.end_date = end_date
 
         session.commit()
