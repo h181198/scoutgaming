@@ -32,12 +32,23 @@ class DepartmentService:
             session.commit()
             return True
 
+    # Update the department in the database
+    @staticmethod
+    def update_department(session, dep_id, country, unit):
+        department = DepartmentService.find_department(session, dep_id)
+        department.country = country
+        department.unit = unit
+        session.commit()
+
     # Get a list of all departments
     @staticmethod
     def get_all_departments(session):
         return session.query(Model)
 
-    # Get one department from id
+    # Get one department from id or unit
     @staticmethod
-    def find_department(session, dep_id):
-        return session.query(Model).filter_by(id=dep_id).first()
+    def find_department(session, dep_id=None, unit=None):
+        if unit is None:
+            return session.query(Model).filter_by(id=dep_id).first()
+        else:
+            return session.query(Model).filter_by(unit=unit).first()
