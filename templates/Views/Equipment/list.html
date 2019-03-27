@@ -1,11 +1,10 @@
 <table class="table" id="equipment-table">
     <thead class="thead-dark">
     <tr>
-    <tr>
         <th>Price</th>
         <th>Model</th>
         <th>Buy date</th>
-        <th>Receipt id</th>
+        <th>Receipt</th>
         <th>Description</th>
         <th>Note</th>
         <th></th>
@@ -14,29 +13,29 @@
     </thead>
     {% for equ in data %}
     <tr>
-        <th>
+        <td>
             {{ equ.price }}
-        </th>
-        <th>
+        </td>
+        <td>
             {{ equ.model }}
-        </th>
-        <th>
+        </td>
+        <td>
             {{ equ.buy_date }}
-        </th>
-        <th>
+        </td>
+        <td>
             {{ equ.receipt_id }}
-        </th>
-        <th>
+        </td>
+        <td>
             {{ equ.description }}
-        </th>
-        <th>
+        </td>
+        <td>
             {{ equ.note }}
-        </th>
-        <th>
+        </td>
+        <td>
             <form action="/equipment/edit/{{ equ.id }}">
                 <button class="btn btn-secondary">Edit</button>
             </form>
-        </th>
+        </td>
         <th>
             <form action="/equipment/delete/{{ equ.id }}" method="POST">
                 <input class="btn btn-danger" type="submit" value="Delete"/>
@@ -48,22 +47,3 @@
 
 <button class="btn btn-secondary" onclick="addEquipment()">Add new</button>
 
-<script>
-
-    function addEquipment() {
-var table = document.getElementById("equipment-table");
-
-// Create an empty <tr> element and add it to the last position of the table:
-var row = table.insertRow(-1);
-
-
-// Insert new cells (<td> elements) at the 1st and 2nd position of the "new" <tr> element:
-
-for(let i = 0; i < 7; i++){
-          cell = row.insertCell(i);
-          cell.innerHTML = i;
-}
-
-}
-
-</script>
