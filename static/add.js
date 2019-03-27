@@ -1,4 +1,7 @@
  function addEquipment() {
+
+document.getElementById("addButton").disabled = true;
+
 var table = document.getElementById("equipment-table");
 
 var row = table.insertRow(-1);
@@ -22,10 +25,18 @@ for(let i = 0; i < 6; i++){
          row.insertCell(6).appendChild(confirmButton);
 
 
-          let deleteButton = document.createElement("INPUT");
-        deleteButton.setAttribute("type", "submit");
-        deleteButton.setAttribute("value", "Cancel");
-        deleteButton.setAttribute("class", "btn btn-danger");
-         row.insertCell(7).appendChild(deleteButton);
+          let cancelButton = document.createElement("INPUT");
+        cancelButton.setAttribute("type", "submit");
+        cancelButton.setAttribute("value", "Cancel");
+        cancelButton.setAttribute("class", "btn btn-danger");
+         row.insertCell(7).appendChild(cancelButton);
+
+         cancelButton.addEventListener("click", function () {
+         table.deleteRow(-1);
+         document.getElementById("addButton").disabled=false;
+
+         });
+
+
 
  }
