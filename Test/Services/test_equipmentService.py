@@ -43,14 +43,6 @@ class TestEquipmentService(TestCase):
         self.assertFalse(EqS.add_equipment(session=session, price="22", model=12, buy_date="i dag",
                                            receipt_id=5, description=13, note=14))
 
-    def test_delete_equipment(self):
-        self.assertIsNone(EqS.find_equipment(session, 9))
-        EqS.add_equipment(session=session, price=22000, model="Skjerm", buy_date=date,
-                          receipt_id="ID", description="Solid work", note="Do not drop")
-        self.assertEqual(EqS.find_equipment(session, 9).model, "Skjerm")
-        EqS.delete_equipment(session, 9)
-        self.assertIsNone(EqS.find_equipment(session, 9))
-
     def test_get_all_equipment(self):
         eq = Equipment(price=22, model="Poteter", receipt_id="ID")
         EqS.add_equipment(session=session, equipment=eq)

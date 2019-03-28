@@ -47,13 +47,6 @@ class TestEmployeeService(TestCase):
         self.assertFalse(EmS.add_employee(session=session, employee_id=1, name=1,
                                           department_id=1, start_date=func.now()))
 
-    def test_delete_employee(self):
-        self.assertIsNone(EmS.find_employee(session, "E5"))
-        EmS.add_employee(session=session, employee_id="E5", name="Jon", department_id=default_dep.id)
-        self.assertEqual(EmS.find_employee(session, "E5").name, "Jon")
-        EmS.delete_employee(session, "E5")
-        self.assertIsNone(EmS.find_employee(session, "E5"))
-
     def test_get_all_employees(self):
         e = Employee(id="E6", name="testre", department_id=default_dep.id)
         EmS.add_employee(session=session, employee=e)

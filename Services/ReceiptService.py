@@ -1,5 +1,5 @@
 from Models.Receipt import Receipt as Model
-from Services.EquipmentService import EquipmentService as EqS
+import json
 
 
 class ReceiptService:
@@ -31,29 +31,16 @@ class ReceiptService:
             receipt.year = year
         session.commit()
 
-    # Delete a receipt return True if successful
-    @staticmethod
-    def delete_receipt(session, rec_id):
-        receipt = ReceiptService.find_receipt(session, rec_id)
-
-        if receipt is None:
-            return False
-
-        # Find all equipment with that receipt and replace with null
-        equipment_list = EqS.get_all_equipment(session)
-        for equ in equipment_list:
-            if equ.receipt_id == rec_id:
-                EqS.update_equipment(session, equ.id, equ.price, equ.model,
-                                     equ.buy_date, None, equ.description, equ.note)
-
-        session.delete(receipt)
-        session.commit()
-        return True
-
     # Get a list of all receipts
     @staticmethod
     def get_all_receipts(session):
         return session.query(Model)
+
+    # Get a list of all receipts as json
+    @staticmethod
+    def get_all_receipts_json(database):
+        data = database.execute("SELECT * FROM receipts")
+        return json.dumps([dict(r) for r in data])
 
     # Find receipt from id
     @staticmethod

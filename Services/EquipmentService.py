@@ -1,6 +1,6 @@
 from Models.Equipment import Equipment as Model
 from Services.ReceiptService import ReceiptService as RS
-from Services.TransactionService import TransactionService as TS
+import json
 
 
 class EquipmentService:
@@ -28,24 +28,6 @@ class EquipmentService:
 
         return False
 
-    # Delete equipment return True if successful
-    @staticmethod
-    def delete_equipment(session, equ_id):
-        equipment = EquipmentService.find_equipment(session, equ_id)
-        if equipment is None:
-            return False
-
-        # Find all transactions for that equipment and delete them
-        # No use in keeping transactions without equipment
-        transaction_list = TS.get_all_transactions(session)
-        for trans in transaction_list:
-            if trans.equipment_id == equ_id:
-                TS.delete_transaction(session, trans.id)
-
-        session.delete(equipment)
-        session.commit()
-        return True
-
     # Update equipment
     @staticmethod
     def update_equipment(session, equ_id, price, model, buy_date, receipt_id, description, note):
@@ -67,8 +49,14 @@ class EquipmentService:
 
     # Get a list of all equipment
     @staticmethod
-    def get_all_equipment(session):
+    def get_all_equipments(session):
         return session.query(Model)
+
+    # Get a list of all equipment as json
+    @staticmethod
+    def get_all_equipments_json(database):
+        data = database.execute("SELECT * FROM employees")
+        return json.dumps([dict(r) for r in data])
 
     # Find equipment from id
     @staticmethod

@@ -1,7 +1,7 @@
 from Services.DepartmentService import DepartmentService as DS
-from Services.TransactionService import TransactionService as TS
 from Models.Employee import Employee as Model
 import datetime
+import json
 
 
 class EmployeeService:
@@ -37,28 +37,16 @@ class EmployeeService:
 
         session.commit()
 
-    # Delete employee return true if successful
-    @staticmethod
-    def delete_employee(session, emp_id):
-        employee = EmployeeService.find_employee(session, emp_id)
-        if employee is None:
-            return False
-
-        # Find all transactions with employee
-        transaction_list = TS.get_all_transactions(session)
-        for trans in transaction_list:
-            if trans.employee_id == emp_id:
-                # Change None to default value if wanted
-                TS.update_transaction(session, trans.id, trans.equipment_id, None)
-
-        session.delete(employee)
-        session.commit()
-        return True
-
     # Get a list of all employees
     @staticmethod
     def get_all_employees(session):
         return session.query(Model)
+
+    # Get a list of all employees as json
+    @staticmethod
+    def get_all_employees_json(database):
+        data = database.execute("SELECT * FROM employees")
+        return json.dumps([dict(r) for r in data])
 
     # Find an employee from id
     @staticmethod
