@@ -3,7 +3,7 @@
     <tr>
         <th onclick="sortTable(0)">Id</th>
         <th onclick="sortTable(1)">Name</th>
-        <th onclick="sortTable(2)">Department</th>
+        <th onclick="sortTable(2)" class="department">Department</th>
         <th onclick="sortTable(3)">Start Date</th>
         <th onclick="sortTable(4)">End Date</th>
         <th></th>
@@ -47,18 +47,6 @@
     {% endfor %}
 </table>
 <button class="btn btn-secondary">Add new</button>
-<meta id="datapo" content="{{ data2 }}">
-<p>{{ data2 }}</p>
-<script>
-    let dat = document.getElementById("datapo").content;
+<meta id="departmentData" content="{{ data2 }}">
 
-    let myObject = JSON.parse(dat);
-    console.log(myObject);
-
-    for(let i = 0; i < myObject.length; i++){
-        console.log(myObject[i].unit)
-    }
-
-    console.log("END");
-</script>
 
