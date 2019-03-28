@@ -1,6 +1,6 @@
 from Models.Equipment import Equipment as Model
 from Services.ReceiptService import ReceiptService as RS
-import datetime
+import json
 
 
 class EquipmentService:
@@ -15,7 +15,7 @@ class EquipmentService:
                                isinstance(note, (str, type(None))) and
                                isinstance(buy_date, (str, type(None))))
 
-        if is_correct_instance and not (receipt_id is None) and RS.find_receipt(session, receipt_id) is not None:
+        if is_correct_instance and (receipt_id is None or RS.find_receipt(session, receipt_id) is not None):
             equipment = Model(price=price, model=model, buy_date=buy_date, receipt_id=receipt_id,
                               description=description, note=note)
             session.add(equipment)
@@ -27,17 +27,6 @@ class EquipmentService:
             return True
 
         return False
-
-    # Delete equipment return True if successful
-    @staticmethod
-    def delete_equipment(session, equ_id):
-        equipment = EquipmentService.find_equipment(session, equ_id)
-        if equipment is None:
-            return False
-
-        session.delete(equipment)
-        session.commit()
-        return True
 
     # Update equipment
     @staticmethod
@@ -60,8 +49,14 @@ class EquipmentService:
 
     # Get a list of all equipment
     @staticmethod
-    def get_all_equipment(session):
+    def get_all_equipments(session):
         return session.query(Model)
+
+    # Get a list of all equipment as json
+    @staticmethod
+    def get_all_equipments_json(database):
+        data = database.execute("SELECT * FROM equipments")
+        return json.dumps([dict(r) for r in data])
 
     # Find equipment from id
     @staticmethod

@@ -1,4 +1,5 @@
 from Models.Department import Department as Model
+import json
 
 
 class DepartmentService:
@@ -20,18 +21,6 @@ class DepartmentService:
 
         return False
 
-    # Remove department based on id return True if successful
-    @staticmethod
-    def delete_department(session, dep_id):
-        department = DepartmentService.find_department(session, dep_id)
-
-        if department is None:
-            return False
-        else:
-            session.delete(department)
-            session.commit()
-            return True
-
     # Update the department in the database
     @staticmethod
     def update_department(session, dep_id, country, unit):
@@ -44,6 +33,12 @@ class DepartmentService:
     @staticmethod
     def get_all_departments(session):
         return session.query(Model)
+
+    # Get list of all departments as objects
+    @staticmethod
+    def get_all_departments_json(database):
+        data = database.execute("SELECT * FROM departments")
+        return json.dumps([dict(r) for r in data])
 
     # Get one department from id or unit
     @staticmethod

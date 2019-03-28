@@ -5,6 +5,8 @@ from Services.EquipmentService import EquipmentService
 from Services.DepartmentService import DepartmentService
 from Services.EmployeeService import EmployeeService
 from Services.TransactionService import TransactionService
+from Services.DeleteService import DeleteService
+import json
 
 
 app = Flask(__name__)
@@ -27,25 +29,26 @@ def index():
 def employee():
     data = EmployeeService.get_all_employees(session=session)
     department_data = DepartmentService.get_all_departments(session)
-    return render_template('Views/Employee/index.html', data=data, department_data=department_data)
+    department_list = DepartmentService.get_all_departments_json(database=database)
+    return render_template('Views/Employee/index.html', data=data, department_data=department_data, department_list=department_list)
 
 
 @app.route('/employee/delete/<string:emp_id>', methods=['POST'])
 def delete_employee(emp_id):
-    EmployeeService.delete_employee(session=session, emp_id=emp_id)
+    DeleteService.delete_employee(session=session, emp_id=emp_id)
     return redirect(url_for('employee'))
 
 
 @app.route('/employee/update/<string:emp_id>/<string:emp_name>/<string:emp_department>/<string:emp_start_date>/<string:emp_end_date>')
 def update_employee(emp_id, emp_name, emp_department, emp_start_date, emp_end_date):
-    department_id = DepartmentService.find_department(session=session, unit=emp_department).id
+    department_id = DepartmentService.find_department(session=session, unit=emp_department)
     EmployeeService.update_employee(session, emp_id, emp_name, department_id, emp_start_date, emp_end_date)
     return redirect(url_for('employee'))
 
 
 @app.route('/equipment')
 def equipment():
-    data = EquipmentService.get_all_equipment(session=session)
+    data = EquipmentService.get_all_equipments(session=session)
     return render_template('Views/Equipment/index.html', data=data)
 
 
@@ -57,7 +60,7 @@ def receipt():
 @app.route('/transaction')
 def transaction():
     data = TransactionService.get_all_transactions(session=session)
-    equipment_data = EquipmentService.get_all_equipment(session=session)
+    equipment_data = EquipmentService.get_all_equipments(session=session)
     employee_data = EmployeeService.get_all_employees(session=session)
     return render_template('Views/Transaction/index.html', data=data, equipment_data=equipment_data, employee_data=employee_data)
 

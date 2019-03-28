@@ -32,13 +32,6 @@ class TestReceiptService(TestCase):
         self.assertFalse(RS.add_receipt(session=session, supplement=1, year=1))
         self.assertFalse(RS.add_receipt(session=session, supplement="string", year="string"))
 
-    def test_delete_receipt(self):
-        self.assertIsNone(RS.find_receipt(session, "UA20"))
-        RS.add_receipt(session, "UA", 20)
-        self.assertTrue(RS.find_receipt(session, "UA20").year == 20)
-        RS.delete_receipt(session, "UA20")
-        self.assertIsNone(RS.find_receipt(session, "UA20"))
-
     def test_get_all_receipts(self):
         r = Receipt(id="WW12", supplement="WW", year=12)
         RS.add_receipt(session=session, receipt=r)

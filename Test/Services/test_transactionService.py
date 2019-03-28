@@ -49,14 +49,6 @@ class TestTransactionService(TestCase):
         self.assertTrue(TS.add_transaction(session=session, employee_id="E1", equipment_id=1))
         self.assertFalse(TS.add_transaction(session=session, employee_id=0, equipment_id=1))
 
-    def test_delete_transaction(self):
-        self.assertIsNone(TS.find_transaction(session, 15))
-        trans = Transaction(id=15, employee_id="E1", equipment_id=1)
-        TS.add_transaction(session=session, transaction=trans)
-        self.assertEqual(trans, TS.find_transaction(session, 15))
-        TS.delete_transaction(session, 15)
-        self.assertIsNone(TS.find_transaction(session, 15))
-
     def test_update_transaction(self):
         trans = Transaction(id=10, employee_id="E1", equipment_id=1)
         TS.add_transaction(session=session, transaction=trans)

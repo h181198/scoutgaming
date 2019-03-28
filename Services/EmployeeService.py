@@ -1,6 +1,7 @@
 from Services.DepartmentService import DepartmentService as DS
 from Models.Employee import Employee as Model
 import datetime
+import json
 
 
 class EmployeeService:
@@ -27,7 +28,7 @@ class EmployeeService:
         employee = EmployeeService.find_employee(session, emp_id)
         if isinstance(name, str):
             employee.name = name
-        if isinstance(department_id, int):
+        if isinstance(department_id, (int, type(None))):
             employee.department_id = department_id
         if start_date != "None":
             employee.start_date = start_date
@@ -36,21 +37,16 @@ class EmployeeService:
 
         session.commit()
 
-    # Delete employee return true if successful
-    @staticmethod
-    def delete_employee(session, emp_id):
-        employee = EmployeeService.find_employee(session, emp_id)
-        if employee is None:
-            return False
-
-        session.delete(employee)
-        session.commit()
-        return True
-
     # Get a list of all employees
     @staticmethod
     def get_all_employees(session):
         return session.query(Model)
+
+    # Get a list of all employees as json
+    @staticmethod
+    def get_all_employees_json(database):
+        data = database.execute("SELECT * FROM employees")
+        return json.dumps([dict(r) for r in data])
 
     # Find an employee from id
     @staticmethod
