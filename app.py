@@ -28,7 +28,7 @@ def index():
 def employee():
     data = EmployeeService.get_all_employees(session=session)
     department_data = DepartmentService.get_all_departments(session)
-    data2 = database.execute("SELECT (id, department_id, name) FROM employees")
+    data2 = database.execute("SELECT * FROM departments")
     print(data2)
     return render_template('Views/Employee/index.html', data=data, department_data=department_data, data2=json.dumps([dict(r) for r in data2]))
 

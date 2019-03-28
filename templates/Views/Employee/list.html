@@ -53,8 +53,12 @@
     let dat = document.getElementById("datapo").content;
 
     let myObject = JSON.parse(dat);
-
     console.log(myObject);
+
+    for(let i = 0; i < myObject.length; i++){
+        console.log(myObject[i])
+    }
+
     console.log("END");
 </script>
 
