@@ -34,7 +34,7 @@ class TestEquipmentService(TestCase):
 
         self.assertTrue(EqS.add_equipment(session=session, price=23000, receipt_id="ID", model="Acer Predator"))
         self.assertTrue(EqS.add_equipment(session=session, price=23000, receipt_id="ID", buy_date=date))
-        self.assertTrue(EqS.add_equipment(session=session, price=23000, receipt_id="ID"))
+        self.assertTrue(EqS.add_equipment(session=session, price=23000, receipt_id=None))
         self.assertTrue(EqS.add_equipment(session=session, price=23000, receipt_id="ID", description="Solid work"))
         self.assertTrue(EqS.add_equipment(session=session, price=23000, receipt_id="ID", note="Do not drop"))
 

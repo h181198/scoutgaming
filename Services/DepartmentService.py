@@ -1,4 +1,5 @@
 from Models.Department import Department as Model
+from Services.EmployeeService import EmployeeService as EmP
 
 
 class DepartmentService:
@@ -27,10 +28,16 @@ class DepartmentService:
 
         if department is None:
             return False
-        else:
-            session.delete(department)
-            session.commit()
-            return True
+
+        # Find employees with that department and update
+        employee_list = EmP.get_all_employees(session)
+        for emp in employee_list:
+            if emp.department_id == dep_id:
+                EmP.update_employee(session, emp.id, emp.name, None, emp.start_date, emp.end_date)
+
+        session.delete(department)
+        session.commit()
+        return True
 
     # Update the department in the database
     @staticmethod

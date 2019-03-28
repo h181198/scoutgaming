@@ -1,4 +1,5 @@
 from Models.Receipt import Receipt as Model
+from Services.EquipmentService import EquipmentService as EqS
 
 
 class ReceiptService:
@@ -37,6 +38,13 @@ class ReceiptService:
 
         if receipt is None:
             return False
+
+        # Find all equipment with that receipt and replace with null
+        equipment_list = EqS.get_all_equipment(session)
+        for equ in equipment_list:
+            if equ.receipt_id == rec_id:
+                EqS.update_equipment(session, equ.id, equ.price, equ.model,
+                                     equ.buy_date, None, equ.description, equ.note)
 
         session.delete(receipt)
         session.commit()

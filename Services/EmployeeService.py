@@ -1,4 +1,5 @@
 from Services.DepartmentService import DepartmentService as DS
+from Services.TransactionService import TransactionService as TS
 from Models.Employee import Employee as Model
 import datetime
 
@@ -27,7 +28,7 @@ class EmployeeService:
         employee = EmployeeService.find_employee(session, emp_id)
         if isinstance(name, str):
             employee.name = name
-        if isinstance(department_id, int):
+        if isinstance(department_id, (int, type(None))):
             employee.department_id = department_id
         if start_date != "None":
             employee.start_date = start_date
@@ -42,6 +43,13 @@ class EmployeeService:
         employee = EmployeeService.find_employee(session, emp_id)
         if employee is None:
             return False
+
+        # Find all transactions with employee
+        transaction_list = TS.get_all_transactions(session)
+        for trans in transaction_list:
+            if trans.employee_id == emp_id:
+                # Change None to default value if wanted
+                TS.update_transaction(session, trans.id, trans.equipment_id, None)
 
         session.delete(employee)
         session.commit()

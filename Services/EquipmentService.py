@@ -1,6 +1,6 @@
 from Models.Equipment import Equipment as Model
 from Services.ReceiptService import ReceiptService as RS
-import datetime
+from Services.TransactionService import TransactionService as TS
 
 
 class EquipmentService:
@@ -15,7 +15,7 @@ class EquipmentService:
                                isinstance(note, (str, type(None))) and
                                isinstance(buy_date, (str, type(None))))
 
-        if is_correct_instance and not (receipt_id is None) and RS.find_receipt(session, receipt_id) is not None:
+        if is_correct_instance and (receipt_id is None or RS.find_receipt(session, receipt_id) is not None):
             equipment = Model(price=price, model=model, buy_date=buy_date, receipt_id=receipt_id,
                               description=description, note=note)
             session.add(equipment)
@@ -34,6 +34,13 @@ class EquipmentService:
         equipment = EquipmentService.find_equipment(session, equ_id)
         if equipment is None:
             return False
+
+        # Find all transactions for that equipment and delete them
+        # No use in keeping transactions without equipment
+        transaction_list = TS.get_all_transactions(session)
+        for trans in transaction_list:
+            if trans.equipment_id == equ_id:
+                TS.delete_transaction(session, trans.id)
 
         session.delete(equipment)
         session.commit()
