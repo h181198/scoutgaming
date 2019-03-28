@@ -1,4 +1,5 @@
 from Models.Receipt import Receipt as Model
+import json
 
 
 class ReceiptService:
@@ -30,22 +31,16 @@ class ReceiptService:
             receipt.year = year
         session.commit()
 
-    # Delete a receipt return True if successful
-    @staticmethod
-    def delete_receipt(session, rec_id):
-        receipt = ReceiptService.find_receipt(session, rec_id)
-
-        if receipt is None:
-            return False
-
-        session.delete(receipt)
-        session.commit()
-        return True
-
     # Get a list of all receipts
     @staticmethod
     def get_all_receipts(session):
         return session.query(Model)
+
+    # Get a list of all receipts as json
+    @staticmethod
+    def get_all_receipts_json(database):
+        data = database.execute("SELECT * FROM receipts")
+        return json.dumps([dict(r) for r in data])
 
     # Find receipt from id
     @staticmethod
