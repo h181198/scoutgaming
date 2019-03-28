@@ -2,7 +2,7 @@
 
 document.getElementById("addButton").disabled = true;
 
-var table = document.getElementById("equipment-table");
+var table = document.getElementById("table");
 
 var row = table.insertRow(-1);
 
