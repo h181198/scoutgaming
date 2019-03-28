@@ -12,16 +12,31 @@ function editRow(id, url) {
         if (value.match('None') != null) {
             row[i].innerHTML = '<input class="fool" type="date">';
         } else if (table.rows[0].cells[i].classList.contains("department")) {
+
             let dat = document.getElementById("departmentData").content;
             let myObject = JSON.parse(dat);
 
-            for (let i = 0; i < myObject.length; i++) {
-                console.log(myObject[i].unit)
-
-            }
             let selectList = document.createElement("select");
-            selectList.id = "mySelect";
-            myDiv.appendChild(selectList);
+            selectList.id = "departmentSelect";
+            let vv = row[i].innerHTML;
+            vv = vv.split(' ').join('');
+            vv = vv.split('\n').join('');
+            row[i].innerHTML = "";
+            row[i].appendChild(selectList);
+            myObject.forEach(result => {
+                    let option = document.createElement("option");
+                    option.value = result.id;
+                    option.text = result.unit;
+                    selectList.appendChild(option);
+                }
+            );
+            for (let j = 0; j <  selectList.options.length; j++) {
+                if (selectList.options[j].text === vv) {
+                    selectList.selectedIndex = j;
+                    break;
+                }
+            }
+            selectList.setAttribute('class', 'fool');
         } else if (value.match('([12]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))')) {
             value = value.split('\n').join('');
             row[i].innerHTML = '<input class="fool" type="date" value="' + value + '" >';
