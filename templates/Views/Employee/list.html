@@ -32,7 +32,8 @@
                 {{ emp.end_date }}
             </td>
             <td>
-                <button type="button" class="btn btn-secondary" id="editButton" onclick="editEmployee({{ emp.id }}, '/employee/update')">
+                <button type="button" class="edit btn btn-secondary"
+                        onclick="editRow({{ emp.id }}, '/employee/update')">
                     Edit
                 </button>
             </td>
@@ -40,11 +41,20 @@
             <td>
                 <form action="/employee/delete/{{ emp.id }}" method="POST">
                     <input class="btn btn-danger" type="submit" value="Delete"/>
-
-
                 </form>
             </td>
         </tr>
     {% endfor %}
 </table>
 <button class="btn btn-secondary">Add new</button>
+<meta id="datapo" content="{{ data2 }}">
+<p>{{ data2 }}</p>
+<script>
+    let dat = document.getElementById("datapo").content;
+
+    let myObject = JSON.parse(dat);
+
+    console.log(myObject);
+    console.log("END");
+</script>
+

@@ -5,6 +5,7 @@ from Services.EquipmentService import EquipmentService
 from Services.DepartmentService import DepartmentService
 from Services.EmployeeService import EmployeeService
 from Services.TransactionService import TransactionService
+import json
 
 
 app = Flask(__name__)
@@ -27,7 +28,9 @@ def index():
 def employee():
     data = EmployeeService.get_all_employees(session=session)
     department_data = DepartmentService.get_all_departments(session)
-    return render_template('Views/Employee/index.html', data=data, department_data=department_data)
+    data2 = database.execute("SELECT (id, department_id, name) FROM employees")
+    print(data2)
+    return render_template('Views/Employee/index.html', data=data, department_data=department_data, data2=json.dumps([dict(r) for r in data2]))
 
 
 @app.route('/employee/delete/<string:emp_id>', methods=['POST'])
@@ -38,7 +41,7 @@ def delete_employee(emp_id):
 
 @app.route('/employee/update/<string:emp_id>/<string:emp_name>/<string:emp_department>/<string:emp_start_date>/<string:emp_end_date>')
 def update_employee(emp_id, emp_name, emp_department, emp_start_date, emp_end_date):
-    department_id = DepartmentService.find_department(session=session, unit=emp_department).id
+    department_id = DepartmentService.find_department(session=session, unit=emp_department)
     EmployeeService.update_employee(session, emp_id, emp_name, department_id, emp_start_date, emp_end_date)
     return redirect(url_for('employee'))
 
