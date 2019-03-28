@@ -33,11 +33,6 @@ class TestDepartmentService(TestCase):
         self.assertFalse(DS.add_department(session=session, country="string", unit=1))
         self.assertFalse(DS.add_department(session=session, country=1, unit="string"))
 
-    def test_delete_department(self):
-        self.assertIsNone(DS.find_department(session, 120931))
-        DS.delete_department(session, 2)
-        self.assertIsNone(DS.find_department(session, 2))
-
     def test_get_all_departments(self):
         d = Department(country="Russia", unit="Moscow")
         DS.add_department(session=session, department=d)

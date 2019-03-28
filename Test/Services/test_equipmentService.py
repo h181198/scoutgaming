@@ -34,7 +34,7 @@ class TestEquipmentService(TestCase):
 
         self.assertTrue(EqS.add_equipment(session=session, price=23000, receipt_id="ID", model="Acer Predator"))
         self.assertTrue(EqS.add_equipment(session=session, price=23000, receipt_id="ID", buy_date=date))
-        self.assertTrue(EqS.add_equipment(session=session, price=23000, receipt_id="ID"))
+        self.assertTrue(EqS.add_equipment(session=session, price=23000, receipt_id=None))
         self.assertTrue(EqS.add_equipment(session=session, price=23000, receipt_id="ID", description="Solid work"))
         self.assertTrue(EqS.add_equipment(session=session, price=23000, receipt_id="ID", note="Do not drop"))
 
@@ -42,14 +42,6 @@ class TestEquipmentService(TestCase):
                                           receipt_id="ID", description="Solid work", note="Do not drop"))
         self.assertFalse(EqS.add_equipment(session=session, price="22", model=12, buy_date="i dag",
                                            receipt_id=5, description=13, note=14))
-
-    def test_delete_equipment(self):
-        self.assertIsNone(EqS.find_equipment(session, 9))
-        EqS.add_equipment(session=session, price=22000, model="Skjerm", buy_date=date,
-                          receipt_id="ID", description="Solid work", note="Do not drop")
-        self.assertEqual(EqS.find_equipment(session, 9).model, "Skjerm")
-        EqS.delete_equipment(session, 9)
-        self.assertIsNone(EqS.find_equipment(session, 9))
 
     def test_get_all_equipment(self):
         eq = Equipment(price=22, model="Poteter", receipt_id="ID")

@@ -1,6 +1,7 @@
 from Models.Transaction import Transaction as Model
 from Services.EquipmentService import EquipmentService as EqS
 from Services.EmployeeService import EmployeeService as EmS
+import json
 
 
 class TransactionService:
@@ -21,18 +22,6 @@ class TransactionService:
 
         return False
 
-    # Delete a Transaction return true if successful
-    @staticmethod
-    def delete_transaction(session, tra_id):
-        transaction = TransactionService.find_transaction(session, tra_id)
-
-        if transaction is None:
-            return False
-
-        session.delete(transaction)
-        session.commit()
-        return True
-
     # Update Transaction
     @staticmethod
     def update_transaction(session, tran_id, equ_id, emp_id):
@@ -49,6 +38,12 @@ class TransactionService:
     @staticmethod
     def get_all_transactions(session):
         return session.query(Model)
+
+    # Get a list of all transactions as json
+    @staticmethod
+    def get_all_transactions_json(database):
+        data = database.execute("SELECT * FROM transactions")
+        return json.dumps([dict(r) for r in data])
 
     # Find a Transaction from id
     @staticmethod
