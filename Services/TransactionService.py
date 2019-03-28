@@ -27,9 +27,9 @@ class TransactionService:
     def update_transaction(session, tran_id, equ_id, emp_id):
         transaction = TransactionService.find_transaction(session, tran_id)
 
-        if EmS.find_employee(session, emp_id) is not None:
+        if isinstance(emp_id, type(None)) or EmS.find_employee(session, emp_id) is not None:
             transaction.employee_id = emp_id
-        if EqS.find_equipment(session, equ_id) is not None:
+        if isinstance(equ_id, type(None)) or EqS.find_equipment(session, equ_id) is not None:
             transaction.equipment_id = equ_id
 
         session.commit()
