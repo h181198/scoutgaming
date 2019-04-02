@@ -1,1 +1,46 @@
-<p>Halla</p>
+<table class="table table-hover" id="table">
+    <thead class="thead-dark">
+    <tr>
+        <th onclick="sortTable(0)">
+            Id
+            <img src="/static/Pictures/Arrows.png" alt="" style="width:10px;height:10px;">
+        </th>
+        <th onclick="sortTable(1)">
+            Country
+            <img src="/static/Pictures/Arrows.png" alt="" style="width:10px;height:10px;">
+        </th>
+        <th onclick="sortTable(2)">
+            Unit
+            <img src="/static/Pictures/Arrows.png" alt="" style="width:10px;height:10px;">
+        </th>
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    {% for dep in data|sort(attribute='id') %}
+        <tr id="{{ dep.id }}">
+            <td>
+                {{ dep.id }}
+            </td>
+            <td>
+                {{ dep.country }}
+            </td>
+            <td>
+                {{ dep.unit }}
+            </td>
+            <td>
+                <button type="button" class="edit btn btn-secondary"
+                        onclick="editRow({{ dep.id }}, '/department/update')">
+                    Edit
+                </button>
+            </td>
+
+            <td>
+                <form action="/department/delete/{{ dep.id }}" method="POST">
+                    <input class="btn btn-danger" type="submit" value="Delete"/>
+                </form>
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+<button id="addButton" class="btn btn-dark" onclick="addDepartment()">Add new</button>
