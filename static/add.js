@@ -12,8 +12,6 @@ function add() {
       x.setAttribute("type", "text");
     }
 
-x.setAttribute("size", 8);
-
     cell = row.insertCell(i);
     cell.appendChild(x);
   }
