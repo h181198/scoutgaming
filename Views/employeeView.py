@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, abort, redirect, url_for
+from flask import Blueprint, render_template, abort, redirect, url_for, request
 from jinja2 import TemplateNotFound
 from Services.DeleteService import DeleteService
 from Services.EmployeeService import EmployeeService
@@ -36,3 +36,9 @@ def update_employee(emp_id, emp_name, department_id, emp_start_date, emp_end_dat
         EmployeeService.update_employee(session, emp_id, emp_name, department_id, emp_start_date, emp_end_date)
     except TemplateNotFound:
         abort(404)
+
+
+@employee_page.route('/employee/test', methods=['POST'])
+def emp_test():
+    print(request.data)
+    return "Hello"
