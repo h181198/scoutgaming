@@ -1,4 +1,4 @@
-<table class="table table-hover" id="table">
+<table class="table table-hover" id="table" style="table-layout: fixed;">
     <thead class="thead-dark">
     <tr>
         <th onclick="sortTable(0)">
@@ -13,11 +13,11 @@
             Department
             <img src="/static/Pictures/Arrows.png" alt="" style="width:10px;height:10px;">
         </th>
-        <th onclick="sortTable(3)">
+        <th onclick="sortTable(3)" class="date" style="width: 12em;">
             Start Date
             <img src="/static/Pictures/Arrows.png" alt="" style="width:10px;height:10px;">
         </th>
-        <th onclick="sortTable(4)">
+        <th onclick="sortTable(4)" class="date" style="width: 12em;">
             End Date
             <img src="/static/Pictures/Arrows.png" alt="" style="width:10px;height:10px;">
         </th>
@@ -61,7 +61,7 @@
         </tr>
     {% endfor %}
 </table>
-<button id="addButton" class="btn btn-dark" onclick="addEmployee()">Add new</button>
+<button id="addButton" class="btn btn-dark" onclick="add()">Add new</button>
 <meta id="departmentData" content="{{ department_list }}">
 
 
