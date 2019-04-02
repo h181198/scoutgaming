@@ -38,8 +38,15 @@ function sortTable(n) {
     for (let i = 0; i < rows[0].cells.length; i++) {
         if (i == n) {
             rows[0].cells[i].style.color = "green";
+            if(dir == "asc") {
+                rows[0].cells[i].children[0].src = "/static/Pictures/ArrowsDown.png";
+            } else {
+                rows[0].cells[i].children[0].src = "/static/Pictures/ArrowsUp.png";
+            }
+
         }else{
             rows[0].cells[i].style.color = "white";
+            rows[0].cells[i].children[0].src = "/static/Pictures/Arrows.png";
         }
     }
 }
