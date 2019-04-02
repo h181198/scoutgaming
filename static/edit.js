@@ -1,4 +1,3 @@
-
 /*
 Create a button
 @param text for button
@@ -30,6 +29,7 @@ function createDropdown(dropdownType, currentValue) {
     let dropdownData = document.getElementById(dropdownType).content;
     let myObject = JSON.parse(dropdownData);
     let dropdownFiled = document.createElement("select");
+    dropdownFiled.setAttribute("value", currentValue);
 
     myObject.forEach(result => {
             let option = document.createElement("option");
@@ -63,7 +63,7 @@ function createTextField(text) {
 This function will replace all input in selected row and display editable fields witch the user can change the content
 @param id and url
  */
-function editRow(id=null, url=null) {
+function editRow(id, url) {
     let table = document.getElementById("table");
     let row = document.getElementById(id).cells;
 
@@ -87,6 +87,9 @@ function editRow(id=null, url=null) {
     }
 
 
+    /*
+    Create confirm button and add functionality
+     */
     row[row.length - 2].innerHTML = '';
     let confirmButton = createButton("Confirm");
     confirmButton.setAttribute("class", "btn btn-info");
@@ -95,17 +98,17 @@ function editRow(id=null, url=null) {
 
     confirmButton.addEventListener("click", function () {
         let sendString = "";
-        for (let i = 0; i < row.length-2; i++) {
-            sendString += "#" + row[i].childNodes[0].value;
+        for (let i = 0; i < row.length - 2; i++) {
+            sendString += "#" + row[i].children[0].value;
         }
         let xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
             console.log("Updated")
         };
-        xhttp.open("POST", "/employee/test", true);
+        xhttp.open("POST", "/employee/update", true);
         xhttp.send(sendString);
 
-        setRowSetText(id, row, url);
+        setRowToText(id, row, url);
     });
 
 
@@ -113,15 +116,21 @@ function editRow(id=null, url=null) {
 
 }
 
-function setRowSetText(id, row, url){
-    for(let i = 0; i < row.length-2; i++){
-        row[i].innerHTML = row[i].firstChild.value;
+/*
+Set each cell to text based on current values when updating
+@params id of row, row, url to update
+ */
+function setRowToText(id, row, url) {
+    for (let i = 0; i < row.length - 2; i++) {
+        console.log(row[i].children[0].value);
+        row[i].innerHTML = row[i].children[0].value;
     }
     let button = createButton("Edit");
-    button.addEventListener("click", editRow);
-    button.id = id;
-    button.url = url;
+    button.setAttribute("class", "edit btn btn-secondary");
+    button.addEventListener("click", function () {
+        editRow(id, url)
+    });
 
-    row[row.length-2].innerHTML = "";
-    row[row.length-2].appendChild(button);
+    row[row.length - 2].innerHTML = "";
+    row[row.length - 2].appendChild(button);
 }
