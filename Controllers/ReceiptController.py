@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, abort
 from jinja2 import TemplateNotFound
-from Views import session
+from Controllers import session
 
 receipt_page = Blueprint('receipt', __name__)
 
