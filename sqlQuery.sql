@@ -40,7 +40,7 @@ CREATE TABLE equipments (
 CREATE TABLE transactions (
     id SERIAL PRIMARY KEY,
     equipment_id INTEGER,
-    employee_id VARCHAR(64),
+    employee_id INTEGER,
     transfer_date DATE NOT NULL,
     FOREIGN KEY (equipment_id) REFERENCES equipments (id),
     FOREIGN KEY (employee_id) REFERENCES employees (id)

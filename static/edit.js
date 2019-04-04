@@ -15,8 +15,9 @@ Create a Date Field
 function createDateField(date = null) {
     let dateField = document.createElement("input");
     dateField.setAttribute("type", "date");
-    if (date !== null)
+    if (date !== null) {
         dateField.setAttribute("value", date);
+    }
     return dateField;
 }
 
@@ -95,33 +96,50 @@ function editRow(id, url) {
 
     row[row.length - 2].appendChild(confirmButton);
 
+    /*
+    This is what happens when you click the confirm button
+     */
     confirmButton.addEventListener("click", function () {
-        let sendString = "";
+        let sendString = "#" + id;
         for (let i = 0; i < row.length - 2; i++) {
             sendString += "#" + row[i].children[0].value;
         }
-        let xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function () {
+        /*
+        We use ajax to connect with the server since we do not want to reload the page, this method will return a json on callback
+         */
+        let request = new XMLHttpRequest();
+        request.onreadystatechange = function () {
+            if (request.readyState === XMLHttpRequest.DONE && request.status === 200) {
+                setRowToText(id, row, url, JSON.parse(request.responseText));
+                updateStatus("update");
+            }
         };
-        xhttp.open("POST", "/employee/update", true);
-        xhttp.send(sendString);
-
-        setRowToText(id, row, url);
+        request.open("POST", "/employee/update", true);
+        request.send(sendString);
     });
 
 
     row[row.length - 2].appendChild(confirmButton);
-
 }
 
 /*
 Set each cell to text based on current values when updating
-@params id of row, row, url to update
+@params id of row, row, url to update, json with row text
  */
-function setRowToText(id, row, url) {
-    for (let i = 0; i < row.length - 2; i++) {
-        row[i].innerHTML = row[i].children[0].value;
+function setRowToText(id, row, url, json) {
+    let array = [];
+    for (let key in json) {
+        if (json[key] === null) {
+            array.push("None")
+        } else {
+            array.push(json[key]);
+        }
     }
+
+    for (let i = 1; i < array.length; i++) {
+        row[i - 1].innerHTML = array[i];
+    }
+
     let button = createButton("Edit");
     button.setAttribute("class", "edit btn btn-secondary");
     button.addEventListener("click", function () {
@@ -130,4 +148,31 @@ function setRowToText(id, row, url) {
 
     row[row.length - 2].innerHTML = "";
     row[row.length - 2].appendChild(button);
+}
+
+/*
+This function will update the update div
+ */
+function updateStatus(status) {
+    let statusDiv = document.getElementById('status');
+    let element = document.createElement("div");
+    if (status === "update") {
+        element.setAttribute('class', "alert alert-success alert-dismissible fade show");
+        element.setAttribute('role', 'alert');
+        element.innerText = "Table updated";
+
+        let button = document.createElement('button');
+        button.setAttribute('type', 'button');
+        button.setAttribute('class', 'close');
+        button.setAttribute('data-dismiss', 'alert');
+        button.setAttribute('aria-label', 'Close');
+        button.innerHTML = '<span aria-hidden="true">&times;</span>';
+
+        button.addEventListener('click',function () {
+            statusDiv.innerHTML = "";
+        });
+
+        element.appendChild(button);
+    }
+    statusDiv.appendChild(element);
 }

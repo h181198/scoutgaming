@@ -28,7 +28,7 @@
     {% for emp in data|sort(attribute='id') %}
         <tr id="{{ emp.id }}">
             <td>
-                {{ emp.id }}
+                {{ emp.employee_number }}
             </td>
             <td>
                 {{ emp.name }}

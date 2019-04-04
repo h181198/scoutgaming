@@ -33,9 +33,9 @@ class EmployeeService:
             employee.name = name
         if isinstance(department_id, (int, type(None))):
             employee.department_id = department_id
-        if start_date != "None":
+        if start_date != "None" and start_date != "":
             employee.start_date = start_date
-        if end_date != "None":
+        if end_date != "None" and end_date != "":
             employee.end_date = end_date
 
         session.commit()
@@ -50,6 +50,20 @@ class EmployeeService:
     def get_all_employees_json(database):
         data = database.execute("SELECT * FROM employees")
         return json.dumps([dict(r) for r in data])
+
+    @staticmethod
+    def get_employee_json(session, emp_id):
+        emp = EmployeeService.find_employee(session, int(emp_id))
+        department_unit = DS.find_department(session, emp.department_id).unit
+        my_json = {
+            'id': emp.id,
+            'employee_number': emp.employee_number,
+            'name': emp.name,
+            'department_id': department_unit,
+            'start_date': emp.start_date,
+            'end_date': emp.end_date
+        }
+        return json.dumps(my_json, indent=4, sort_keys=False, default=str)
 
     # Find an employee from id
     @staticmethod
