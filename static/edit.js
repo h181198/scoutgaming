@@ -29,7 +29,6 @@ function createDropdown(dropdownType, currentValue) {
     let dropdownData = document.getElementById(dropdownType).content;
     let myObject = JSON.parse(dropdownData);
     let dropdownFiled = document.createElement("select");
-    dropdownFiled.setAttribute("value", currentValue);
 
     myObject.forEach(result => {
             let option = document.createElement("option");
@@ -103,7 +102,6 @@ function editRow(id, url) {
         }
         let xhttp = new XMLHttpRequest();
         xhttp.onreadystatechange = function () {
-            console.log("Updated")
         };
         xhttp.open("POST", "/employee/update", true);
         xhttp.send(sendString);
@@ -122,7 +120,6 @@ Set each cell to text based on current values when updating
  */
 function setRowToText(id, row, url) {
     for (let i = 0; i < row.length - 2; i++) {
-        console.log(row[i].children[0].value);
         row[i].innerHTML = row[i].children[0].value;
     }
     let button = createButton("Edit");
