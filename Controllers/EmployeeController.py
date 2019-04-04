@@ -3,8 +3,8 @@ from jinja2 import TemplateNotFound
 from Services.DeleteService import DeleteService
 from Services.EmployeeService import EmployeeService
 from Services.DepartmentService import DepartmentService
-from Views import session, database
 from Helpers.HelpMethods import create_data
+from Controllers import session, database
 
 employee_page = Blueprint('employee', __name__)
 
