@@ -2,8 +2,6 @@ from sqlalchemy import Column, Integer, String, ForeignKey, DATE
 from Models.BaseModel import Base
 from sqlalchemy.sql import func
 
-# This is only a test, not sure if it will be a part of the finished product like this
-
 
 class Employee(Base):
     __tablename__ = 'employees'

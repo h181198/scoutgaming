@@ -3,8 +3,6 @@ from sqlalchemy.types import TIMESTAMP
 from Models.BaseModel import Base
 from sqlalchemy.sql import func
 
-# This is only a test, not sure if it will be a part of the finished product like this
-
 
 class Transaction(Base):
     __tablename__ = 'transactions'
@@ -15,4 +13,5 @@ class Transaction(Base):
     transfer_date = Column(DATE, default=func.now())
 
     def __repr__(self):
-        return "<Transaction (id='%i', employee_id='%s', equipment_id='%i', transfer_date='%s') >" % (self.id, self.employee_id, self.equipment_id, self.transfer_date)
+        return "<Transaction (id='%i', employee_id='%s', equipment_id='%i', transfer_date='%s') >" % \
+               (self.id, self.employee_id, self.equipment_id, self.transfer_date)

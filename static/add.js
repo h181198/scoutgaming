@@ -12,6 +12,16 @@ function add() {
       x.setAttribute("type", "text");
     }
 
+    if (table.rows[0].cells[i].classList.contains("description")) {
+      x.setAttribute("size", 28);
+    } else if (table.rows[0].cells[i].classList.contains("note")){
+       x.setAttribute("size", 15);
+    } else {
+    x.setAttribute("size", 8);
+    }
+
+
+
     cell = row.insertCell(i);
     cell.appendChild(x);
   }
