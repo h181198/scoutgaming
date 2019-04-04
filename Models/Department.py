@@ -1,8 +1,6 @@
 from Models.BaseModel import Base
 from sqlalchemy import Column, Integer, String
 
-# This is only a test, not sure if it will be a part of the finished product like this
-
 
 class Department(Base):
     __tablename__ = 'departments'
