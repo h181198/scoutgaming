@@ -23,15 +23,15 @@ class TestEmployeeService(TestCase):
     def test_add_employee(self):
         emp = Employee(id="E1", name="Smiedth", department_id=default_dep.id)
         self.assertTrue(EmS.add_employee(session=session, employee=emp))
-        self.assertTrue(EmS.add_employee(session=session, employee_id="E2", name="Juaon",
+        self.assertTrue(EmS.add_employee(session=session, employee_number="E2", name="Juaon",
                                          department_id=default_dep.id))
 
-        self.assertTrue(EmS.add_employee(session=session, employee_id="E3", name="Shinna",
+        self.assertTrue(EmS.add_employee(session=session, employee_number="E3", name="Shinna",
                                          department_id=default_dep.id, start_date=today))
 
         self.assertFalse(EmS.add_employee(session))
-        self.assertFalse(EmS.add_employee(session=session, employee_id=1))
-        self.assertFalse(EmS.add_employee(session=session, employee_id="E4"))
+        self.assertFalse(EmS.add_employee(session=session, employee_number=1))
+        self.assertFalse(EmS.add_employee(session=session, employee_number="E4"))
         self.assertFalse(EmS.add_employee(session=session, name=1))
         self.assertFalse(EmS.add_employee(session=session, name="string"))
         self.assertFalse(EmS.add_employee(session=session, department_id=1))
@@ -39,12 +39,12 @@ class TestEmployeeService(TestCase):
         self.assertFalse(EmS.add_employee(session=session, start_date=1))
         self.assertFalse(EmS.add_employee(session=session, start_date="string"))
         self.assertFalse(EmS.add_employee(session=session, employee="Hello"))
-        self.assertFalse(EmS.add_employee(session=session, employee_id=1, name=1, department_id=1, start_date=1))
-        self.assertFalse(EmS.add_employee(session=session, employee_id="E4", name=1, department_id=1, start_date=1))
-        self.assertFalse(EmS.add_employee(session=session, employee_id=1, name="Jonatan", department_id=1, start_date=1))
-        self.assertFalse(EmS.add_employee(session=session, employee_id=1, name=1,
+        self.assertFalse(EmS.add_employee(session=session, employee_number=1, name=1, department_id=1, start_date=1))
+        self.assertFalse(EmS.add_employee(session=session, employee_number="E4", name=1, department_id=1, start_date=1))
+        self.assertFalse(EmS.add_employee(session=session, employee_number=1, name="Jonatan", department_id=1, start_date=1))
+        self.assertFalse(EmS.add_employee(session=session, employee_number=1, name=1,
                                           department_id=default_dep.id, start_date=1))
-        self.assertFalse(EmS.add_employee(session=session, employee_id=1, name=1,
+        self.assertFalse(EmS.add_employee(session=session, employee_number=1, name=1,
                                           department_id=1, start_date=func.now()))
 
     def test_get_all_employees(self):

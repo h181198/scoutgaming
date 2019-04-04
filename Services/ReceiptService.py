@@ -29,6 +29,7 @@ class ReceiptService:
         receipt.supplement = supplement
         if isinstance(year, int):
             receipt.year = year
+            receipt.id = supplement + str(year)
         session.commit()
 
     # Get a list of all receipts

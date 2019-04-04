@@ -10,10 +10,10 @@
   (22019, 2, 2019);
 
   INSERT INTO employees VALUES
-  ('1', 1, 'Ingrid', '2018-01-22', null),
-  ('2', 1, 'Ida', '2018-02-01', null),
-  ('3', 2, 'Helene', '2018-03-21', null),
-  ('4', 3, 'Nora', '2018-04-23', null);
+  (1, '1', 1, 'Ingrid', '2018-01-22', null),
+  (2, '2', 1, 'Ida', '2018-02-01', null),
+  (3, '3', 2, 'Helene', '2018-03-21', null),
+  (4, '4', 3, 'Nora', '2018-04-23', null);
 
   INSERT INTO equipments (price, model, buy_date, receipt_id, description, note) VALUES
   (2000, '2019', '2019-03-13', 22019, 'GamingPc Windows10', 'Ha i felles areal'),
