@@ -1,10 +1,10 @@
 from flask import Flask
-from Views.home import index_page
-from Views.receiptView import receipt_page
-from Views.employeeView import employee_page
-from Views.equipmentView import equipment_page
-from Views.departmentView import department_page
-from Views.transactionView import transaction_page
+from Controllers.HomeController import index_page
+from Controllers.ReceiptController import receipt_page
+from Controllers.EmployeeController import employee_page
+from Controllers.EquipmentController import equipment_page
+from Controllers.DepartmentController import department_page
+from Controllers.TransactionController import transaction_page
 
 app = Flask(__name__)
 app.register_blueprint(index_page)

@@ -1,6 +1,9 @@
 # visual studio shit
 .vscode/
 
+# init file for database
+Controllers/__init__.py
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]

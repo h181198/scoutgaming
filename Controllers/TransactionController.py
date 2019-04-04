@@ -4,7 +4,7 @@ from Services.TransactionService import TransactionService
 from Services.EquipmentService import EquipmentService
 from Services.EmployeeService import EmployeeService
 
-from Views import session
+from Controllers import session
 
 transaction_page = Blueprint('transaction', __name__)
 
