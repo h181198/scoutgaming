@@ -1,0 +1,20 @@
+{% extends 'UIElements/layout.html' %}
+{% block body %}
+
+  <div class="container"><br/>
+        <div>
+            <h1>Warnings</h1>
+            <p>Trykk på en warning for å se de aktuelle objektene</p>
+        </div><br/>
+        <button id="missingEquipment" class="btn btn-danger" onclick="add()">
+            <div class="row">
+                <div style="margin: 5px;padding-left:10px;">
+                    <img src="/static/Pictures/Warning_icon.png" alt="" style="width:50px;height:50px;" />
+                </div>
+                <div style="margin: 5px;padding: 10px;">
+                    <h3> Antall utstyr mangler model, kjøpsdato eller kvittering: {{ missing_equipment|length }}</h3>
+                </div>
+            </div>
+        </button>
+    </div>
+{% endblock %}
