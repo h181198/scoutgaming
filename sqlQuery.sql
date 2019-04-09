@@ -20,7 +20,7 @@ CREATE TABLE employees (
     id VARCHAR(64) PRIMARY KEY,
     department_id INTEGER,
     name VARCHAR(256) NOT NULL,
-    start_date DATE NOT NULL,
+    start_date DATE,
     end_date DATE,
     FOREIGN KEY (department_id) REFERENCES departments (id)
 );
