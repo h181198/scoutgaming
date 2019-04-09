@@ -6,16 +6,42 @@
             <h1>Warnings</h1>
             <p>Trykk på en warning for å se de aktuelle objektene</p>
         </div><br/>
-        <button id="missingEquipment" class="btn btn-danger"
-                onclick="{{ url_for() }}">
-            <div class="row">
-                <div style="margin: 5px;padding-left:10px;">
-                    <img src="/static/Pictures/Warning_icon.png" alt="" style="width:50px;height:50px;" />
+        <div style="width: 80%;">
+            <button id="missingEquipment" class="btn btn-danger" style="width:100%; display:block;"
+                    onclick="window.location.href='employee/missing'">
+                <div class="row">
+                    <div style="margin: 5px;padding-left:10px;">
+                        <img src="/static/Pictures/Warning_icon.png" alt="" style="width:50px;height:50px;" />
+                    </div>
+                    <div style="margin: 5px;padding: 10px;">
+                        <h3> Personer med utstyr som er mer enn 3 år gammelt: {{ missing_equipment|length }}</h3>
+                    </div>
                 </div>
-                <div style="margin: 5px;padding: 10px;">
-                    <h3> Antall utstyr mangler model, kjøpsdato eller kvittering: {{ missing_equipment|length }}</h3>
+            </button>
+            <div style="margin-top: 10px" />
+            <button id="missingEquipment" class="btn btn-warning" style="width:100%; display:block;"
+                    onclick="window.location.href='equipment/missing'">
+                <div class="row">
+                    <div style="margin: 5px;padding-left:10px;">
+                        <img src="/static/Pictures/Warning_icon.png" alt="" style="width:50px;height:50px;" />
+                    </div>
+                    <div style="margin: 5px;padding: 10px;">
+                        <h3> Antall utstyr mangler model, kjøpsdato eller kvittering: {{ missing_equipment|length }}</h3>
+                    </div>
                 </div>
-            </div>
-        </button>
+            </button>
+            <div style="margin-top: 10px" />
+            <button id="missingEquipment" class="btn btn-warning" style="width:100%; display:block;"
+                    onclick="window.location.href='employee/'">
+                <div class="row">
+                    <div style="margin: 5px;padding-left:10px;">
+                        <img src="/static/Pictures/Warning_icon.png" alt="" style="width:50px;height:50px;" />
+                    </div>
+                    <div style="margin: 5px;padding: 10px;">
+                        <h3> personer som har sluttet men fortsatt har utstyr: {{ missing_equipment|length }}</h3>
+                    </div>
+                </div>
+            </button>
+        </div>
     </div>
 {% endblock %}
