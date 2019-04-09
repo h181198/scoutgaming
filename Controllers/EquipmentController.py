@@ -1,8 +1,8 @@
 from flask import Blueprint, render_template, abort, redirect, url_for
 from jinja2 import TemplateNotFound
 from Services.EquipmentService import EquipmentService
-from Views import session, database
 from Services.DeleteService import DeleteService
+from Controllers import session
 
 equipment_page = Blueprint('equipment', __name__)
 

@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, abort
 from jinja2 import TemplateNotFound
 from Services.DepartmentService import DepartmentService
-from Views import session
+from Controllers import session
 
 department_page = Blueprint('department', __name__)
 
