@@ -11,10 +11,25 @@
 <div>
     {% block body %}{% endblock %}
 </div>
+<!-- https://datatables.net/ -->
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
 
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<!-- https://datatables.net/ -->
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+
 <script type="text/javascript" src="{{ url_for('static', filename = 'edit.js') }}"></script>
-<script type="text/javascript" src="{{ url_for('static', filename = 'sorting.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename = 'setupTable.js') }}"></script>
 <script type="text/javascript" src="{{ url_for('static', filename = 'add.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename = 'delete.js') }}"></script>
+
 </body>
 </html>

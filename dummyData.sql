@@ -261,6 +261,7 @@
   ('UAH', 18216, null, '2018-11-22', '2018ER114-13', 'PowerWalker VFI 2000 RT UPS', null),
   ('UAH', 42209, '2018', '2018-11-30', '2018ER114-15', 'Macbook Air MRE82 SFVFXKCPXJK77', null);
 
+
   INSERT INTO transactions (equipment_id, employee_id, transfer_date) VALUES
   (32, '1', '2017-03-09'),
   (53, '1', '2018-03-20'),
@@ -342,7 +343,4 @@
   (65, 'UA29', '2019-01-24'),
   (50, 'UA55', '2019-01-24'),
   (54, 'UA4', '2019-01-24');
-
-
-
 
