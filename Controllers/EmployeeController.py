@@ -21,7 +21,7 @@ def employee():
         abort(404)
 
 
-@employee_page.route('/employee/delete/<string:emp_id>', methods=['POST'])
+@employee_page.route('/employee/delete/<int:emp_id>', methods=['POST'])
 def delete_employee(emp_id):
     try:
         DeleteService.delete_employee(session=session, emp_id=emp_id)
@@ -34,7 +34,7 @@ def delete_employee(emp_id):
 def update_employee():
     try:
         data = create_data(str(request.data))
-        EmployeeService.update_employee(session, data[0], data[1], int(data[2]), data[3], data[4])
+        EmployeeService.update_employee(session, int(data[0]), data[1], data[2], int(data[3]), data[4], data[5])
+        return EmployeeService.get_employee_json(session, data[0])
     except TemplateNotFound:
         abort(404)
-    return ""

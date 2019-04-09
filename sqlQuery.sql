@@ -21,13 +21,14 @@ CREATE TABLE employees (
     employee_number VARCHAR(64),
     department_id INTEGER,
     name VARCHAR(256) NOT NULL,
-    start_date DATE NOT NULL,
+    start_date DATE,
     end_date DATE,
     FOREIGN KEY (department_id) REFERENCES departments (id)
 );
 
 CREATE TABLE equipments (
     id SERIAL PRIMARY KEY,
+    currency CHAR(3),
     price INTEGER NOT NULL,
     model VARCHAR(128),
     buy_date DATE,
@@ -40,7 +41,7 @@ CREATE TABLE equipments (
 CREATE TABLE transactions (
     id SERIAL PRIMARY KEY,
     equipment_id INTEGER,
-    employee_id VARCHAR(64),
+    employee_id INTEGER,
     transfer_date DATE NOT NULL,
     FOREIGN KEY (equipment_id) REFERENCES equipments (id),
     FOREIGN KEY (employee_id) REFERENCES employees (id)
