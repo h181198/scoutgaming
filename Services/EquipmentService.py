@@ -64,3 +64,15 @@ class EquipmentService:
         if isinstance(equ_id, int):
             return session.query(Model).filter_by(id=equ_id).first()
         return None
+
+    # Find equipment with None values
+    @staticmethod
+    def find_missing(session):
+        equ_list = EquipmentService.get_all_equipments(session)
+        has_missing = []
+        for equ in equ_list:
+            if equ.model is None or equ.buy_date is None or equ.receipt_id is None:
+                has_missing.append(equ)
+
+        return has_missing
+
