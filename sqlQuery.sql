@@ -18,7 +18,7 @@ CREATE TABLE receipts (
 
 CREATE TABLE employees (
     id SERIAL PRIMARY KEY,
-    employee_id VARCHAR(64),
+    employee_number VARCHAR(64),
     department_id INTEGER,
     name VARCHAR(256) NOT NULL,
     start_date DATE,
