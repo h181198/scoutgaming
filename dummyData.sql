@@ -86,7 +86,7 @@
   ('2018ER114-15', 'ER114', 2018),
   ('2018ER114-16', 'ER114', 2018);
 
-  INSERT INTO employees VALUES
+  INSERT INTO employees (employee_number, department_id, name, start_date, end_date) VALUES
   ('1', 1, 'Tove Nordtveit', '2017-01-01', null),
   ('3', 1, 'Andreas Sundal', '2017-01-01', null),
   ('5', 1, 'Antonina Forkun Sundal', '2017-01-01', null),
