@@ -28,7 +28,7 @@ CREATE TABLE employees (
 
 CREATE TABLE equipments (
     id SERIAL PRIMARY KEY,
-    currency CHAR(3),
+    currency VARCHAR(16),
     price INTEGER,
     model VARCHAR(128),
     buy_date DATE,

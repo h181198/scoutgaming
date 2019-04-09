@@ -6,9 +6,10 @@ import json
 class EquipmentService:
     # Add new equipment, return True if successful
     @staticmethod
-    def add_equipment(session, price=None, model=None, buy_date=None, receipt_id=None,
+    def add_equipment(session, price=None, currency=None, model=None, buy_date=None, receipt_id=None,
                       description=None, note=None, equipment=None):
         is_correct_instance = (isinstance(price, int) and
+                               isinstance(currency, (str, type(None))) and
                                isinstance(model, (str, type(None))) and
                                isinstance(receipt_id, (str, type(None))) and
                                isinstance(description, (str, type(None))) and
@@ -16,7 +17,7 @@ class EquipmentService:
                                isinstance(buy_date, (str, type(None))))
 
         if is_correct_instance and (receipt_id is None or RS.find_receipt(session, receipt_id) is not None):
-            equipment = Model(price=price, model=model, buy_date=buy_date, receipt_id=receipt_id,
+            equipment = Model(price=price, currency=currency, model=model, buy_date=buy_date, receipt_id=receipt_id,
                               description=description, note=note)
             session.add(equipment)
             session.commit()
@@ -30,10 +31,12 @@ class EquipmentService:
 
     # Update equipment
     @staticmethod
-    def update_equipment(session, equ_id, price, model, buy_date, receipt_id, description, note):
+    def update_equipment(session, equ_id, price, currency, model, buy_date, receipt_id, description, note):
         equipment = EquipmentService.find_equipment(session, equ_id)
         if isinstance(price, int):
             equipment.price = price
+        if currency != "None":
+            equipment.currency = currency
         if model != "None":
             equipment.model = model
         if buy_date != "None":

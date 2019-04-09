@@ -11,10 +11,12 @@ class Equipment(Base):
     buy_date = Column(DATE)
     receipt_id = Column(String, ForeignKey("receipts.id"))
     price = Column(Integer)
+    currency = Column(String)
     description = Column(String)
     note = Column(String)
 
     def __repr__(self):
-        return "<Equipment (id='%i', model='%s', buy_date='%s', receipt='%s', price='%i', description='%s', " \
-               "note='%s') >" % \
-               (self.id, self.model, self.buy_date, self.receipt_id, self.price, self.description, self.note)
+        return "<Equipment (id='%i', model='%s', buy_date='%s', receipt='%s', price='%i', currency='%s', " \
+               "description='%s', note='%s') >" % \
+               (self.id, self.model, self.buy_date, self.receipt_id, self.price,
+                self.currency, self.description, self.note)
