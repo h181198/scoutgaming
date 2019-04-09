@@ -1,25 +1,20 @@
-<table class="table table-hover" id="table" style="table-layout: fixed;">
+<table class="table table-hover" id="table">
     <thead class="thead-dark">
     <tr>
-        <th onclick="sortTable(0)">
+        <th>
             Id
-            <img src="/static/Pictures/Arrows.png" alt="" style="width:10px;height:10px;">
         </th>
-        <th onclick="sortTable(1)">
+        <th>
             Name
-            <img src="/static/Pictures/Arrows.png" alt="" style="width:10px;height:10px;">
         </th>
-        <th onclick="sortTable(2)" class="department">
+        <th class="department" style="width: 12em;">
             Department
-            <img src="/static/Pictures/Arrows.png" alt="" style="width:10px;height:10px;">
         </th>
-        <th onclick="sortTable(3)" class="date" style="width: 12em;">
+        <th class="date" style="width: 12em;">
             Start Date
-            <img src="/static/Pictures/Arrows.png" alt="" style="width:10px;height:10px;">
         </th>
-        <th onclick="sortTable(4)" class="date" style="width: 12em;">
+        <th class="date" style="width: 12em;">
             End Date
-            <img src="/static/Pictures/Arrows.png" alt="" style="width:10px;height:10px;">
         </th>
         <th></th>
         <th></th>
@@ -54,9 +49,9 @@
             </td>
 
             <td>
-                <form action="/employee/delete/{{ emp.id }}" method="POST">
-                    <input class="btn btn-danger" type="submit" value="Delete"/>
-                </form>
+                <button type="button" class="btn btn-danger" onclick="deleteRow({{ emp.id }}, '/employee/delete')">
+                    Delete
+                </button>
             </td>
         </tr>
     {% endfor %}

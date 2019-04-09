@@ -3,7 +3,7 @@ from jinja2 import TemplateNotFound
 from Services.DeleteService import DeleteService
 from Services.EmployeeService import EmployeeService
 from Services.DepartmentService import DepartmentService
-from Helpers.HelpMethods import create_data
+from Helpers.HelpMethods import create_data, create_single_id
 from Controllers import session, database
 
 employee_page = Blueprint('employee', __name__)
@@ -21,13 +21,13 @@ def employee():
         abort(404)
 
 
-@employee_page.route('/employee/delete/<int:emp_id>', methods=['POST'])
-def delete_employee(emp_id):
+@employee_page.route('/employee/delete', methods=['POST'])
+def delete_employee():
     try:
-        DeleteService.delete_employee(session=session, emp_id=emp_id)
-        return redirect(url_for('employee.employee'))
+        DeleteService.delete_employee(session=session, emp_id=int(create_single_id(str(request.data))[0]))
     except TemplateNotFound:
         abort(404)
+    return ""
 
 
 @employee_page.route('/employee/update', methods=['POST'])
