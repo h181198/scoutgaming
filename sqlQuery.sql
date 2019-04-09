@@ -18,7 +18,7 @@ CREATE TABLE receipts (
 
 CREATE TABLE employees (
     id SERIAL PRIMARY KEY,
-    employee_id VARCHAR(64),
+    employee_number VARCHAR(64),
     department_id INTEGER,
     name VARCHAR(256) NOT NULL,
     start_date DATE,
@@ -28,7 +28,7 @@ CREATE TABLE employees (
 
 CREATE TABLE equipments (
     id SERIAL PRIMARY KEY,
-    currency CHAR(3),
+    currency VARCHAR(16),
     price INTEGER,
     model VARCHAR(128),
     buy_date DATE,

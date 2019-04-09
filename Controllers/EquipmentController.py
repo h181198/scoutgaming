@@ -25,3 +25,11 @@ def delete_equipment(equ_id):
     except TemplateNotFound:
         abort(404)
 
+
+@equipment_page.route('/equipment/missing')
+def missing_equipment():
+    try:
+        data = EquipmentService.find_missing(session)
+        return render_template('Views/Equipment/index.html', data=data)
+    except TemplateNotFound:
+        abort(404)
