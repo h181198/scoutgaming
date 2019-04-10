@@ -5,13 +5,18 @@ import json
 
 
 class EmployeeService:
-    # Add employee return True if successful
+    # Add employee return employee if successful
     @staticmethod
-    def add_employee(session, employee_number=None, name=None, department_id=None, start_date=None, employee=None):
+    def add_employee(session, employee_number=None, name=None, department_id=None, start_date=None, end_date=None,
+                    employee=None):
         is_correct_instance = (isinstance(name, str) and isinstance(department_id, int) and
-                               isinstance(employee_number, str) and isinstance(start_date, (str, type(None))))
+                               isinstance(employee_number, str) and isinstance(start_date, (str, type(None)))
+                               and isinstance(end_date, (str, type(None))))
 
-        if start_date is not None and employee is None and is_correct_instance:
+        if start_date is not None and start_date != '' and employee is None and is_correct_instance and end_date != '':
+            employee = Model(employee_number=employee_number, name=name, department_id=department_id,
+                             start_date=start_date, end_date=end_date)
+        elif end_date == '' and start_date is not None and start_date != '' and is_correct_instance:
             employee = Model(employee_number=employee_number, name=name, department_id=department_id,
                              start_date=start_date)
         elif employee is None and is_correct_instance:
@@ -19,9 +24,9 @@ class EmployeeService:
         if isinstance(employee, Model) and DS.find_department(session, employee.department_id) is not None:
             session.add(employee)
             session.commit()
-            return True
+            return employee
 
-        return False
+        return None
 
     # Update employee values
     @staticmethod
