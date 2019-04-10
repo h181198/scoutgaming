@@ -3,7 +3,7 @@ import json
 
 
 class ReceiptService:
-    # Add a receipt return True if successful
+    # Add a receipt return receipt if successful
     @staticmethod
     def add_receipt(session, supplement=None, year=None, receipt=None):
         is_none = supplement is None or year is None
@@ -14,13 +14,13 @@ class ReceiptService:
             receipt = Model(id=receipt_id, supplement=supplement, year=year)
             session.add(receipt)
             session.commit()
-            return True
+            return receipt
         elif isinstance(receipt, Model):
             session.add(receipt)
             session.commit()
-            return True
+            return receipt
 
-        return False
+        return None
 
     # Update receipt in database
     @staticmethod

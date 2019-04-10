@@ -50,3 +50,13 @@ def employee_equipment():
                                department_list=department_list)
     except TemplateNotFound:
         abort(404)
+
+@employee_page.route('/employee/add', methods=['POST'])
+def add_employee():
+    try:
+        data = create_data(str(request.data))
+        employee = EmployeeService.add_employee(session, data[0], data[1], int(data[2]), data[3], data[4])
+        return EmployeeService.get_employee_json(session=session, emp_id=employee.id)
+    except TemplateNotFound:
+        abort(404)
+    return ""
