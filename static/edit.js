@@ -10,7 +10,7 @@ function editRow(id, url) {
 
     for (let i = 0; i < row.length - 2; i++) {
         let value = row[i].innerHTML;
-        value = value.split(' ').join('').split('\n').join('');
+        value = value.split('  ').join('').split('\n').join('');
 
         if (value.match('None') != null) {
             row[i].innerHTML = "";

@@ -12,7 +12,7 @@ employee_page = Blueprint('employee', __name__)
 @employee_page.route('/employee')
 def employee():
     try:
-        data = EmployeeService.get_all_employees(session=session)
+        data = EmployeeService.get_all_employees(session=session)[3:]
         department_data = DepartmentService.get_all_departments(session)
         department_list = DepartmentService.get_all_departments_json(database=database)
         return render_template('Views/Employee/index.html', data=data, department_data=department_data,
@@ -51,11 +51,13 @@ def employee_equipment():
     except TemplateNotFound:
         abort(404)
 
+
 @employee_page.route('/employee/add', methods=['POST'])
 def add_employee():
     try:
         data = create_data(str(request.data))
-        employee = EmployeeService.add_employee(session, data[0], data[1], int(data[2]), data[3], data[4])
+        employee = EmployeeService.add_employee(session=session, employee_number=data[0], name=data[1],
+                                                department_id=int(data[2]), start_date=data[3], end_date=data[4])
         return EmployeeService.get_employee_json(session=session, emp_id=employee.id)
     except TemplateNotFound:
         abort(404)

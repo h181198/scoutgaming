@@ -1,4 +1,5 @@
 function add(url) {
+
     document.getElementById("addButton").disabled = true;
     let table = document.getElementById("table");
     let row = table.insertRow(-1);
@@ -55,6 +56,7 @@ function add(url) {
     cancelButton.setAttribute("class", "btn btn-danger");
     cancelButton.addEventListener("click", function () {
         document.getElementById("addButton").disabled = false;
+        row.parentNode.removeChild(row);
     });
     row.insertCell(table.rows[0].cells.length - 1).appendChild(cancelButton);
 
