@@ -1,6 +1,9 @@
+/*
+Delete row from database if confirmed by user
+@param id, url
+ */
 function deleteRow(id, url) {
-    if (confirm("Sure you want to delete: " + id + "?")) {
-        console.log("DELETED");
+    if (confirm("Are you sure you want to delete this row?")) {
 
         let request = new XMLHttpRequest();
         request.onreadystatechange = function () {
