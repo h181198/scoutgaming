@@ -40,6 +40,17 @@ def update_employee():
         abort(404)
 
 
+@employee_page.route('/employee/quit')
+def employee_equipment():
+    try:
+        data = EmployeeService.get_quit_employees(session,)
+        department_data = DepartmentService.get_all_departments(session)
+        department_list = DepartmentService.get_all_departments_json(database=database)
+        return render_template('Views/Employee/index.html', data=data, department_data=department_data,
+                               department_list=department_list)
+    except TemplateNotFound:
+        abort(404)
+
 @employee_page.route('/employee/add', methods=['POST'])
 def add_employee():
     try:

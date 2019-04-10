@@ -45,6 +45,25 @@ class TransactionService:
         data = database.execute("SELECT * FROM transactions")
         return json.dumps([dict(r) for r in data])
 
+    @staticmethod
+    def find_employee_transactions(session, emp_id):
+        return session.query(Model).filter_by(employee_id=emp_id).all()
+
+    @staticmethod
+    def find_equipment_transactions(session, equ_id):
+        return session.query(Model).filter_by(equipment_id=equ_id).all()
+
+    @staticmethod
+    def find_current_equipment(session, emp_id):
+        transactions = TransactionService.find_employee_transactions(session, emp_id)
+        current_eq = []
+        for trans in transactions:
+            history = TransactionService.find_equipment_transactions(session, trans.equipment_id)
+            if len(list(filter(lambda x: x.transfer_date > trans.transfer_date, history))) == 0:
+                current_eq.append(trans)
+
+        return current_eq
+
     # Find a Transaction from id
     @staticmethod
     def find_transaction(session, tra_id):

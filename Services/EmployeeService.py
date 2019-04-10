@@ -77,6 +77,10 @@ class EmployeeService:
             return session.query(Model).filter_by(id=emp_id).first()
         return None
 
+    @staticmethod
+    def get_quit_employees(session):
+        return list(filter(lambda x: x.end_date is not None, session.query(Model).all()))
+
     # Add date they quit or got fired
     @staticmethod
     def add_end_date(session, employee_id, end_date=None):
