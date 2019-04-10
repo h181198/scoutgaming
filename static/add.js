@@ -1,8 +1,10 @@
 function add(url) {
 
     document.getElementById("addButton").disabled = true;
-    let table = document.getElementById("table");
-    let row = table.insertRow(-1);
+    let table = document.getElementById("addTable");
+    let row = table.insertRow();
+    let addDiv = document.getElementById("addDiv");
+    addDiv.style.visibility = 'visible';
 
 
     for (let i = 0; i < table.rows[0].cells.length - 2; i++) {
@@ -37,7 +39,7 @@ function add(url) {
                 let newJson = JSON.parse(request.responseText);
                 let newId = newJson.id;
                 console.log(typeof newId);
-                setRowToText(newId, row.cells, '/employee/edit', newJson);
+                location.reload();
                 updateStatus("add");
             } else if (request.status === 404) {
                 updateStatus()
@@ -57,6 +59,7 @@ function add(url) {
     cancelButton.addEventListener("click", function () {
         document.getElementById("addButton").disabled = false;
         row.parentNode.removeChild(row);
+        addDiv.style.visibility = 'hidden';
     });
     row.insertCell(table.rows[0].cells.length - 1).appendChild(cancelButton);
 
