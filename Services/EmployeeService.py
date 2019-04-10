@@ -34,7 +34,7 @@ class EmployeeService:
         employee = EmployeeService.find_employee(session, emp_id)
         if isinstance(emp_number, str) and emp_number != '':
             employee.employee_number = emp_number
-        if isinstance(name, str):
+        if isinstance(name, str) and name != '':
             employee.name = name
         if isinstance(department_id, (int, type(None))):
             employee.department_id = department_id
