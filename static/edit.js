@@ -53,44 +53,15 @@ function editRow(id, url) {
             if (request.readyState === XMLHttpRequest.DONE && request.status === 200) {
                 setRowToText(id, row, url, JSON.parse(request.responseText));
                 updateStatus("update");
+            }else if(request.status === 404){
+                updateStatus()
             }
         };
         request.open("POST", "/employee/update", true);
         request.send(sendString);
-        console.log(sendString)
     });
 
 
     row[row.length - 2].appendChild(confirmButton);
 }
 
-/**
- * Set each cell to text based on current values when updating
- * @param id
- * @param row
- * @param url
- * @param json
- */
-function setRowToText(id, row, url, json) {
-    let array = [];
-    for (let key in json) {
-        if (json[key] === null) {
-            array.push("None")
-        } else {
-            array.push(json[key]);
-        }
-    }
-
-    for (let i = 1; i < array.length; i++) {
-        row[i - 1].innerHTML = array[i];
-    }
-
-    let button = createButton("Edit");
-    button.setAttribute("class", "edit btn btn-secondary");
-    button.addEventListener("click", function () {
-        editRow(id, url)
-    });
-
-    row[row.length - 2].innerHTML = "";
-    row[row.length - 2].appendChild(button);
-}

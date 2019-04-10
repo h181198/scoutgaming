@@ -11,6 +11,8 @@ function deleteRow(id, url) {
                 let row = document.getElementById(id);
                 row.parentNode.removeChild(row);
                 updateStatus("delete");
+            } else if(request.status === 404){
+                updateStatus()
             }
         };
         request.open("POST", url, true);

@@ -67,3 +67,34 @@ function createDropdown(dropdownType, currentValue = null) {
 
     return dropdownFiled;
 }
+
+/**
+ * Set each cell to text based on current values when updating
+ * @param id
+ * @param row
+ * @param url
+ * @param json
+ */
+function setRowToText(id, row, url, json) {
+    let array = [];
+    for (let key in json) {
+        if (json[key] === null) {
+            array.push("None")
+        } else {
+            array.push(json[key]);
+        }
+    }
+
+    for (let i = 1; i < array.length; i++) {
+        row[i - 1].innerHTML = array[i];
+    }
+
+    let button = createButton("Edit");
+    button.setAttribute("class", "edit btn btn-secondary");
+    button.addEventListener("click", function () {
+        editRow(id, url)
+    });
+
+    row[row.length - 2].innerHTML = "";
+    row[row.length - 2].appendChild(button);
+}

@@ -1,7 +1,8 @@
-function add() {
+function add(url) {
     document.getElementById("addButton").disabled = true;
     let table = document.getElementById("table");
     let row = table.insertRow(-1);
+
 
     for (let i = 0; i < table.rows[0].cells.length - 2; i++) {
         let element;
@@ -22,8 +23,6 @@ function add() {
     let confirmButton = createButton("Confirm");
     confirmButton.setAttribute("class", "btn btn-info");
     confirmButton.addEventListener("click", function () {
-        console.log(row);
-        console.log(table.rows[0].cells.length);
         let sendString = "";
 
         for (let i = 0; i < table.rows[0].cells.length - 2; i++) {
@@ -36,12 +35,14 @@ function add() {
                 document.getElementById("addButton").disabled = false;
                 let newJson = JSON.parse(request.responseText);
                 let newId = newJson.id;
-                console.log(newId);
-                setRowToText();
+                console.log(typeof newId);
+                setRowToText(newId, row.cells, '/employee/edit', newJson);
                 updateStatus("add");
+            } else if (request.status === 404) {
+                updateStatus()
             }
         };
-        request.open("POST", "/employee/add", true);
+        request.open("POST", url, true);
         request.send(sendString);
     });
     row.insertCell(table.rows[0].cells.length - 2).appendChild(confirmButton);
@@ -58,3 +59,4 @@ function add() {
     row.insertCell(table.rows[0].cells.length - 1).appendChild(cancelButton);
 
 }
+

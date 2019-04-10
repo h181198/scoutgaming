@@ -31,7 +31,8 @@ function updateStatus(status) {
         element.innerText = "Row added";
         element.setAttribute('class', "alert alert-success alert-dismissible  show");
     }else{
-        return;
+        element.innerText = "Error";
+        element.setAttribute('class', "alert alert-danger alert-dismissible  show");
     }
     element.appendChild(button);
     statusDiv.appendChild(element);
