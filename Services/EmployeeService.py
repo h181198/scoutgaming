@@ -51,6 +51,7 @@ class EmployeeService:
         data = database.execute("SELECT * FROM employees")
         return json.dumps([dict(r) for r in data])
 
+    # Get an employee as json
     @staticmethod
     def get_employee_json(session, emp_id):
         emp = EmployeeService.find_employee(session, int(emp_id))
@@ -72,9 +73,15 @@ class EmployeeService:
             return session.query(Model).filter_by(id=emp_id).first()
         return None
 
+    # Find all employees that has quit
     @staticmethod
     def get_quit_employees(session):
         return list(filter(lambda x: x.end_date is not None, session.query(Model).all()))
+
+    # Find all employees that has not quit
+    @staticmethod
+    def get_current_employees(session):
+        return session.query(Model).filter_by(end_date=None).all()
 
     # Add date they quit or got fired
     @staticmethod

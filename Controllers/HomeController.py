@@ -1,8 +1,6 @@
 from flask import Blueprint, render_template, abort
 from jinja2 import TemplateNotFound
-from Services.EquipmentService import EquipmentService
-from Services.EmployeeService import EmployeeService
-from Services.TransactionService import TransactionService
+from Services.WarningService import WarningService
 from Controllers import session
 
 index_page = Blueprint('index', __name__)
@@ -11,14 +9,11 @@ index_page = Blueprint('index', __name__)
 @index_page.route('/')
 def index():
     try:
-        missing_equ = EquipmentService.find_missing(session)
-        has_quit = EmployeeService.get_quit_employees(session)
-        has_equipment = []
-        for emp in has_quit:
-            if len(TransactionService.find_current_equipment(session, emp.id)) > 0:
-                has_equipment.append(emp)
+        missing_equ = WarningService.get_missing_equipment(session)
+        quit_with_equipment = WarningService.get_quit_employee_with_equipment(session)
+        old_equipment = WarningService.get_old_equipment(session)
 
-        return render_template('Views/Home/index.html', missing_equipment=missing_equ, has_equipment=has_equipment,
-                               old_equipment=[])
+        return render_template('Views/Home/index.html', missing_equipment=missing_equ,
+                               quit_with_equipment=quit_with_equipment, old_equipment=old_equipment)
     except TemplateNotFound:
         abort(404)

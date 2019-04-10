@@ -9,20 +9,20 @@
         <div style="width: 80%;">
             {% if old_equipment|length > 0 %}
             <button id="missingEquipment" class="btn btn-danger" style="width:100%; display:block;"
-                    onclick="window.location.href='employee/missing'">
+                    onclick="window.location.href='transaction/old'">
                 <div class="row">
                     <div style="padding-left:15px;padding-top:20px;">
                         <img src="/static/Pictures/Warning_icon.png" alt="" style="width:50px;height:50px;" />
                     </div>
                     <div style="margin: 5px;padding: 10px;">
-                        <h3> Personer med utstyr som er mer enn 3 år gammelt: {{ old_equipment|length }}</h3>
+                        <h3> Personer med utstyr som er mer enn 4 år gammelt: {{ old_equipment|length }}</h3>
                     </div>
                 </div>
             </button>
             <div style="margin-top: 10px" />
             {% endif %}
 
-            {% if has_equipment|length > 0 %}
+            {% if quit_with_equipment|length > 0 %}
             <button id="missingEquipment" class="btn btn-danger" style="width:100%; display:block;"
                     onclick="window.location.href='transaction/missing'">
                 <div class="row">
@@ -30,7 +30,7 @@
                         <img src="/static/Pictures/Warning_icon.png" alt="" style="width:50px;height:50px;" />
                     </div>
                     <div style="margin: 5px;padding: 10px;">
-                        <h3> Personer som har sluttet og fortsatt har utstyr: {{ has_equipment|length }}</h3>
+                        <h3> Personer som har sluttet og fortsatt har utstyr: {{ quit_with_equipment|length }}</h3>
                     </div>
                 </div>
             </button>
