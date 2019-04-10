@@ -3,7 +3,7 @@ import json
 
 
 class DepartmentService:
-    # Add a new department return True if successful
+    # Add a new department return department if successful
     @staticmethod
     def add_department(session, country=None, unit=None, department=None):
         is_string = isinstance(unit, str) and isinstance(country, str)
@@ -13,13 +13,13 @@ class DepartmentService:
             department = Model(country=country, unit=unit)
             session.add(department)
             session.commit()
-            return True
+            return department
         elif isinstance(department, Model):
             session.add(department)
             session.commit()
-            return True
+            return department
 
-        return False
+        return None
 
     # Update the department in the database
     @staticmethod

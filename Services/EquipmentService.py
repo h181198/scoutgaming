@@ -4,7 +4,7 @@ import json
 
 
 class EquipmentService:
-    # Add new equipment, return True if successful
+    # Add new equipment, return equipment if successful
     @staticmethod
     def add_equipment(session, price=None, model=None, buy_date=None, receipt_id=None,
                       description=None, note=None, equipment=None):
@@ -20,13 +20,13 @@ class EquipmentService:
                               description=description, note=note)
             session.add(equipment)
             session.commit()
-            return True
+            return equipment
         elif isinstance(equipment, Model):
             session.add(equipment)
             session.commit()
-            return True
+            return equipment
 
-        return False
+        return None
 
     # Update equipment
     @staticmethod

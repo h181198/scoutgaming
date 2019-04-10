@@ -5,7 +5,7 @@ import json
 
 
 class TransactionService:
-    # Add a new Transaction return True if successful
+    # Add a new Transaction return transaction if successful
     @staticmethod
     def add_transaction(session, equipment_id=None, employee_id=None, transaction=None):
         if (EmS.find_employee(session, employee_id) is not None and
@@ -13,14 +13,14 @@ class TransactionService:
             transaction = Model(equipment_id=equipment_id, employee_id=employee_id)
             session.add(transaction)
             session.commit()
-            return True
+            return transaction
 
         if isinstance(transaction, Model):
             session.add(transaction)
             session.commit()
-            return True
+            return transaction
 
-        return False
+        return None
 
     # Update Transaction
     @staticmethod
