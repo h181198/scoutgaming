@@ -2,25 +2,28 @@
     <thead class="thead-dark">
     <tr>
         <th>
-            Pris
+            Price
         </th>
         <th>
-            Valuta
+            Currency
         </th>
         <th>
-            Modell
+            Model
         </th>
-        <th style="width: 12em;" class="date">
-            Innkjøps dato
+        <th style="width: 6em;" class="date">
+            Buy date
         </th>
         <th style="width: 7em;">
-            Kvittering
+            Receipt
         </th>
         <th style="width: 16em;" class="description">
-            Beskrivelse
+            Description
         </th>
         <th style="width: 10em;" class="note">
-            Notis
+            Note
+        </th>
+        <th>
+            Employee
         </th>
         <th style="width: 6em;"></th>
         <th style="width: 4em;"></th>
@@ -48,6 +51,9 @@
         </td>
         <td>
             {{ equ.note }}
+        </td>
+        <td>
+            {{ latest_transaction[equ.id] }}
         </td>
         <td>
             <form action="/equipment/edit/{{ equ.id }}">
