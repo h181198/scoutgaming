@@ -55,6 +55,16 @@ class TransactionService:
     def find_equipment_transactions(session, equ_id):
         return session.query(Model).filter_by(equipment_id=equ_id).all()
 
+    # Get last transaction for an equipment
+    @staticmethod
+    def find_last_equipment_transaction(session, equ_id):
+        transactions = TransactionService.find_equipment_transactions(session, equ_id)
+        for trans in transactions:
+            if len(list(filter(lambda x: x.transfer_date > trans.transfer_date, transactions))) == 0:
+                return trans
+
+        return None
+
     # Get find all transactions for current equipment of an employee
     @staticmethod
     def find_current_equipment_transaction(session, emp_id):
