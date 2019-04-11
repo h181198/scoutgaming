@@ -10,19 +10,19 @@
         <th>
             Model
         </th>
-        <th style="width: 6em;" class="date">
+        <th class="date">
             Buy date
         </th>
-        <th style="width: 7em;">
+        <th>
             Receipt
         </th>
-        <th style="width: 16em;" class="description">
+        <th>
             Description
         </th>
-        <th style="width: 10em;" class="note">
+        <th>
             Note
         </th>
-        <th>
+        <th class="ignore">
             Employee
         </th>
         <th style="width: 6em;"></th>
@@ -30,43 +30,42 @@
     </tr>
     </thead>
     {% for equ in data|sort(attribute='id') %}
-    <tr id="{{ equ.id }}">
-        <td>
-            {{ equ.price }}
-        </td>
-        <td>
-            {{ equ.currency }}
-        </td>
-        <td>
-            {{ equ.model }}
-        </td>
-        <td>
-            {{ equ.buy_date }}
-        </td>
-        <td>
-            {{ equ.receipt_id }}
-        </td>
-        <td>
-            {{ equ.description }}
-        </td>
-        <td>
-            {{ equ.note }}
-        </td>
-        <td>
-            {{ latest_transaction[equ.id] }}
-        </td>
-        <td>
-            <form action="/equipment/edit/{{ equ.id }}">
-                <button class="btn btn-secondary">Edit</button>
-            </form>
-        </td>
-        <th>
-            <form action="/equipment/delete/{{ equ.id }}" method="POST">
-                <input class="btn btn-danger" type="submit" value="Delete"/>
-            </form>
-        </th>
-    </tr>
+        <tr id="{{ equ.id }}">
+            <td>
+                {{ equ.price }}
+            </td>
+            <td>
+                {{ equ.currency }}
+            </td>
+            <td>
+                {{ equ.model }}
+            </td>
+            <td>
+                {{ equ.buy_date }}
+            </td>
+            <td>
+                {{ equ.receipt_id }}
+            </td>
+            <td>
+                {{ equ.description }}
+            </td>
+            <td>
+                {{ equ.note }}
+            </td>
+            <td>
+                {{ latest_transaction[equ.id] }}
+            </td>
+            <td>
+                <button type="button" class="edit btn btn-secondary"
+                        onclick="editRow({{ equ.id }}, '/equipment/update')">
+                    Edit
+                </button>
+            </td>
+            <th>
+                <button type="button" class="btn btn-danger" onclick="deleteRow({{ equ.id }}, '/equipment/delete')">
+                    Delete
+                </button>
+            </th>
+        </tr>
     {% endfor %}
 </table>
-
-<button id="addButton" class="btn btn-dark" onclick="add()">Add new</button>

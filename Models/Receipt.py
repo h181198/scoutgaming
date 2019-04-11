@@ -10,4 +10,4 @@ class Receipt(Base):
     year = Column(Integer)
 
     def __repr__(self):
-        return "<Receipt (id='%s', supplement='%s', year='%i') >" % (self.id, self.supplement, self.year)
+        return "<Receipt (id='%s', supplement='%s', year='%r') >" % (self.id, self.supplement, self.year)

@@ -5,7 +5,7 @@ from Services.EmployeeService import EmployeeService
 from Services.EquipmentService import EquipmentService
 from Services.DeleteService import DeleteService
 from Controllers import session
-from Helpers.HelpMethods import string_to_list
+from Helpers.HelpMethods import create_data, create_single_id, string_to_list
 
 equipment_page = Blueprint('equipment', __name__)
 
@@ -24,7 +24,9 @@ def equipment():
         for equip in data:
             transaction = TransactionService.find_last_equipment_transaction(session, equip.id)
             if transaction is not None:
-                latest_transaction[equip.id] = EmployeeService.find_employee(session, transaction.employee_id).name
+                emp = EmployeeService.find_employee(session, transaction.employee_id)
+                if emp is not None:
+                    latest_transaction[equip.id] = emp.name
             else:
                 latest_transaction[equip.id] = "None"
 
@@ -33,10 +35,21 @@ def equipment():
         abort(404)
 
 
-@equipment_page.route('/equipment/delete/<string:equ_id>', methods=['POST'])
-def delete_equipment(equ_id):
+@equipment_page.route('/equipment/delete', methods=['POST'])
+def delete_equipment():
     try:
-        DeleteService.delete_equipment(session=session, equ_id=int(equ_id))
+        DeleteService.delete_equipment(session=session, equ_id=int(request.data))
         return redirect(url_for('equipment.equipment'))
+    except TemplateNotFound:
+        abort(404)
+
+
+@equipment_page.route('/equipment/update', methods=['POST'])
+def update_equipment():
+    try:
+        data = create_data(str(request.data.decode('utf8')))
+        print(data)
+        EquipmentService.update_equipment(session, int(data[0]), int(data[1]), data[2], data[3], data[4], data[5], data[6], data[7])
+        return EquipmentService.get_equipment_json(session, data[0])
     except TemplateNotFound:
         abort(404)
