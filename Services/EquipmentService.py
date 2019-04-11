@@ -61,6 +61,22 @@ class EquipmentService:
         data = database.execute("SELECT * FROM equipments")
         return json.dumps([dict(r) for r in data])
 
+    # Get an equipment as json
+    @staticmethod
+    def get_equipment_json(session, emp_id):
+        eq = EquipmentService.find_equipment(session, int(emp_id))
+        my_json = {
+            'id': eq.id,
+            'price': eq.price,
+            'currency': eq.currency,
+            'model': eq.model,
+            'buy_date': eq.buy_date,
+            'receipt_id': eq.receipt_id,
+            'description': eq.description,
+            'note': eq.note
+        }
+        return json.dumps(my_json, indent=4, sort_keys=False, default=str)
+
     # Find equipment from id
     @staticmethod
     def find_equipment(session, equ_id):

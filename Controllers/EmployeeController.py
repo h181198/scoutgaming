@@ -2,7 +2,9 @@ from flask import Blueprint, render_template, abort, redirect, url_for, request
 from jinja2 import TemplateNotFound
 from Services.DeleteService import DeleteService
 from Services.EmployeeService import EmployeeService
+from Services.EquipmentService import EquipmentService
 from Services.DepartmentService import DepartmentService
+from Services.TransactionService import TransactionService
 from Helpers.HelpMethods import create_data, create_single_id, string_to_list
 from Controllers import session, database
 
@@ -38,9 +40,7 @@ def delete_employee():
 @employee_page.route('/employee/update', methods=['POST'])
 def update_employee():
     try:
-        print(request.data.decode('utf8'))
         data = create_data(str(request.data.decode('utf8')))
-        print(data)
         EmployeeService.update_employee(session, int(data[0]), data[1], data[2], int(data[3]), data[4], data[5])
         return EmployeeService.get_employee_json(session, data[0])
     except TemplateNotFound:
@@ -59,3 +59,17 @@ def add_employee():
     except TemplateNotFound:
         abort(404)
     return ""
+
+
+@employee_page.route('/employee/equipment/<int:emp_id>', methods=['GET'])
+def find_equipment_employee(emp_id):
+    try:
+        eq_list = TransactionService.find_current_equipment(session=session, emp_id=emp_id)
+        equipment_json = "[\n"
+        for eq in eq_list:
+            equipment_json += EquipmentService.get_equipment_json(session, eq.id) + ",\n"
+
+        equipment_json = equipment_json[:len(equipment_json)-2] + "]"
+        return equipment_json
+    except TemplateNotFound:
+        abort(404)

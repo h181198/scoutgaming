@@ -21,7 +21,8 @@
     </tr>
     </thead>
     {% for emp in data|sort(attribute='employee_number') %}
-        <tr id="{{ emp.id }}" onclick="alert({{ emp.id }})">
+        <tr id="{{ emp.id }}" data-toggle="modal" data-target="#equModal"
+            onclick="employeeEquipmentInfo({{ emp.id}}, '{{ emp.name }}')">
             <td>
                 {{ emp.employee_number }}
             </td>
