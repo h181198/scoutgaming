@@ -45,16 +45,19 @@ class TransactionService:
         data = database.execute("SELECT * FROM transactions")
         return json.dumps([dict(r) for r in data])
 
+    # Get a list of all the transactions of one employee
     @staticmethod
     def find_employee_transactions(session, emp_id):
         return session.query(Model).filter_by(employee_id=emp_id).all()
 
+    # Get a list of all transactions for an equipment
     @staticmethod
     def find_equipment_transactions(session, equ_id):
         return session.query(Model).filter_by(equipment_id=equ_id).all()
 
+    # Get find all transactions for current equipment of an employee
     @staticmethod
-    def find_current_equipment(session, emp_id):
+    def find_current_equipment_transaction(session, emp_id):
         transactions = TransactionService.find_employee_transactions(session, emp_id)
         current_eq = []
         for trans in transactions:
@@ -63,6 +66,16 @@ class TransactionService:
                 current_eq.append(trans)
 
         return current_eq
+
+    # Find current equipment for an employee
+    @staticmethod
+    def find_current_equipment(session, emp_id):
+        transactions = TransactionService.find_current_equipment_transaction(session, emp_id)
+        current_equipment = []
+        for tran in transactions:
+            current_equipment.append(EqS.find_equipment(session, tran.equipment_id))
+
+        return current_equipment
 
     # Find a Transaction from id
     @staticmethod

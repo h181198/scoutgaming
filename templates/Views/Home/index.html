@@ -6,51 +6,90 @@
             <h1>Warnings</h1>
             <p>Trykk på en warning for å se de aktuelle objektene</p>
         </div><br/>
-        <div style="width: 80%;">
+        <div>
             {% if old_equipment|length > 0 %}
-            <button id="missingEquipment" class="btn btn-danger" style="width:100%; display:block;"
-                    onclick="window.location.href='employee/missing'">
-                <div class="row">
-                    <div style="padding-left:15px;padding-top:20px;">
-                        <img src="/static/Pictures/Warning_icon.png" alt="" style="width:50px;height:50px;" />
+            <form action="/transaction" method="post">
+                <button type="submit" class="btn btn-danger" style="width:100%; display:block;">
+                    <input type="hidden" name="data" value="{{ old_equipment }}">
+                    <div class="row">
+                        <div style="padding-left:15px;padding-top:20px;">
+                            <img src="/static/Pictures/Warning_icon.png" alt="" style="width:50px;height:50px;" />
+                        </div>
+                        <div style="margin: 5px;padding: 10px;">
+                            <h3> Personer med utstyr som er mer enn 4 år gammelt: {{ old_equipment|length }}</h3>
+                        </div>
                     </div>
-                    <div style="margin: 5px;padding: 10px;">
-                        <h3> Personer med utstyr som er mer enn 3 år gammelt: {{ old_equipment|length }}</h3>
-                    </div>
-                </div>
-            </button>
+                </button>
+            </form>
             <div style="margin-top: 10px" />
             {% endif %}
 
-            {% if has_equipment|length > 0 %}
-            <button id="missingEquipment" class="btn btn-danger" style="width:100%; display:block;"
-                    onclick="window.location.href='transaction/missing'">
-                <div class="row">
-                    <div style="padding-left:15px;padding-top:20px;">
-                        <img src="/static/Pictures/Warning_icon.png" alt="" style="width:50px;height:50px;" />
+            {% if quit_with_equipment|length > 0 %}
+            <form action="/transaction" method="post">
+                <button type="submit" class="btn btn-danger" style="width:100%; display:block;">
+                    <input type="hidden" name="data" value="{{ quit_with_equipment }}">
+                    <div class="row">
+                        <div style="padding-left:15px;padding-top:20px;">
+                            <img src="/static/Pictures/Warning_icon.png" alt="" style="width:50px;height:50px;" />
+                        </div>
+                        <div style="margin: 5px;padding: 10px;">
+                            <h3> Personer som har sluttet og fortsatt har utstyr: {{ quit_with_equipment|length }}</h3>
+                        </div>
                     </div>
-                    <div style="margin: 5px;padding: 10px;">
-                        <h3> Personer som har sluttet og fortsatt har utstyr: {{ has_equipment|length }}</h3>
-                    </div>
-                </div>
-            </button>
+                </button>
+            </form>
             <div style="margin-top: 10px" />
             {% endif %}
 
             {% if missing_equipment|length > 0 %}
-            <button id="missingEquipment" class="btn btn-warning" style="width:100%; display:block;"
-                    onclick="window.location.href='equipment/missing'">
-                <div class="row">
-                    <div style="padding-left:15px;padding-top:20px;">
-                        <img src="/static/Pictures/Warning_icon.png" alt="" style="width:50px;height:50px;" />
+            <form action="/equipment" method="post">
+                <button type="submit" class="btn btn-warning" style="width:100%; display:block;">
+                    <input type="hidden" name="data" value="{{ missing_equipment }}">
+                    <div class="row">
+                        <div style="padding-left:15px;padding-top:20px;">
+                            <img src="/static/Pictures/Warning_icon.png" alt="" style="width:50px;height:50px;" />
+                        </div>
+                        <div style="margin: 5px;padding: 10px;">
+                            <h3> Antall utstyr mangler model, kjøpsdato eller kvittering: {{ missing_equipment|length }}</h3>
+                        </div>
                     </div>
-                    <div style="margin: 5px;padding: 10px;">
-                        <h3> Antall utstyr mangler model, kjøpsdato eller kvittering: {{ missing_equipment|length }}</h3>
-                    </div>
-                </div>
-            </button>
+             </button>
+            <div style="margin-top: 10px" />
             {% endif %}
 
+            {% if no_equipment|length > 0 %}
+            <form action="/employee" method="post">
+                <button type="submit" class="btn btn-warning" style="width:100%; display:block;">
+                    <input type="hidden" name="data" value="{{ no_equipment }}">
+                    <div class="row">
+                        <div style="padding-left:15px;padding-top:20px;">
+                            <img src="/static/Pictures/Warning_icon.png" alt="" style="width:50px;height:50px;" />
+                        </div>
+                        <div style="margin: 5px;padding: 10px;">
+                            <h3> Personer som ikke har utstyr: {{ no_equipment|length }}</h3>
+                        </div>
+                    </div>
+                </button>
+            </form>
+            <div style="margin-top: 10px" />
+            {% endif %}
+
+            {% if no_location|length > 0 %}
+            <form action="/equipment" method="post">
+                <button type="submit" class="btn btn-warning" style="width:100%; display:block;">
+                    <input type="hidden" name="data" value="{{ no_location }}">
+                    <div class="row">
+                        <div style="padding-left:15px;padding-top:20px;">
+                            <img src="/static/Pictures/Warning_icon.png" alt="" style="width:50px;height:50px;" />
+                        </div>
+                        <div style="margin: 5px;padding: 10px;">
+                            <h3> Utstyr som ikke er tildelt en person: {{ no_location|length }}</h3>
+                        </div>
+                    </div>
+                </button>
+            </form>
+            <div style="margin-top: 10px" />
+            {% endif %}
         </div>
   </div>
 {% endblock %}
