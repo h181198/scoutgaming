@@ -1,6 +1,6 @@
-from Services.EquipmentService import EquipmentService
-from Services.EmployeeService import EmployeeService
-from Services.TransactionService import TransactionService
+from Services.EquipmentService import EquipmentService as EqS
+from Services.EmployeeService import EmployeeService as EmS
+from Services.TransactionService import TransactionService as TS
 import datetime
 
 
@@ -8,17 +8,17 @@ class WarningService:
     # Method to get missing equipment
     @staticmethod
     def get_missing_equipment(session):
-        return EquipmentService.find_missing(session)
+        return EqS.find_missing(session)
 
     # Method to find employees that has quit and still has equipment.
     # Return the last transaction of that equipment
     @staticmethod
     def get_quit_employee_with_equipment(session):
-        has_quit = EmployeeService.get_quit_employees(session)
+        has_quit = EmS.get_quit_employees(session)
         has_equipment = []
         quit_equipment = []
         for emp in has_quit:
-            transactions = TransactionService.find_current_equipment(session, emp.id)
+            transactions = TS.find_current_equipment_transaction(session, emp.id)
             if len(transactions) > 0:
                 has_equipment.append(emp)
                 for tran in transactions:
@@ -30,18 +30,42 @@ class WarningService:
     # Return the last transaction of those equipments
     @staticmethod
     def get_old_equipment(session):
-        current_employees = EmployeeService.get_current_employees(session)
+        current_employees = EmS.get_current_employees(session)
         old_equipment = []
         current_date = datetime.datetime.now().date()
         interval = datetime.timedelta(days=-1461)
 
         for emp in current_employees:
             if emp.id != 1 and emp.id != 2 and emp.id != 3:
-                curr_eq_trans = TransactionService.find_current_equipment(session, emp.id)
+                curr_eq_trans = TS.find_current_equipment_transaction(session, emp.id)
 
                 for trans in curr_eq_trans:
-                    eq = EquipmentService.find_equipment(session, trans.equipment_id)
+                    eq = EqS.find_equipment(session, trans.equipment_id)
                     if (eq.buy_date - current_date) < interval:
                         old_equipment.append(trans)
 
         return old_equipment
+
+    # Method to find employees without registered equipment
+    # Return list of employees
+    @staticmethod
+    def get_employees_without_equipment(session):
+        emp_list = []
+        all_emp = EmS.get_current_employees(session)
+        for emp in all_emp:
+            if len(TS.find_current_equipment(session, emp.id)) == 0:
+                emp_list.append(emp)
+
+        return emp_list
+
+    # Method to find equipment without employee
+    # return list of equipment
+    @staticmethod
+    def get_equipment_without_employee(session):
+        eq_list = []
+        all_eq = EqS.get_all_equipments(session)
+        for eq in all_eq:
+            if len(TS.find_current_equipment(session, eq.id)) == 0:
+                eq_list.append(eq)
+
+        return eq_list

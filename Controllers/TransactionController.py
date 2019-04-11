@@ -1,19 +1,24 @@
-from flask import Blueprint, render_template, abort
+from flask import Blueprint, render_template, abort, request
 from jinja2 import TemplateNotFound
 from Services.TransactionService import TransactionService
 from Services.EquipmentService import EquipmentService
 from Services.EmployeeService import EmployeeService
-from Services.WarningService import WarningService
-
 from Controllers import session
+from Helpers.HelpMethods import string_to_list
 
 transaction_page = Blueprint('transaction', __name__)
 
 
-@transaction_page.route('/transaction')
+@transaction_page.route('/transaction', methods=['POST', 'GET'])
 def transaction():
     try:
-        data = TransactionService.get_all_transactions(session=session)
+        data = request.form.get('data')
+
+        if data is not None and len(data) > 0:
+            data = string_to_list(session, data)
+        else:
+            data = TransactionService.get_all_transactions(session=session)
+
         equipment_data = EquipmentService.get_all_equipments(session=session)
         employee_data = EmployeeService.get_all_employees(session=session)
         return render_template('Views/Transaction/index.html', data=data, equipment_data=equipment_data,
@@ -22,25 +27,3 @@ def transaction():
         abort(404)
 
 
-@transaction_page.route('/transaction/missing')
-def missing_transaction():
-    try:
-        data = WarningService.get_quit_employee_with_equipment(session)
-        equipment_data = EquipmentService.get_all_equipments(session=session)
-        employee_data = EmployeeService.get_all_employees(session=session)
-        return render_template('Views/Transaction/index.html', data=data, equipment_data=equipment_data,
-                               employee_data=employee_data)
-    except TemplateNotFound:
-        abort(404)
-
-
-@transaction_page.route('/transaction/old')
-def old_transaction():
-    try:
-        data = WarningService.get_old_equipment(session)
-        equipment_data = EquipmentService.get_all_equipments(session=session)
-        employee_data = EmployeeService.get_all_employees(session=session)
-        return render_template('Views/Transaction/index.html', data=data, equipment_data=equipment_data,
-                               employee_data=employee_data)
-    except TemplateNotFound:
-        abort(404)

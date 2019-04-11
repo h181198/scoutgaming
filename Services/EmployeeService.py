@@ -86,7 +86,7 @@ class EmployeeService:
     # Find all employees that has not quit
     @staticmethod
     def get_current_employees(session):
-        return session.query(Model).filter_by(end_date=None).all()
+        return session.query(Model).filter_by(end_date=None).all()[3:]
 
     # Add date they quit or got fired
     @staticmethod

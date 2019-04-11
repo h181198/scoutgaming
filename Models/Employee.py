@@ -14,6 +14,6 @@ class Employee(Base):
     end_date = Column(DATE)
 
     def __repr__(self):
-        return "<Employee (id='%i', employee_number='%s', name='%s', department_id='%i', " \
+        return "<Employee (id='%i', employee_number='%s', name='%s', department_id='%r', " \
                "start_date='%s', end_date='%s') >" % \
                (self.id, self.employee_number, self.name, self.department_id, self.start_date, self.end_date)
