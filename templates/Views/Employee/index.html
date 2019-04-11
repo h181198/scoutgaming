@@ -10,9 +10,11 @@
                 {% include 'Views/Employee/list.html' %}
             </div>
         </div>
-        <div id="addDiv"
-             style="visibility: hidden; position: absolute; top: 20%; width: 45%; height: 1200px; background-color: white;">
-            {% include 'Views/Employee/add.html' %}
-        </div>
+        {% include 'Views/Employee/add.html' %}
+        <!-- Button trigger modal -->
+        <button id="addButton" type="button" class="btn btn-dark" data-toggle="modal" data-target="#addModal">Add new
+        </button>
+
+
     </div>
 {% endblock %}

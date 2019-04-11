@@ -20,8 +20,8 @@
         <th style="width: 4em;"></th>
     </tr>
     </thead>
-    {% for emp in data|sort(attribute='id') %}
-        <tr id="{{ emp.id }}">
+    {% for emp in data|sort(attribute='employee_number') %}
+        <tr id="{{ emp.id }}" onclick="alert({{ emp.id }})">
             <td>
                 {{ emp.employee_number }}
             </td>
@@ -56,7 +56,6 @@
         </tr>
     {% endfor %}
 </table>
-<button id="addButton" class="btn btn-dark" onclick="add('/employee/add')">Add new</button>
 <meta id="departmentData" content="{{ department_list }}">
 
 

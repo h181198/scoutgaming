@@ -33,7 +33,9 @@ def delete_employee():
 @employee_page.route('/employee/update', methods=['POST'])
 def update_employee():
     try:
-        data = create_data(str(request.data))
+        print(request.data.decode('utf8'))
+        data = create_data(str(request.data.decode('utf8')))
+        print(data)
         EmployeeService.update_employee(session, int(data[0]), data[1], data[2], int(data[3]), data[4], data[5])
         return EmployeeService.get_employee_json(session, data[0])
     except TemplateNotFound:
@@ -43,7 +45,7 @@ def update_employee():
 @employee_page.route('/employee/quit')
 def employee_equipment():
     try:
-        data = EmployeeService.get_quit_employees(session,)
+        data = EmployeeService.get_quit_employees(session, )
         department_data = DepartmentService.get_all_departments(session)
         department_list = DepartmentService.get_all_departments_json(database=database)
         return render_template('Views/Employee/index.html', data=data, department_data=department_data,
@@ -55,10 +57,12 @@ def employee_equipment():
 @employee_page.route('/employee/add', methods=['POST'])
 def add_employee():
     try:
-        data = create_data(str(request.data))
-        employee = EmployeeService.add_employee(session=session, employee_number=data[0], name=data[1],
-                                                department_id=int(data[2]), start_date=data[3], end_date=data[4])
-        return EmployeeService.get_employee_json(session=session, emp_id=employee.id)
+        employee = EmployeeService.add_employee(session=session, employee_number=request.form['id'],
+                                                name=request.form['name'],
+                                                department_id=int(request.form['department']),
+                                                start_date=request.form['start-date'],
+                                                end_date=request.form['end-date'])
+        return redirect(url_for('employee.employee'))
     except TemplateNotFound:
         abort(404)
     return ""
