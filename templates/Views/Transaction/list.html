@@ -5,6 +5,9 @@
             Equipment
         </th>
         <th>
+            Buy date
+        </th>
+        <th>
             Employee
         </th>
         <th>
@@ -16,13 +19,16 @@
     </thead>
     {% for tra in data|sort(attribute='id') %}
         <tr id="{{ tra.id }}">
-            <td>
-                {% for equ in equipment_data %}
-                    {% if tra.equipment_id == equ.id %}
-                        {{ equ.description }}
-                    {% endif %}
-                {% endfor %}
-            </td>
+            {% for equ in equipment_data %}
+                {% if tra.equipment_id == equ.id %}
+                <td>
+                    {{ equ.description }}
+                </td>
+                <td>
+                    {{ equ.buy_date }}
+                </td>
+                {% endif %}
+            {% endfor %}
             <td>
                 {% for emp in employee_data %}
                     {% if tra.employee_id == emp.id %}
