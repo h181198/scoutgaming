@@ -63,9 +63,9 @@ class WarningService:
     @staticmethod
     def get_equipment_without_employee(session):
         eq_list = []
-        all_eq = EqS.get_all_equipments(session)
+        all_eq = EqS.get_all_equipments(session) 
         for eq in all_eq:
-            if len(TS.find_current_equipment(session, eq.id)) == 0:
+            if len(TS.find_equipment_transactions(session, eq.id)) == 0:
                 eq_list.append(eq)
 
         return eq_list
