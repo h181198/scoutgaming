@@ -3,16 +3,21 @@ from jinja2 import TemplateNotFound
 from Services.DeleteService import DeleteService
 from Services.EmployeeService import EmployeeService
 from Services.DepartmentService import DepartmentService
-from Helpers.HelpMethods import create_data, create_single_id
+from Helpers.HelpMethods import create_data, create_single_id, string_to_list
 from Controllers import session, database
 
 employee_page = Blueprint('employee', __name__)
 
 
-@employee_page.route('/employee')
+@employee_page.route('/employee', methods=['POST', 'GET'])
 def employee():
     try:
-        data = EmployeeService.get_all_employees(session=session)[3:]
+        data = request.form.get('data')
+
+        if data is not None and len(data) > 0:
+            data = string_to_list(session, data)
+        else:
+            data = EmployeeService.get_all_employees(session=session)[3:]
         department_data = DepartmentService.get_all_departments(session)
         department_list = DepartmentService.get_all_departments_json(database=database)
         return render_template('Views/Employee/index.html', data=data, department_data=department_data,
@@ -38,18 +43,6 @@ def update_employee():
         print(data)
         EmployeeService.update_employee(session, int(data[0]), data[1], data[2], int(data[3]), data[4], data[5])
         return EmployeeService.get_employee_json(session, data[0])
-    except TemplateNotFound:
-        abort(404)
-
-
-@employee_page.route('/employee/quit')
-def employee_equipment():
-    try:
-        data = EmployeeService.get_quit_employees(session, )
-        department_data = DepartmentService.get_all_departments(session)
-        department_list = DepartmentService.get_all_departments_json(database=database)
-        return render_template('Views/Employee/index.html', data=data, department_data=department_data,
-                               department_list=department_list)
     except TemplateNotFound:
         abort(404)
 
