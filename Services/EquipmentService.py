@@ -59,12 +59,12 @@ class EquipmentService:
     @staticmethod
     def get_all_equipments_json(session):
         data = EquipmentService.get_all_equipments(session)
-        json = "["
+        result_json = "["
         for eq in data:
             eq_json = EquipmentService.get_equipment_json(session, eq.id)
-            json += eq_json + ","
+            result_json += eq_json + ","
 
-        return json[:len(json)-1] + "]"
+        return result_json[:len(result_json)-1] + "]"
 
     # Get an equipment as json
     @staticmethod

@@ -1,7 +1,7 @@
 <table class="table table-hover" id="table">
     <thead class="thead-dark">
     <tr>
-        <th>
+        <th class="ignore">
             Id
         </th>
         <th>
@@ -33,11 +33,10 @@
             </td>
 
             <td>
-                <form action="/department/delete/{{ dep.id }}" method="POST">
-                    <input class="btn btn-danger" type="submit" value="Delete"/>
-                </form>
+                <button type="button" class="btn btn-danger" onclick="deleteRow({{ dep.id }}, '/department/delete')">
+                    Delete
+                </button>
             </td>
         </tr>
     {% endfor %}
 </table>
-<button id="addButton" class="btn btn-dark" onclick="addDepartment()">Add new</button>

@@ -7,7 +7,7 @@ class DepartmentService:
     @staticmethod
     def add_department(session, country=None, unit=None, department=None):
         is_string = isinstance(unit, str) and isinstance(country, str)
-        is_none = country is None or unit is None
+        is_none = country is None or unit is None or (unit == "" and country == "")
 
         if not is_none and is_string:
             department = Model(country=country, unit=unit)
@@ -25,14 +25,28 @@ class DepartmentService:
     @staticmethod
     def update_department(session, dep_id, country, unit):
         department = DepartmentService.find_department(session, dep_id)
-        department.country = country
-        department.unit = unit
+        if country != "":
+            department.country = country
+        if unit != "":
+            department.unit = unit
         session.commit()
 
     # Get a list of all departments
     @staticmethod
     def get_all_departments(session):
         return session.query(Model)
+
+    # Get department ass json
+    @staticmethod
+    def get_department_json(session, dep_id):
+        department = DepartmentService.find_department(session, dep_id)
+        my_json = {
+            'id': department.id,
+            'display_id': department.id,
+            'country': department.country,
+            'unit': department.unit
+        }
+        return json.dumps(my_json, indent=4, sort_keys=False, default=str)
 
     # Get list of all departments as objects
     @staticmethod
