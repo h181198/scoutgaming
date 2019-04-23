@@ -7,9 +7,16 @@ import json
 class TransactionService:
     # Add a new Transaction return transaction if successful
     @staticmethod
-    def add_transaction(session, equipment_id=None, employee_id=None, transaction=None):
-        if (EmS.find_employee(session, employee_id) is not None and
-                EqS.find_equipment(session, equipment_id) is not None):
+    def add_transaction(session, equipment_id=None, employee_id=None, transfer_date=None, transaction=None):
+        exists = (EmS.find_employee(session, employee_id) is not None and
+                  EqS.find_equipment(session, equipment_id) is not None)
+
+        if exists and transfer_date is not None and isinstance(transfer_date, str) and transfer_date != "":
+            transaction = Model(equipment_id=equipment_id, employee_id=employee_id, transfer_date=transfer_date)
+            session.add(transaction)
+            session.commit()
+            return transaction
+        elif exists:
             transaction = Model(equipment_id=equipment_id, employee_id=employee_id)
             session.add(transaction)
             session.commit()
@@ -24,14 +31,14 @@ class TransactionService:
 
     # Update Transaction
     @staticmethod
-    def update_transaction(session, tran_id, equ_id, emp_id):
+    def update_transaction(session, tran_id, equ_id, emp_id, transfer_date):
         transaction = TransactionService.find_transaction(session, tran_id)
-
         if isinstance(emp_id, type(None)) or EmS.find_employee(session, emp_id) is not None:
             transaction.employee_id = emp_id
         if isinstance(equ_id, type(None)) or EqS.find_equipment(session, equ_id) is not None:
             transaction.equipment_id = equ_id
-
+        if isinstance(transfer_date, str) and transaction != "":
+            transaction.transfer_date = transfer_date
         session.commit()
 
     # Get a list of all Transactions
@@ -44,6 +51,29 @@ class TransactionService:
     def get_all_transactions_json(database):
         data = database.execute("SELECT * FROM transactions")
         return json.dumps([dict(r) for r in data])
+
+    @staticmethod
+    def get_transaction_json(session, tran_id):
+        tran = TransactionService.find_transaction(session, tran_id)
+        eq = EqS.find_equipment(session, tran.equipment_id)
+        emp = EmS.find_employee(session, tran.employee_id)
+        eq_description, eq_buy, emp_name = ["None"] * 3
+
+        if eq is not None:
+            eq_description = eq.description
+            eq_buy = eq.buy_date
+
+        if emp is not None:
+            emp_name = emp.name
+
+        my_json = {
+            'id': tran.id,
+            'equipment_id': eq_description,
+            'buy_date': eq_buy,
+            'employee_id': emp_name,
+            'transfer_date': tran.transfer_date
+        }
+        return json.dumps(my_json, indent=4, sort_keys=False, default=str)
 
     # Get a list of all the transactions of one employee
     @staticmethod

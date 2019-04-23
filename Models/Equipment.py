@@ -16,7 +16,7 @@ class Equipment(Base):
     note = Column(String)
 
     def __repr__(self):
-        return "<Equipment (id='%i', model='%s', buy_date='%s', receipt='%s', price='%i', currency='%s', " \
+        return "<Equipment (id='%i', model='%s', buy_date='%s', receipt='%s', price='%r', currency='%s', " \
                "description='%s', note='%s') >" % \
                (self.id, self.model, self.buy_date, self.receipt_id, self.price,
                 self.currency, self.description, self.note)

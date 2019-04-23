@@ -13,5 +13,5 @@ class Transaction(Base):
     transfer_date = Column(DATE, default=func.now())
 
     def __repr__(self):
-        return "<Transaction (id='%i', employee_id='%i', equipment_id='%i', transfer_date='%s') >" % \
+        return "<Transaction (id='%i', employee_id='%r', equipment_id='%r', transfer_date='%s') >" % \
                (self.id, self.employee_id, self.equipment_id, self.transfer_date)

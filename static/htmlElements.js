@@ -39,33 +39,48 @@ function createTextField(text = null) {
 
 /**
  * Create a dropdown menu, you should be able to find the data as an json file in a meta-tag in html
- * @param dropdownType
+ * @param model, which model the dropdown will be created based on
+ * @param dropdownType, data to be found in  the meta-tag
  * @param currentValue
  * @returns {HTMLElement}
  */
-function createDropdown(dropdownType, currentValue = null) {
+function createDropdown(model, dropdownType, currentValue = null) {
 
     let dropdownData = document.getElementById(dropdownType).content;
+    console.log((dropdownData));
     let myObject = JSON.parse(dropdownData);
-    let dropdownFiled = document.createElement("select");
+    let dropdownField = document.createElement("select");
 
     myObject.forEach(result => {
             let option = document.createElement("option");
             option.value = result.id;
-            option.text = result.unit;
-            dropdownFiled.appendChild(option);
+            switch(model) {
+                case "department":
+                    option.text = result.unit;
+                    break;
+                case "equipment":
+                    option.text = result.description;
+                    break;
+                case "receipt":
+                    option.text = result.id;
+                    break;
+                default:
+                    option.text = result.name;
+                    break;
+            }
+            dropdownField.appendChild(option);
         }
     );
     if (currentValue != null) {
-        for (let j = 0; j < dropdownFiled.options.length; j++) {
-            if (dropdownFiled.options[j].text === currentValue) {
-                dropdownFiled.selectedIndex = j;
+        for (let j = 0; j < dropdownField.options.length; j++) {
+            if (dropdownField.options[j].text === currentValue) {
+                dropdownField.selectedIndex = j;
                 break;
             }
         }
     }
 
-    return dropdownFiled;
+    return dropdownField;
 }
 
 /**

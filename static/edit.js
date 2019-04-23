@@ -1,4 +1,3 @@
-
 /**
  * This function will replace all input in selected row and display editable fields witch the user can change the content
  * @param id
@@ -12,13 +11,23 @@ function editRow(id, url) {
         let value = row[i].innerHTML;
         value = value.split('  ').join('').split('\n').join('');
 
-        if (value.match('None') != null) {
-            row[i].innerHTML = "";
-            row[i].appendChild(createDateField());
+        console.log(table.rows[0].cells[i].classList);
+
+        if (table.rows[0].cells[i].classList.contains("ignore")) {
+
         } else if (table.rows[0].cells[i].classList.contains("department")) {
             row[i].innerHTML = "";
-            row[i].appendChild(createDropdown("departmentData", value));
-        } else if (value.match('([12]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\\d|3[01]))')) {
+            row[i].appendChild(createDropdown("department","departmentData", value));
+        } else if (table.rows[0].cells[i].classList.contains("equipment")) {
+            row[i].innerHTML = "";
+            row[i].appendChild(createDropdown("equipment","equipmentData", value));
+        } else if (table.rows[0].cells[i].classList.contains("receipt")) {
+            row[i].innerHTML = "";
+            row[i].appendChild(createDropdown("receipt","receiptData", value));
+        } else if (table.rows[0].cells[i].classList.contains("employee")) {
+            row[i].innerHTML = "";
+            row[i].appendChild(createDropdown("employee","employeeData", value));
+        } else if (table.rows[0].cells[i].classList.contains("date")) {
             row[i].innerHTML = "";
             row[i].appendChild(createDateField(value));
         } else {
@@ -43,7 +52,9 @@ function editRow(id, url) {
     confirmButton.addEventListener("click", function () {
         let sendString = "#" + id;
         for (let i = 0; i < row.length - 2; i++) {
-            sendString += "#" + row[i].children[0].value;
+            if (!table.rows[0].cells[i].classList.contains("ignore")) {
+                sendString += "#" + row[i].children[0].value;
+            }
         }
         /*
         We use ajax to connect with the server since we do not want to reload the page, this method will return a json on callback
@@ -53,11 +64,11 @@ function editRow(id, url) {
             if (request.readyState === XMLHttpRequest.DONE && request.status === 200) {
                 setRowToText(id, row, url, JSON.parse(request.responseText));
                 updateStatus("update");
-            }else if(request.status === 404){
+            } else if (request.status === 404) {
                 updateStatus()
             }
         };
-        request.open("POST", "/employee/update", true);
+        request.open("POST", url, true);
         request.send(sendString);
     });
 

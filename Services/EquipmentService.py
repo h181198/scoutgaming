@@ -57,9 +57,30 @@ class EquipmentService:
 
     # Get a list of all equipment as json
     @staticmethod
-    def get_all_equipments_json(database):
-        data = database.execute("SELECT * FROM equipments")
-        return json.dumps([dict(r) for r in data])
+    def get_all_equipments_json(session):
+        data = EquipmentService.get_all_equipments(session)
+        json = "["
+        for eq in data:
+            eq_json = EquipmentService.get_equipment_json(session, eq.id)
+            json += eq_json + ","
+
+        return json[:len(json)-1] + "]"
+
+    # Get an equipment as json
+    @staticmethod
+    def get_equipment_json(session, emp_id):
+        eq = EquipmentService.find_equipment(session, int(emp_id))
+        my_json = {
+            'id': eq.id,
+            'price': eq.price,
+            'currency': eq.currency,
+            'model': eq.model,
+            'buy_date': eq.buy_date,
+            'receipt_id': eq.receipt_id,
+            'description': eq.description,
+            'note': eq.note
+        }
+        return json.dumps(my_json, indent=4, sort_keys=False, default=str)
 
     # Find equipment from id
     @staticmethod

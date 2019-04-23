@@ -1,0 +1,52 @@
+<!-- Modal -->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog"
+      aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Employee</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/employee/add" method="post">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="id">Id</label><br/>
+                            <input type="text" name="id" id="id">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="name">Name</label><br/>
+                            <input type="text" name="name" id="name">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="departments">Department</label><br/>
+                        <select id="departments" name="department">
+
+                            {% for dep in department_data %}
+                                <option value="{{ dep.id }}">{{ dep.unit }}</option>
+                            {% endfor %}
+
+                        </select>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="start-date">Start Date</label><br/>
+                            <input type="date" name="start-date" id="start-date">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="end-date">End Date</label><br/>
+                            <input type="date" name="end-date" id="end-date">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Confirm</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
