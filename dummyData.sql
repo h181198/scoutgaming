@@ -5,6 +5,7 @@
   ('Ukraina', 'Lviv Stat Center');
 
   INSERT INTO receipts VALUES
+  ('None','',0000),
   ('201459-1', '59', 2014),
   ('201459-2', '59', 2014),
   ('2014247', '247', 2014),
@@ -87,6 +88,7 @@
   ('2018ER114-16', 'ER114', 2018);
 
   INSERT INTO employees (employee_number, department_id, name, start_date, end_date) VALUES
+  ('N', NULL, 'None', NULL ,NULL ),
   ('D', NULL, 'DELETED', NULL, NULL),
   ('S', NULL, 'SOLD', NULL, NULL),
   ('G', NULL, 'GONE', NULL, NULL),
