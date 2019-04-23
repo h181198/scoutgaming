@@ -54,12 +54,12 @@ class EmployeeService:
     @staticmethod
     def get_all_employees_json(session):
         data = EmployeeService.get_all_employees(session)
-        json = "["
+        result_json = "["
         for emp in data:
             emp_json = EmployeeService.get_employee_json(session, emp.id)
-            json += emp_json + ","
+            result_json += emp_json + ","
 
-        return json[:len(json)-1] + "]"
+        return result_json[:len(result_json)-1] + "]"
 
     # Get an employee as json
     @staticmethod

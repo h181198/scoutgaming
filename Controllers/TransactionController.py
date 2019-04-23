@@ -34,7 +34,6 @@ def transaction():
 @transaction_page.route('/transaction/add', methods=['POST'])
 def add_transaction():
     try:
-        print(request.form["transfer-date"])
         TransactionService.add_transaction(session=session, equipment_id=int(request.form['equipment']),
                                            employee_id=int(request.form['employee']),
                                            transfer_date=request.form["transfer-date"])

@@ -48,9 +48,14 @@ class TransactionService:
 
     # Get a list of all transactions as json
     @staticmethod
-    def get_all_transactions_json(database):
-        data = database.execute("SELECT * FROM transactions")
-        return json.dumps([dict(r) for r in data])
+    def get_all_transactions_json(session):
+        data = TransactionService.get_all_transactions(session)
+        result_json = "["
+        for tran in data:
+            tran_json = TransactionService.get_transaction_json(session, tran.id)
+            result_json += tran_json + ","
+
+        return result_json[:len(result_json) - 1] + "]"
 
     @staticmethod
     def get_transaction_json(session, tran_id):

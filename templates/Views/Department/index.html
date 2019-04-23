@@ -2,10 +2,19 @@
 {% block body %}
 
     <div class="container"><br/><br/>
+        <div id="status">
+
+        </div>
         <div class="row justify-content-md-center">
             <div class="col">
                 {% include 'Views/Department/list.html' %}
             </div>
         </div>
+        {% include 'Views/Department/add.html' %}
+
+        <!-- Button trigger modal -->
+        <button id="addButton" type="button" class="btn btn-dark" data-toggle="modal" data-target="#addModal">
+            Add new
+        </button>
     </div>
 {% endblock %}

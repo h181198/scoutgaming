@@ -47,7 +47,6 @@ function createTextField(text = null) {
 function createDropdown(model, dropdownType, currentValue = null) {
 
     let dropdownData = document.getElementById(dropdownType).content;
-    console.log((dropdownData));
     let myObject = JSON.parse(dropdownData);
     let dropdownField = document.createElement("select");
 

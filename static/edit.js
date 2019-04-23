@@ -11,8 +11,6 @@ function editRow(id, url) {
         let value = row[i].innerHTML;
         value = value.split('  ').join('').split('\n').join('');
 
-        console.log(table.rows[0].cells[i].classList);
-
         if (table.rows[0].cells[i].classList.contains("ignore")) {
 
         } else if (table.rows[0].cells[i].classList.contains("department")) {
