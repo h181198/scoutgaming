@@ -1,0 +1,42 @@
+<table class="table table-hover" id="table">
+    <thead class="thead-dark">
+    <tr>
+        <th class="ignore">
+            Id
+        </th>
+        <th>
+            Supplement
+        </th>
+        <th>
+            Year
+        </th>
+        <th style="width: 6em;"></th>
+        <th style="width: 4em;"></th>
+    </tr>
+    </thead>
+    {% for rec in data|sort(attribute='id') %}
+        <tr id="{{ rec.id }}">
+            <td>
+                {{ rec.id }}
+            </td>
+            <td>
+                {{ rec.supplement }}
+            </td>
+            <td>
+                {{ rec.year }}
+            </td>
+            <td>
+                <button type="button" class="edit btn btn-secondary"
+                        onclick="editRow({{ rec.id }}, '/receipt/update')">
+                    Edit
+                </button>
+            </td>
+
+            <td>
+                <button type="button" class="btn btn-danger" onclick="deleteRow({{ rec.id }}, '/receipt/delete')">
+                    Delete
+                </button>
+            </td>
+        </tr>
+    {% endfor %}
+</table>

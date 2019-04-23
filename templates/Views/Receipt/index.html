@@ -1,8 +1,20 @@
 {% extends 'UIElements/layout.html' %}
 {% block body %}
-    <div class="container"><br/>
-        <div>
-            <button type="button" class="btn btn-info">Gonna put a link here</button>
+
+    <div class="container"><br/><br/>
+        <div id="status">
+
         </div>
+        <div class="row justify-content-md-center">
+            <div class="col">
+                {% include 'Views/Receipt/list.html' %}
+            </div>
+        </div>
+        {% include 'Views/Receipt/add.html' %}
+
+        <!-- Button trigger modal -->
+        <button id="addButton" type="button" class="btn btn-dark" data-toggle="modal" data-target="#addModal">
+            Add new
+        </button>
     </div>
 {% endblock %}
