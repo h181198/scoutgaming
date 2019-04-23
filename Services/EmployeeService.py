@@ -52,15 +52,25 @@ class EmployeeService:
 
     # Get a list of all employees as json
     @staticmethod
-    def get_all_employees_json(database):
-        data = database.execute("SELECT * FROM employees")
-        return json.dumps([dict(r) for r in data])
+    def get_all_employees_json(session):
+        data = EmployeeService.get_all_employees(session)
+        json = "["
+        for emp in data:
+            emp_json = EmployeeService.get_employee_json(session, emp.id)
+            json += emp_json + ","
+
+        return json[:len(json)-1] + "]"
 
     # Get an employee as json
     @staticmethod
     def get_employee_json(session, emp_id):
         emp = EmployeeService.find_employee(session, int(emp_id))
-        department_unit = DS.find_department(session, emp.department_id).unit
+
+        department_unit = "None"
+        department = DS.find_department(session, emp.department_id)
+        if department is not None:
+            department_unit = department.unit
+
         my_json = {
             'id': emp.id,
             'employee_number': emp.employee_number,

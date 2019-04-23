@@ -1,16 +1,16 @@
 <table class="table table-hover" id="table">
     <thead class="thead-dark">
     <tr>
-        <th>
+        <th class="equipment">
             Equipment
         </th>
-        <th>
+        <th class="ignore">
             Buy date
         </th>
-        <th>
+        <th class="employee">
             Employee
         </th>
-        <th>
+        <th class="date">
             Transfer Date
         </th>
         <th style="width: 6em;"></th>
@@ -40,20 +40,19 @@
                 {{ tra.transfer_date }}
             </td>
             <td>
-                <button type="button" class="btn btn-secondary" id="editButton" onclick="editRow({{ tra.id }}, '/transaction/update')">
+                <button type="button" class="btn btn-secondary"
+                        onclick="editRow({{ tra.id }}, '/transaction/update')">
                     Edit
                 </button>
             </td>
 
             <td>
-                <form action="/transaction/delete/{{ tra.id }}" method="POST">
-                    <input class="btn btn-danger" type="submit" value="Delete"/>
-
-
-                </form>
+                <button type="button" class="btn btn-danger" onclick="deleteRow({{ tra.id }}, '/transaction/delete')">
+                    Delete
+                </button>
             </td>
         </tr>
     {% endfor %}
 </table>
-<button class="btn btn-secondary">Add new</button>
-
+<meta id="equipmentData" content="{{ equipment_list }}">
+<meta id="employeeData" content="{{ employee_list }}">

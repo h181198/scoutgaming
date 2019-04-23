@@ -1,0 +1,44 @@
+<!-- Modal -->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog"
+      aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Add Transaction</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form action="/transaction/add" method="post">
+                <div class="modal-body">
+                    <div class="mb-3">
+                        <label for="employees">Employee</label><br />
+                        <select id="employees" name="employee">
+                            {% for emp in employee_data %}
+                                <option value="{{ emp.id }}">{{ emp.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="equipments">Equipment</label><br />
+                        <select id="equipments" name="equipment">
+                            {% for equ in equipment_data %}
+                                <option value="{{ equ.id }}">{{ equ.description }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="transfer-date">Transfer Date</label><br/>
+                            <input type="date" name="transfer-date" id="transfer-date">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Confirm</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

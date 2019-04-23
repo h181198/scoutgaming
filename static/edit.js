@@ -11,11 +11,22 @@ function editRow(id, url) {
         let value = row[i].innerHTML;
         value = value.split('  ').join('').split('\n').join('');
 
+        console.log(table.rows[0].cells[i].classList);
+
         if (table.rows[0].cells[i].classList.contains("ignore")) {
 
         } else if (table.rows[0].cells[i].classList.contains("department")) {
             row[i].innerHTML = "";
-            row[i].appendChild(createDropdown("departmentData", value));
+            row[i].appendChild(createDropdown("department","departmentData", value));
+        } else if (table.rows[0].cells[i].classList.contains("equipment")) {
+            row[i].innerHTML = "";
+            row[i].appendChild(createDropdown("equipment","equipmentData", value));
+        } else if (table.rows[0].cells[i].classList.contains("receipt")) {
+            row[i].innerHTML = "";
+            row[i].appendChild(createDropdown("receipt","receiptData", value));
+        } else if (table.rows[0].cells[i].classList.contains("employee")) {
+            row[i].innerHTML = "";
+            row[i].appendChild(createDropdown("employee","employeeData", value));
         } else if (table.rows[0].cells[i].classList.contains("date")) {
             row[i].innerHTML = "";
             row[i].appendChild(createDateField(value));
@@ -45,7 +56,6 @@ function editRow(id, url) {
                 sendString += "#" + row[i].children[0].value;
             }
         }
-        console.log(sendString);
         /*
         We use ajax to connect with the server since we do not want to reload the page, this method will return a json on callback
          */
