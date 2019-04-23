@@ -43,6 +43,18 @@ class ReceiptService:
         data = database.execute("SELECT * FROM receipts")
         return json.dumps([dict(r) for r in data])
 
+    # Get receipt as json
+    @staticmethod
+    def get_receipt_json(session, rec_id):
+        receipt = ReceiptService.find_receipt(session, rec_id)
+        result_json = {
+            'id': receipt.id,
+            'display_id': receipt.id,
+            'supplement': receipt.supplement,
+            'year': receipt.year
+        }
+        return json.dump(result_json, indent=4, sort_keys=False, default=str)
+
     # Find receipt from id
     @staticmethod
     def find_receipt(session, rec_id):
