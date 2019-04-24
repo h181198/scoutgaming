@@ -1,44 +1,73 @@
 <!-- Modal -->
 <div class="modal fade" id="addModal" tabindex="-1" role="dialog"
-      aria-hidden="true">
+     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Add Employee</h4>
+                <h4 class="modal-title">Add Equipment</h4>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="/employee/add" method="post">
+            <form action="/equipment/add" method="post" data-toggle="validator">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label for="id">Id</label><br/>
-                            <input type="text" name="id" id="id">
+                            <label for="price">Price</label><br/>
+                            <input type="text" name="price" id="price">
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="name">Name</label><br/>
-                            <input type="text" name="name" id="name">
+                            <label for="currency">Currency</label><br/>
+                            <input type="text" name="currency" id="currency" required>
                         </div>
-                    </div>
-                    <div class="mb-3">
-                        <label for="departments">Department</label><br/>
-                        <select id="departments" name="department">
-
-                            {% for dep in department_data %}
-                                <option value="{{ dep.id }}">{{ dep.unit }}</option>
-                            {% endfor %}
-
-                        </select>
                     </div>
                     <div class="row">
                         <div class="col-md-6 mb-3">
-                            <label for="start-date">Start Date</label><br/>
-                            <input type="date" name="start-date" id="start-date">
+                            <label for="model">Model</label><br/>
+                            <input type="text" name="model" id="model">
                         </div>
                         <div class="col-md-6 mb-3">
-                            <label for="end-date">End Date</label><br/>
-                            <input type="date" name="end-date" id="end-date">
+                            <label for="buy-date">Buy Date</label><br/>
+                            <input type="date" name="buy-date" id="buy-date" required>
+                        </div>
+                    </div>
+                    <div class="row">
+
+                        <div class="col-md-6 mb-3">
+                            <label for="receipt">Receipt</label><br/>
+                            <select id="receipt" name="receipt">
+                                {% for res in receipts %}
+                                    <option value="{{ res.id }}">{{ res.id }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+
+                        <div class="col-md-6 mb-3">
+                            <label for="description">Description</label><br/>
+                            <input type="text" name="description" id="description">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="note">Note</label><br/>
+                            <input type="text" name="note" id="note">
+                        </div>
+                    </div>
+                    </br>
+                    <h5>Transaction:</h5>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="employee">Employee</label><br/>
+                            <select id="employee" name="employee">
+                                {% for emp in employee_data %}
+                                    <option value="{{ emp.id }}">{{ emp.name }}</option>
+                                {% endfor %}
+
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="transfer-date">Transfer date</label><br/>
+                            <input type="date" name="transfer-date" id="transfer-date">
                         </div>
                     </div>
                 </div>
