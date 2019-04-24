@@ -9,21 +9,21 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="/employee/add" method="post">
+            <form action="/employee/add" method="post" data-toggle="validator">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="id">Id</label><br/>
-                            <input type="text" name="id" id="id">
+                            <input type="text" name="id" id="id" required>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="name">Name</label><br/>
-                            <input type="text" name="name" id="name">
+                            <input type="text" name="name" id="name" required>
                         </div>
                     </div>
                     <div class="mb-3">
                         <label for="departments">Department</label><br/>
-                        <select id="departments" name="department">
+                        <select id="departments" name="department" required>
 
                             {% for dep in department_data %}
                                 <option value="{{ dep.id }}">{{ dep.unit }}</option>
@@ -34,7 +34,7 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="start-date">Start Date</label><br/>
-                            <input type="date" name="start-date" id="start-date">
+                            <input type="date" name="start-date" id="start-date" required>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="end-date">End Date</label><br/>

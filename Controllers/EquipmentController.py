@@ -68,14 +68,20 @@ def add_employee():
             receipt = None
 
         employee = request.form['employee']
-        print(employee)
+        if employee == '1':
+            employee = None
 
         equipment = EquipmentService.add_equipment(session=session, price=int(request.form['price']),
                                                    currency=request.form['currency'],
                                                    model=request.form['model'], buy_date=request.form['buy-date'],
                                                    receipt_id=receipt,
                                                    description=request.form['description'],
-                                                   note=request.form['note'])
+                                                   note=request.form['note']
+                                                   )
+        if employee is not None and request.form['transfer-date'] is not "":
+            transaction = TransactionService.add_transaction(session=session, equipment_id=int(equipment.id),
+                                                             employee_id=int(employee),
+                                                             transaction=request.form['transfer-date'])
         return redirect(url_for('equipment.equipment'))
     except TemplateNotFound:
         abort(404)

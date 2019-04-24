@@ -9,7 +9,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="/equipment/add" method="post">
+            <form action="/equipment/add" method="post" data-toggle="validator">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-6 mb-3">
@@ -18,7 +18,7 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="currency">Currency</label><br/>
-                            <input type="text" name="currency" id="currency">
+                            <input type="text" name="currency" id="currency" required>
                         </div>
                     </div>
                     <div class="row">
@@ -28,7 +28,7 @@
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="buy-date">Buy Date</label><br/>
-                            <input type="date" name="buy-date" id="buy-date">
+                            <input type="date" name="buy-date" id="buy-date" required>
                         </div>
                     </div>
                     <div class="row">

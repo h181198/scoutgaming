@@ -3,7 +3,10 @@
  * @param id
  * @param url
  */
+var stack = [true];
 function editRow(id, url) {
+    $('tr').attr("data-toggle", "");
+    stack.push(false);
     let table = document.getElementById("table");
     let row = document.getElementById(id).cells;
 
@@ -45,7 +48,6 @@ function editRow(id, url) {
                 sendString += "#" + row[i].children[0].value;
             }
         }
-        console.log(sendString);
         /*
         We use ajax to connect with the server since we do not want to reload the page, this method will return a json on callback
          */
@@ -54,6 +56,11 @@ function editRow(id, url) {
             if (request.readyState === XMLHttpRequest.DONE && request.status === 200) {
                 setRowToText(id, row, url, JSON.parse(request.responseText));
                 updateStatus("update");
+                stack.pop();
+                if (stack[stack.length-1]) {
+                    $('tr').attr("data-toggle", "modal");
+                }
+
             } else if (request.status === 404) {
                 updateStatus()
             }
