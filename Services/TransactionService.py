@@ -37,7 +37,7 @@ class TransactionService:
             transaction.employee_id = emp_id
         if isinstance(equ_id, type(None)) or EqS.find_equipment(session, equ_id) is not None:
             transaction.equipment_id = equ_id
-        if isinstance(transfer_date, str) and transaction != "":
+        if isinstance(transfer_date, str) and transfer_date != "":
             transaction.transfer_date = transfer_date
         session.commit()
 
