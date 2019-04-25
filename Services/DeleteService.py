@@ -15,10 +15,10 @@ class DeleteService:
             return False
 
         # Find all equipment with that receipt and replace with null
-        equipment_list = EqS.get_all_equipment(session)
+        equipment_list = EqS.get_all_equipments(session)
         for equ in equipment_list:
             if equ.receipt_id == rec_id:
-                EqS.update_equipment(session, equ.id, equ.price, equ.model,
+                EqS.update_equipment(session, equ.id, equ.price, equ.currency, equ.model,
                                      equ.buy_date, None, equ.description, equ.note)
 
         session.delete(receipt)
@@ -37,7 +37,7 @@ class DeleteService:
         employee_list = EmS.get_all_employees(session)
         for emp in employee_list:
             if emp.department_id == dep_id:
-                EmS.update_employee(session, emp.id, emp.name, None, emp.start_date, emp.end_date)
+                EmS.update_employee(session, emp.id,emp.employee_number, emp.name, None, emp.start_date, emp.end_date)
 
         session.delete(department)
         session.commit()
@@ -73,7 +73,7 @@ class DeleteService:
         for trans in transaction_list:
             if trans.employee_id == emp_id:
                 # Change None to default value if wanted
-                TS.update_transaction(session, trans.id, trans.equipment_id, None)
+                TS.update_transaction(session, trans.id, trans.equipment_id, None, None)
 
         session.delete(employee)
         session.commit()
