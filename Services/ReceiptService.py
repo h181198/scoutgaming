@@ -53,7 +53,7 @@ class ReceiptService:
             'supplement': receipt.supplement,
             'year': receipt.year
         }
-        return json.dump(result_json, indent=4, sort_keys=False, default=str)
+        return json.dumps(result_json, indent=4, sort_keys=False, default=str)
 
     # Find receipt from id
     @staticmethod
