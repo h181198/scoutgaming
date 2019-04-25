@@ -99,6 +99,8 @@ function editRow(id, url, deleteUrl) {
             defaultValues[i] = createNormalText("equipment", "equipmentData", row[i].children[0].value);
         } else if (table.rows[0].cells[i].classList.contains("employee")) {
             defaultValues[i] = createNormalText("employee", "employeeData", row[i].children[0].value);
+        } else if (table.rows[0].cells[i].classList.contains("receipt")) {
+            defaultValues[i] = createNormalText("receipt", "receiptData", row[i].children[0].value);
         } else {
             defaultValues[i] = row[i].children[0].value;
         }

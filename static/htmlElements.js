@@ -105,6 +105,11 @@ function createNormalText(model, dropdownType, currentValue = null) {
                         myString = result.name;
                     }
                     break;
+                case "receipt":
+                    if (parseInt(result.id) === parseInt(currentValue)) {
+                        myString = result.comb_id;
+                    }
+                    break;
                 default:
                     myString = "None";
                     break;
