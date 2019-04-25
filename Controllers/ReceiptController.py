@@ -32,8 +32,8 @@ def add_receipt():
 def update_receipt():
     try:
         data = create_data(str(request.data.decode('utf8')))
-        ReceiptService.update_receipt(session, data[0], data[1], int(data[2]))
-        return ReceiptService.get_receipt_json(session, data[0])
+        ReceiptService.update_receipt(session, int(data[0]), data[2], int(data[1]))
+        return ReceiptService.get_receipt_json(session, int(data[0]))
     except TemplateNotFound:
         abort(404)
 
@@ -41,7 +41,7 @@ def update_receipt():
 @receipt_page.route('/receipt/delete', methods=['POST'])
 def delete_receipt():
     try:
-        DeleteService.delete_receipt(session=session, rec_id=create_single_id(str(request.data))[0])
+        DeleteService.delete_receipt(session=session, rec_id=create_single_id(int(str(request.data))[0]))
     except TemplateNotFound:
         abort(404)
     return ""

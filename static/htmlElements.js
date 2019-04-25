@@ -61,7 +61,7 @@ function createDropdown(model, dropdownType, currentValue = null) {
                     option.text = "Id: " + result.id + ", " + result.description;
                     break;
                 case "receipt":
-                    option.text = result.id;
+                    option.text = result.comb_id;
                     break;
                 default:
                     option.text = result.name;

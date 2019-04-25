@@ -17,6 +17,7 @@ def equipment():
         data = request.form.get('data')
         employee_data = EmployeeService.get_all_employees(session=session)
         receipt_data = ReceiptService.get_all_receipts(session=session)
+        receipt_list = ReceiptService.get_all_receipts_json(session)
 
         if data is not None and len(data) > 0:
             data = string_to_list(session, data)
@@ -34,7 +35,7 @@ def equipment():
                 latest_transaction[equip.id] = "None"
 
         return render_template('Views/Equipment/index.html', data=data, latest_transaction=latest_transaction,
-                               employee_data=employee_data, receipts=receipt_data)
+                               employee_data=employee_data, receipt_data=receipt_data, receipt_list=receipt_list)
     except TemplateNotFound:
         abort(404)
 
@@ -52,8 +53,7 @@ def delete_equipment():
 def update_equipment():
     try:
         data = create_data(str(request.data.decode('utf8')))
-        print(data)
-        EquipmentService.update_equipment(session, int(data[0]), int(data[1]), data[2], data[3], data[4], data[5],
+        EquipmentService.update_equipment(session, int(data[0]), int(data[1]), data[2], data[3], data[4], int(data[5]),
                                           data[6], data[7])
         return EquipmentService.get_equipment_json(session, data[0])
     except TemplateNotFound:

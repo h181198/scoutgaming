@@ -11,7 +11,8 @@ CREATE TABLE departments (
 );
 
 CREATE TABLE receipts (
-    id VARCHAR(64) PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
+    comb_id VARCHAR(260),
     supplement VARCHAR(256),
     year INTEGER NOT NULL
 );
@@ -32,7 +33,7 @@ CREATE TABLE equipments (
     price INTEGER,
     model VARCHAR(128),
     buy_date DATE,
-    receipt_id VARCHAR(64),
+    receipt_id INTEGER,
     description VARCHAR(256),
     note VARCHAR(256),
     FOREIGN KEY (receipt_id) REFERENCES receipts (id)

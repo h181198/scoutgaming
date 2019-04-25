@@ -10,8 +10,8 @@ class ReceiptService:
         is_correct_instance = isinstance(supplement, str) and isinstance(year, int)
 
         if not is_none and is_correct_instance:
-            receipt_id = supplement + str(year)
-            receipt = Model(id=receipt_id, supplement=supplement, year=year)
+            receipt_id = str(year) + supplement
+            receipt = Model(comb_id=receipt_id, supplement=supplement, year=year)
             session.add(receipt)
             session.commit()
             return receipt
@@ -29,7 +29,7 @@ class ReceiptService:
         receipt.supplement = supplement
         if isinstance(year, int):
             receipt.year = year
-            receipt.id = supplement + str(year)
+            receipt.comb_id = str(year) + supplement
         session.commit()
 
     # Get a list of all receipts
@@ -39,9 +39,13 @@ class ReceiptService:
 
     # Get a list of all receipts as json
     @staticmethod
-    def get_all_receipts_json(database):
-        data = database.execute("SELECT * FROM receipts")
-        return json.dumps([dict(r) for r in data])
+    def get_all_receipts_json(session):
+        data = ReceiptService.get_all_receipts(session)
+        result = "["
+        for rec in data:
+            result += ReceiptService.get_receipt_json(session, rec.id) + ","
+
+        return result[:len(result)-1] + "]"
 
     # Get receipt as json
     @staticmethod
@@ -49,15 +53,15 @@ class ReceiptService:
         receipt = ReceiptService.find_receipt(session, rec_id)
         result_json = {
             'id': receipt.id,
-            'display_id': receipt.id,
-            'supplement': receipt.supplement,
-            'year': receipt.year
+            'comb_id': receipt.comb_id,
+            'year': receipt.year,
+            'supplement': receipt.supplement
         }
         return json.dumps(result_json, indent=4, sort_keys=False, default=str)
 
     # Find receipt from id
     @staticmethod
     def find_receipt(session, rec_id):
-        if isinstance(rec_id, str):
+        if isinstance(rec_id, int):
             return session.query(Model).filter_by(id=rec_id).first()
         return None

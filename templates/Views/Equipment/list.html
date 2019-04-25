@@ -13,7 +13,7 @@
         <th class="date">
             Buy date
         </th>
-        <th>
+        <th class="receipt">
             Receipt
         </th>
         <th>
@@ -44,7 +44,11 @@
                 {{ equ.buy_date }}
             </td>
             <td>
-                {{ equ.receipt_id }}
+                {% for rec in receipt_data %}
+                    {% if equ.receipt_id == rec.id %}
+                        {{ rec.comb_id }}
+                    {% endif %}
+                {% endfor %}
             </td>
             <td>
                 {{ equ.description }}
@@ -69,3 +73,4 @@
         </tr>
     {% endfor %}
 </table>
+<meta id="receiptData" content="{{ receipt_list }}">

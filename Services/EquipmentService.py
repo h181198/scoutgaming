@@ -11,7 +11,7 @@ class EquipmentService:
         is_correct_instance = (isinstance(price, int) and
                                isinstance(currency, (str, type(None))) and
                                isinstance(model, (str, type(None))) and
-                               isinstance(receipt_id, (str, type(None))) and
+                               isinstance(receipt_id, (int, type(None))) and
                                isinstance(description, (str, type(None))) and
                                isinstance(note, (str, type(None))) and
                                isinstance(buy_date, (str, type(None))))
@@ -41,7 +41,7 @@ class EquipmentService:
             equipment.model = model
         if buy_date != "None":
             equipment.buy_date = buy_date
-        if receipt_id != "None":
+        if receipt_id != "None" and isinstance(receipt_id, int):
             equipment.receipt_id = receipt_id
         if description != "None":
             equipment.description = description
@@ -70,13 +70,18 @@ class EquipmentService:
     @staticmethod
     def get_equipment_json(session, emp_id):
         eq = EquipmentService.find_equipment(session, int(emp_id))
+        curr_rec = RS.find_receipt(session, eq.receipt_id)
+        rec_id = None
+        if curr_rec is not None:
+            rec_id = curr_rec.comb_id
+
         my_json = {
             'id': eq.id,
             'price': eq.price,
             'currency': eq.currency,
             'model': eq.model,
             'buy_date': eq.buy_date,
-            'receipt_id': eq.receipt_id,
+            'receipt_id': rec_id,
             'description': eq.description,
             'note': eq.note
         }

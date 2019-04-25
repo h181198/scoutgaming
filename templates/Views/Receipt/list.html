@@ -5,10 +5,10 @@
             Id
         </th>
         <th>
-            Supplement
+            Year
         </th>
         <th>
-            Year
+            Supplement
         </th>
         <th style="width: 6em;"></th>
         <th style="width: 4em;"></th>
@@ -17,13 +17,13 @@
     {% for rec in data|sort(attribute='id') %}
         <tr id="{{ rec.id }}">
             <td>
-                {{ rec.id }}
-            </td>
-            <td>
-                {{ rec.supplement }}
+                {{ rec.comb_id }}
             </td>
             <td>
                 {{ rec.year }}
+            </td>
+            <td>
+                {{ rec.supplement }}
             </td>
             <td>
                 <button type="button" class="edit btn btn-secondary"
