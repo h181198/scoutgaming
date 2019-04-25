@@ -73,7 +73,7 @@ class DeleteService:
         for trans in transaction_list:
             if trans.employee_id == emp_id:
                 # Change None to default value if wanted
-                TS.update_transaction(session, trans.id, trans.equipment_id, None)
+                TS.update_transaction(session, trans.id, trans.equipment_id, None, "")
 
         session.delete(employee)
         session.commit()
