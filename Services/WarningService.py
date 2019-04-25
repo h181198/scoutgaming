@@ -29,7 +29,7 @@ class WarningService:
     # Method to find employees with old equipment.
     # Return the last transaction of those equipments
     @staticmethod
-    def get_old_equipment(session):
+    def get_old_equipment_employees(session):
         current_employees = EmS.get_current_employees(session)
         old_equipment = []
         current_date = datetime.datetime.now().date()
@@ -69,3 +69,22 @@ class WarningService:
                 eq_list.append(eq)
 
         return eq_list
+
+    # Method that finds equipment older than 4 years
+    # return list of equipment
+    @staticmethod
+    def get_old_equipment(session):
+        current_date = datetime.datetime.now().date()
+        interval = datetime.timedelta(days=-1461)
+        result = []
+        equipment_list = EqS.get_all_equipments(session)
+
+        for eq in equipment_list:
+            last_tran = TS.find_last_equipment_transaction(session, eq.id)
+            is_gone = False
+            if last_tran is not None:
+                is_gone = last_tran.employee_id == 1 or last_tran.employee_id == 2 or last_tran.employee_id == 3
+            if (eq.buy_date - current_date) < interval and not is_gone:
+                result.append(eq)
+
+        return result

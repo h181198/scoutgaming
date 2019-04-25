@@ -2,13 +2,14 @@
 {% block body %}
 
   <div class="container"><br/>
+    {% if has_warnings %}
     <div>
         <h1>Warnings</h1>
-        <p>Trykk på en warning for å se de aktuelle objektene</p>
+        <p>Click a warning to see the objects</p>
     </div><br/>
     <div>
         {% if old_equipment|length > 0 %}
-        <form action="/transaction" method="post">
+        <form action="/equipment" method="post">
             <button type="submit" class="btn btn-danger" style="width:100%; display:block;">
                 <input type="hidden" name="data" value="{{ old_equipment }}">
                 <div class="row">
@@ -16,7 +17,7 @@
                         <img src="/static/Pictures/Warning_icon.png" alt="" style="width:50px;height:50px;" />
                     </div>
                     <div style="margin: 5px;padding: 10px;">
-                        <h3> Personer med utstyr som er mer enn 4 år gammelt: {{ old_equipment|length }}</h3>
+                        <h3> Equipment older than 4 years (also shows who has it): {{ old_equipment|length }}</h3>
                     </div>
                 </div>
             </button>
@@ -33,7 +34,7 @@
                         <img src="/static/Pictures/Warning_icon.png" alt="" style="width:50px;height:50px;" />
                     </div>
                     <div style="margin: 5px;padding: 10px;">
-                        <h3> Personer som har sluttet og fortsatt har utstyr: {{ quit_with_equipment|length }}</h3>
+                        <h3> People who quit and still has equipment: {{ quit_with_equipment|length }}</h3>
                     </div>
                 </div>
             </button>
@@ -50,7 +51,7 @@
                         <img src="/static/Pictures/Warning_icon.png" alt="" style="width:50px;height:50px;" />
                     </div>
                     <div style="margin: 5px;padding: 10px;">
-                        <h3> Antall utstyr mangler model, kjøpsdato eller kvittering: {{ missing_equipment|length }}</h3>
+                        <h3> Equipment missing buydate, model or receipt: {{ missing_equipment|length }}</h3>
                     </div>
                 </div>
          </button>
@@ -67,7 +68,7 @@
                         <img src="/static/Pictures/Warning_icon.png" alt="" style="width:50px;height:50px;" />
                     </div>
                     <div style="margin: 5px;padding: 10px;">
-                        <h3> Personer som ikke har utstyr: {{ no_equipment|length }}</h3>
+                        <h3> People without equipment: {{ no_equipment|length }}</h3>
                     </div>
                 </div>
             </button>
@@ -84,13 +85,23 @@
                         <img src="/static/Pictures/Warning_icon.png" alt="" style="width:50px;height:50px;" />
                     </div>
                     <div style="margin: 5px;padding: 10px;">
-                        <h3> Utstyr som ikke er tildelt en person: {{ no_location|length }}</h3>
+                        <h3> Equipment that does not have a person: {{ no_location|length }}</h3>
                     </div>
                 </div>
             </button>
         </form>
         <div style="margin-top: 10px" />
         {% endif %}
+
     </div>
+    {% else %}
+    <div>
+        <h1>Congratulations you have no warnings!</h1>
+    </div>
+    <br />
+    <div>
+        <img src="/static/Pictures/smiley_face.png" alt="smiley face image" style="width:50%;height:50%;" />
+    </div>
+    {% endif %}
   </div>
 {% endblock %}
