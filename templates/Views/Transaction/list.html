@@ -13,8 +13,8 @@
         <th class="date">
             Transfer Date
         </th>
-        <th style="width: 6em;"></th>
-        <th style="width: 4em;"></th>
+        <th class="sorting_disabled" style="width: 6em;"></th>
+        <th class="sorting_disabled" style="width: 4em;"></th>
     </tr>
     </thead>
     {% for tra in data|sort(attribute='id') %}
@@ -41,7 +41,7 @@
             </td>
             <td>
                 <button type="button" class="btn btn-secondary"
-                        onclick="editRow({{ tra.id }}, '/transaction/update')">
+                        onclick="editRow({{ tra.id }}, '/transaction/update', '/transaction/delete')">
                     Edit
                 </button>
             </td>

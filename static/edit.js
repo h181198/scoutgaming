@@ -95,21 +95,27 @@ function editRow(id, url, deleteUrl) {
             defaultValues[i] = null;
         } else if (table.rows[0].cells[i].classList.contains("department")) {
             defaultValues[i] = createNormalText("department", "departmentData", row[i].children[0].value);
+        } else if (table.rows[0].cells[i].classList.contains("equipment")) {
+            defaultValues[i] = createNormalText("equipment", "equipmentData", row[i].children[0].value);
+        } else if (table.rows[0].cells[i].classList.contains("employee")) {
+            defaultValues[i] = createNormalText("employee", "employeeData", row[i].children[0].value);
         } else {
             defaultValues[i] = row[i].children[0].value;
-
         }
     }
 
     cancelButton.addEventListener("click", function () {
-
+        stack.pop();
+        if (stack[stack.length - 1]) {
+            $('tr').attr("data-toggle", "modal");
+        }
         for (let i = 0; i < row.length - 2; i++) {
-            if(defaultValues[i] !== null){
+            if (defaultValues[i] !== null) {
                 if (defaultValues[i] !== "")
-                row[i].innerHTML = defaultValues[i];
+                    row[i].innerHTML = defaultValues[i];
                 else
                     row[i].innerHTML = "None";
-                }
+            }
         }
 
         let deleteButton = createButton("Delete");

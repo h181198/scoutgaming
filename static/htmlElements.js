@@ -96,13 +96,17 @@ function createNormalText(model, dropdownType, currentValue = null) {
                     }
                     break;
                 case "equipment":
-                    myString = result.description;
+                    if (parseInt(result.id) === parseInt(currentValue)) {
+                        myString = result.description;
+                    }
                     break;
-                case "receipt":
-                    myString = result.id;
+                case "employee":
+                    if (parseInt(result.id) === parseInt(currentValue)) {
+                        myString = result.name;
+                    }
                     break;
                 default:
-                    myString = result.name;
+                    myString = "None";
                     break;
             }
         }
