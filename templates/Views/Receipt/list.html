@@ -10,8 +10,8 @@
         <th>
             Year
         </th>
-        <th style="width: 6em;"></th>
-        <th style="width: 4em;"></th>
+        <th class="sorting_disabled" style="width: 6em;"></th>
+        <th class="sorting_disabled" style="width: 4em;"></th>
     </tr>
     </thead>
     {% for rec in data|sort(attribute='id') %}
@@ -27,13 +27,13 @@
             </td>
             <td>
                 <button type="button" class="edit btn btn-secondary"
-                        onclick="editRow({{ rec.id }}, '/receipt/update')">
+                        onclick="editRow('{{ rec.id }}', '/receipt/update')">
                     Edit
                 </button>
             </td>
 
             <td>
-                <button type="button" class="btn btn-danger" onclick="deleteRow({{ rec.id }}, '/receipt/delete')">
+                <button type="button" class="btn btn-danger" onclick="deleteRow('{{ rec.id }}', '/receipt/delete')">
                     Delete
                 </button>
             </td>

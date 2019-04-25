@@ -53,7 +53,7 @@ function createDropdown(model, dropdownType, currentValue = null) {
     myObject.forEach(result => {
             let option = document.createElement("option");
             option.value = result.id;
-            switch(model) {
+            switch (model) {
                 case "department":
                     option.text = result.unit;
                     break;
@@ -80,6 +80,38 @@ function createDropdown(model, dropdownType, currentValue = null) {
     }
 
     return dropdownField;
+}
+
+function createNormalText(model, dropdownType, currentValue = null) {
+    let myString = "None";
+
+    let dropdownData = document.getElementById(dropdownType).content;
+    let myObject = JSON.parse(dropdownData);
+
+    myObject.forEach(result => {
+            switch (model) {
+                case "department":
+                    if (parseInt(result.id) === parseInt(currentValue)) {
+                        myString = result.unit;
+                    }
+                    break;
+                case "equipment":
+                    if (parseInt(result.id) === parseInt(currentValue)) {
+                        myString = result.description;
+                    }
+                    break;
+                case "employee":
+                    if (parseInt(result.id) === parseInt(currentValue)) {
+                        myString = result.name;
+                    }
+                    break;
+                default:
+                    myString = "None";
+                    break;
+            }
+        }
+    );
+    return myString;
 }
 
 /**
