@@ -41,7 +41,7 @@ def update_receipt():
 @receipt_page.route('/receipt/delete', methods=['POST'])
 def delete_receipt():
     try:
-        DeleteService.delete_receipt(session=session, rec_id=create_single_id(int(str(request.data))[0]))
+        print(DeleteService.delete_receipt(session=session, rec_id=create_single_id(str(request.data))[0]))
     except TemplateNotFound:
         abort(404)
     return ""

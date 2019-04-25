@@ -27,13 +27,13 @@
             </td>
             <td>
                 <button type="button" class="edit btn btn-secondary"
-                        onclick="editRow('{{ rec.id }}', '/receipt/update')">
+                        onclick="editRow({{ rec.id }}, '/receipt/update', '/receipt/delete')">
                     Edit
                 </button>
             </td>
 
             <td>
-                <button type="button" class="btn btn-danger" onclick="deleteRow('{{ rec.id }}', '/receipt/delete')">
+                <button type="button" class="btn btn-danger" onclick="deleteRow({{ rec.id }}, '/receipt/delete')">
                     Delete
                 </button>
             </td>
