@@ -3,8 +3,9 @@
  * @param id
  * @param url
  */
-var stack = [true];
-function editRow(id, url) {
+let stack = [true];
+
+function editRow(id, url, deleteUrl) {
     $('tr').attr("data-toggle", "");
     stack.push(false);
     let table = document.getElementById("table");
@@ -18,16 +19,16 @@ function editRow(id, url) {
 
         } else if (table.rows[0].cells[i].classList.contains("department")) {
             row[i].innerHTML = "";
-            row[i].appendChild(createDropdown("department","departmentData", value));
+            row[i].appendChild(createDropdown("department", "departmentData", value));
         } else if (table.rows[0].cells[i].classList.contains("equipment")) {
             row[i].innerHTML = "";
-            row[i].appendChild(createDropdown("equipment","equipmentData", value));
+            row[i].appendChild(createDropdown("equipment", "equipmentData", value));
         } else if (table.rows[0].cells[i].classList.contains("receipt")) {
             row[i].innerHTML = "";
-            row[i].appendChild(createDropdown("receipt","receiptData", value));
+            row[i].appendChild(createDropdown("receipt", "receiptData", value));
         } else if (table.rows[0].cells[i].classList.contains("employee")) {
             row[i].innerHTML = "";
-            row[i].appendChild(createDropdown("employee","employeeData", value));
+            row[i].appendChild(createDropdown("employee", "employeeData", value));
         } else if (table.rows[0].cells[i].classList.contains("date")) {
             row[i].innerHTML = "";
             row[i].appendChild(createDateField(value));
@@ -44,8 +45,6 @@ function editRow(id, url) {
     row[row.length - 2].innerHTML = '';
     let confirmButton = createButton("Confirm");
     confirmButton.setAttribute("class", "btn btn-info");
-
-    row[row.length - 2].appendChild(confirmButton);
 
     /*
     This is what happens when you click the confirm button
@@ -66,19 +65,72 @@ function editRow(id, url) {
                 setRowToText(id, row, url, JSON.parse(request.responseText));
                 updateStatus("update");
                 stack.pop();
-                if (stack[stack.length-1]) {
+                if (stack[stack.length - 1]) {
                     $('tr').attr("data-toggle", "modal");
                 }
 
+                let deleteButton = createButton("Delete");
+                deleteButton.setAttribute("class", "btn btn-danger");
+                deleteButton.addEventListener("click", function () {
+                    deleteRow(id, deleteUrl);
+                });
+                row[row.length - 1].innerHTML = '';
+                row[row.length - 1].appendChild(deleteButton);
             } else if (request.status === 404) {
                 updateStatus()
             }
+
         };
         request.open("POST", url, true);
         request.send(sendString);
     });
-
-
     row[row.length - 2].appendChild(confirmButton);
+
+    let cancelButton = createButton("Cancel");
+    cancelButton.setAttribute("class", "btn btn-danger");
+
+    let defaultValues = [];
+    for (let i = 0; i < row.length - 2; i++) {
+        if (table.rows[0].cells[i].classList.contains("ignore")) {
+            defaultValues[i] = null;
+        } else if (table.rows[0].cells[i].classList.contains("department")) {
+            defaultValues[i] = createNormalText("department", "departmentData", row[i].children[0].value);
+        } else {
+            defaultValues[i] = row[i].children[0].value;
+
+        }
+    }
+
+    cancelButton.addEventListener("click", function () {
+
+        for (let i = 0; i < row.length - 2; i++) {
+            if(defaultValues[i] !== null){
+                if (defaultValues[i] !== "")
+                row[i].innerHTML = defaultValues[i];
+                else
+                    row[i].innerHTML = "None";
+                }
+        }
+
+        let deleteButton = createButton("Delete");
+        deleteButton.setAttribute("class", "btn btn-danger");
+        deleteButton.addEventListener("click", function () {
+            deleteRow(id, deleteUrl);
+        });
+        let editButton = createButton("Edit");
+        editButton.setAttribute("class", "edit btn btn-secondary");
+        editButton.addEventListener("click", function () {
+            editRow(id, url, deleteUrl);
+        });
+        row[row.length - 2].innerHTML = '';
+        row[row.length - 2].appendChild(editButton);
+
+        row[row.length - 1].innerHTML = '';
+        row[row.length - 1].appendChild(deleteButton);
+
+    });
+    row[row.length - 1].innerHTML = '';
+    row[row.length - 1].appendChild(cancelButton);
+
 }
 
