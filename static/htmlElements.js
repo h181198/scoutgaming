@@ -58,7 +58,7 @@ function createDropdown(model, dropdownType, currentValue = null) {
                     option.text = result.unit;
                     break;
                 case "equipment":
-                    option.text = result.description;
+                    option.text = "Id: " + result.id + ", " + result.description;
                     break;
                 case "receipt":
                     option.text = result.id;

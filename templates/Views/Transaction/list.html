@@ -1,6 +1,9 @@
 <table class="table table-hover" id="table">
     <thead class="thead-dark">
     <tr>
+        <th class="ignore">
+            Equipment ID
+        </th>
         <th class="equipment">
             Equipment
         </th>
@@ -21,6 +24,9 @@
         <tr id="{{ tra.id }}">
             {% for equ in equipment_data %}
                 {% if tra.equipment_id == equ.id %}
+                <td>
+                    {{ equ.id }}
+                </td>
                 <td>
                     {{ equ.description }}
                 </td>
