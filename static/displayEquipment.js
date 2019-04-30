@@ -1,11 +1,11 @@
 function employeeEquipmentInfo(empId, empName) {
+    let table = document.getElementById('equTable');
+    table.innerHTML = "";
     let request = new XMLHttpRequest();
     request.onreadystatechange = function () {
         if (request.readyState === XMLHttpRequest.DONE && request.status === 200) {
             let title = document.getElementById('modal-title');
             title.innerText = empName;
-            let table = document.getElementById('equTable');
-            table.innerHTML = "";
 
             let row = document.createElement("tr");
 
