@@ -8,10 +8,9 @@ function deleteRow(id, url) {
         let request = new XMLHttpRequest();
         request.onreadystatechange = function () {
             if (request.readyState === XMLHttpRequest.DONE && request.status === 200) {
-                let row = document.getElementById(id);
-                row.parentNode.removeChild(row);
+                table.row('#'+ id+'').remove().draw();
                 updateStatus("delete");
-            } else if(request.status === 404){
+            } else if (request.status === 404) {
                 updateStatus()
             }
         };
