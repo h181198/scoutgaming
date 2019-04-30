@@ -43,7 +43,6 @@ function employeeEquipmentInfo(empId, empName) {
                     table.appendChild(row)
                 }
             } catch (e) {
-                console.log("Empty")
             }
 
         }
