@@ -3,6 +3,7 @@
 
 # init file for database
 /Controllers/__init__.py
+Controllers/__init__.py
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
