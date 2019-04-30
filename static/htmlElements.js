@@ -33,6 +33,7 @@ function createTextField(text = null) {
     if (text !== null) {
         textField.setAttribute("placeholder", text);
         textField.setAttribute("value", text);
+         textField.setAttribute("maxlength", 100);
     }
     return textField;
 }

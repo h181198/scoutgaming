@@ -7,21 +7,21 @@ DROP TABLE IF EXISTS receipts CASCADE;
 CREATE TABLE departments (
     id SERIAL PRIMARY KEY,
     country VARCHAR(128) NOT NULL,
-    unit VARCHAR(256) NOT NULL
+    unit VARCHAR(128) NOT NULL
 );
 
 CREATE TABLE receipts (
     id SERIAL PRIMARY KEY,
-    comb_id VARCHAR(260),
-    supplement VARCHAR(256),
+    comb_id VARCHAR(128),
+    supplement VARCHAR(128),
     year INTEGER NOT NULL
 );
 
 CREATE TABLE employees (
     id SERIAL PRIMARY KEY,
-    employee_number VARCHAR(64),
+    employee_number VARCHAR(128),
     department_id INTEGER,
-    name VARCHAR(256) NOT NULL,
+    name VARCHAR(128) NOT NULL,
     start_date DATE,
     end_date DATE,
     FOREIGN KEY (department_id) REFERENCES departments (id)
@@ -29,13 +29,13 @@ CREATE TABLE employees (
 
 CREATE TABLE equipments (
     id SERIAL PRIMARY KEY,
-    currency VARCHAR(16),
+    currency VARCHAR(128),
     price INTEGER,
     model VARCHAR(128),
     buy_date DATE,
     receipt_id INTEGER,
-    description VARCHAR(256),
-    note VARCHAR(256),
+    description VARCHAR(128),
+    note VARCHAR(128),
     FOREIGN KEY (receipt_id) REFERENCES receipts (id)
 );
 
