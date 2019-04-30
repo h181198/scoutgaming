@@ -13,7 +13,6 @@ function editRow(id, url, deleteUrl) {
      */
     stack.push(false);
 
-
     let table = document.getElementById("table");
     let row = document.getElementById(id).cells;
 
@@ -52,6 +51,16 @@ function editRow(id, url, deleteUrl) {
     let confirmButton = createButton("Confirm");
     confirmButton.setAttribute("class", "btn btn-info");
 
+    function createDeleteButton() {
+        let deleteButton = createButton("Delete");
+        deleteButton.setAttribute("class", "btn btn-danger");
+        deleteButton.addEventListener("click", function () {
+            deleteRow(id, deleteUrl);
+        });
+        return deleteButton;
+    }
+
+
     /*
     This is what happens when you click the confirm button
      */
@@ -62,24 +71,22 @@ function editRow(id, url, deleteUrl) {
                 sendString += "#" + row[i].children[0].value;
             }
         }
+
+
         /*
         We use ajax to connect with the server since we do not want to reload the page, this method will return a json on callback
          */
         let request = new XMLHttpRequest();
         request.onreadystatechange = function () {
             if (request.readyState === XMLHttpRequest.DONE && request.status === 200) {
-                setRowToText(id, row, url, JSON.parse(request.responseText));
+                setRowToText(id, row, url, deleteUrl, JSON.parse(request.responseText));
                 updateStatus("update");
                 stack.pop();
                 if (stack[stack.length - 1]) {
                     $('td').attr("data-toggle", "modal");
                 }
 
-                let deleteButton = createButton("Delete");
-                deleteButton.setAttribute("class", "btn btn-danger");
-                deleteButton.addEventListener("click", function () {
-                    deleteRow(id, deleteUrl);
-                });
+                let deleteButton = createDeleteButton();
                 row[row.length - 1].innerHTML = '';
                 row[row.length - 1].appendChild(deleteButton);
             } else if (request.status === 404) {
@@ -129,11 +136,7 @@ Create a cancel button
             }
         }
 
-        let deleteButton = createButton("Delete");
-        deleteButton.setAttribute("class", "btn btn-danger");
-        deleteButton.addEventListener("click", function () {
-            deleteRow(id, deleteUrl);
-        });
+        let deleteButton = createDeleteButton();
         let editButton = createButton("Edit");
         editButton.setAttribute("class", "edit btn btn-secondary");
         editButton.addEventListener("click", function () {
@@ -150,4 +153,3 @@ Create a cancel button
     row[row.length - 1].appendChild(cancelButton);
 
 }
-

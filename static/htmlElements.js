@@ -133,7 +133,7 @@ function createNormalText(model, dropdownType, currentValue = null) {
  * @param url
  * @param json
  */
-function setRowToText(id, row, url, json) {
+function setRowToText(id, row, url, delurl, json) {
     let array = [];
     for (let key in json) {
         if (json[key] === null) {
@@ -150,7 +150,7 @@ function setRowToText(id, row, url, json) {
     let button = createButton("Edit");
     button.setAttribute("class", "edit btn btn-secondary");
     button.addEventListener("click", function () {
-        editRow(id, url)
+        editRow(id, url, delurl)
     });
 
     row[row.length - 2].innerHTML = "";
