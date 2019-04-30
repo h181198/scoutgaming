@@ -10,7 +10,6 @@ class DeleteService:
     @staticmethod
     def delete_receipt(session, rec_id):
         receipt = RS.find_receipt(session, rec_id)
-
         if receipt is None:
             return False
 
