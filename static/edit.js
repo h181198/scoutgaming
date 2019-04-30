@@ -7,13 +7,20 @@ let stack = [true];
 
 function editRow(id, url, deleteUrl) {
     $('tr').attr("data-toggle", "");
+
+    /*
+    We create a stack. so we know how many elements we are editing at a given time.
+     */
     stack.push(false);
+
+
     let table = document.getElementById("table");
     let row = document.getElementById(id).cells;
 
     for (let i = 0; i < row.length - 2; i++) {
         let value = row[i].innerHTML;
         value = value.split('  ').join('').split('\n').join('');
+        console.log(table.rows[0].cells[i].classList.toString());
 
         if (table.rows[0].cells[i].classList.contains("ignore")) {
 
@@ -86,6 +93,9 @@ function editRow(id, url, deleteUrl) {
     });
     row[row.length - 2].appendChild(confirmButton);
 
+    /*
+Create a cancel button
+ */
     let cancelButton = createButton("Cancel");
     cancelButton.setAttribute("class", "btn btn-danger");
 

@@ -82,6 +82,13 @@ function createDropdown(model, dropdownType, currentValue = null) {
     return dropdownField;
 }
 
+/**
+ * Create a string from a dropdown menu. Often used chen canceling a edit.
+ * @param model
+ * @param dropdownType
+ * @param currentValue
+ * @returns {string}
+ */
 function createNormalText(model, dropdownType, currentValue = null) {
     let myString = "None";
 
