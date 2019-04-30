@@ -6,7 +6,7 @@ from Services.EquipmentService import EquipmentService
 from Services.ReceiptService import ReceiptService
 from Services.DeleteService import DeleteService
 from Controllers import session
-from Helpers.HelpMethods import create_data, create_single_id, string_to_list
+from Helpers.HelpMethods import create_data, string_to_list
 
 equipment_page = Blueprint('equipment', __name__)
 
@@ -33,6 +33,8 @@ def equipment():
                     latest_transaction[equip.id] = emp.name
             else:
                 latest_transaction[equip.id] = "None"
+
+        print(receipt_data)
 
         return render_template('Views/Equipment/index.html', data=data, latest_transaction=latest_transaction,
                                employee_data=employee_data, receipt_data=receipt_data, receipt_list=receipt_list)
@@ -71,17 +73,16 @@ def add_employee():
         if employee == '1':
             employee = None
 
-        equipment = EquipmentService.add_equipment(session=session, price=int(request.form['price']),
-                                                   currency=request.form['currency'],
-                                                   model=request.form['model'], buy_date=request.form['buy-date'],
-                                                   receipt_id=receipt,
-                                                   description=request.form['description'],
-                                                   note=request.form['note']
-                                                   )
+        new_equipment = EquipmentService.add_equipment(session=session, price=int(request.form['price']),
+                                                       currency=request.form['currency'],
+                                                       model=request.form['model'], buy_date=request.form['buy-date'],
+                                                       receipt_id=receipt, description=request.form['description'],
+                                                       note=request.form['note'])
+
         if employee is not None and request.form['transfer-date'] is not "":
-            transaction = TransactionService.add_transaction(session=session, equipment_id=int(equipment.id),
-                                                             employee_id=int(employee),
-                                                             transaction=request.form['transfer-date'])
+            TransactionService.add_transaction(session=session, equipment_id=int(new_equipment.id),
+                                               employee_id=int(employee),
+                                               transaction=request.form['transfer-date'])
         return redirect(url_for('equipment.equipment'))
     except TemplateNotFound:
         abort(404)
