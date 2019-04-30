@@ -36,8 +36,8 @@
                         <div class="col-md-6 mb-3">
                             <label for="receipt">Receipt</label><br/>
                             <select id="receipt" name="receipt">
-                                {% for res in receipts %}
-                                    <option value="{{ res.id }}">{{ res.id }}</option>
+                                {% for rec in receipt_data %}
+                                    <option value="{{ rec.id }}">{{ rec.comb_id }}</option>
                                 {% endfor %}
                             </select>
                         </div>
