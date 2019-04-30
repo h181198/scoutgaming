@@ -6,8 +6,14 @@
 let stack = [true];
 
 function editRow(id, url, deleteUrl) {
-    $('tr').attr("data-toggle", "");
+    $('td').attr("data-toggle", "");
+
+    /*
+    We create a stack. so we know how many elements we are editing at a given time.
+     */
     stack.push(false);
+
+
     let table = document.getElementById("table");
     let row = document.getElementById(id).cells;
 
@@ -66,7 +72,7 @@ function editRow(id, url, deleteUrl) {
                 updateStatus("update");
                 stack.pop();
                 if (stack[stack.length - 1]) {
-                    $('tr').attr("data-toggle", "modal");
+                    $('td').attr("data-toggle", "modal");
                 }
 
                 let deleteButton = createButton("Delete");
@@ -86,6 +92,9 @@ function editRow(id, url, deleteUrl) {
     });
     row[row.length - 2].appendChild(confirmButton);
 
+    /*
+Create a cancel button
+ */
     let cancelButton = createButton("Cancel");
     cancelButton.setAttribute("class", "btn btn-danger");
 
@@ -109,7 +118,7 @@ function editRow(id, url, deleteUrl) {
     cancelButton.addEventListener("click", function () {
         stack.pop();
         if (stack[stack.length - 1]) {
-            $('tr').attr("data-toggle", "modal");
+            $('td').attr("data-toggle", "modal");
         }
         for (let i = 0; i < row.length - 2; i++) {
             if (defaultValues[i] !== null) {

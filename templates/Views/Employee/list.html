@@ -21,12 +21,12 @@
     </tr>
     </thead>
     {% for emp in data|sort(attribute='employee_number') %}
-        <tr id="{{ emp.id }}" data-toggle="modal" data-target="#equModal"
-            onclick="employeeEquipmentInfo({{ emp.id}}, '{{ emp.name }}')">
-            <td>
+        <tr id="{{ emp.id }}">
+            <td >
                 {{ emp.employee_number }}
             </td>
-            <td>
+            <td data-toggle="modal" data-target="#equModal"
+            onclick="employeeEquipmentInfo({{ emp.id}}, '{{ emp.name }}')">
                 {{ emp.name }}
             </td>
             <td>
