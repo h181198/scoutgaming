@@ -41,7 +41,7 @@ class EquipmentService:
             equipment.model = model
         if buy_date != "None":
             equipment.buy_date = buy_date
-        if receipt_id != "None" and isinstance(receipt_id, int):
+        if receipt_id != "None" and isinstance(receipt_id, (int, type(None))):
             equipment.receipt_id = receipt_id
         if description != "None":
             equipment.description = description
