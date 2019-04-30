@@ -34,8 +34,6 @@ def equipment():
             else:
                 latest_transaction[equip.id] = "None"
 
-        print(receipt_data)
-
         return render_template('Views/Equipment/index.html', data=data, latest_transaction=latest_transaction,
                                employee_data=employee_data, receipt_data=receipt_data, receipt_list=receipt_list)
     except TemplateNotFound:
@@ -68,6 +66,8 @@ def add_employee():
         receipt = request.form['receipt']
         if receipt == "None":
             receipt = None
+        else:
+            receipt = int(receipt)
 
         employee = request.form['employee']
         if employee == '1':

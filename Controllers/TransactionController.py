@@ -47,7 +47,13 @@ def add_transaction():
 def update_transaction():
     try:
         data = create_data(str(request.data.decode('utf8')))
-        TransactionService.update_transaction(session, int(data[0]), int(data[1]), int(data[2]), data[3])
+        employee_id = data[2]
+        if employee_id == '1':
+            employee_id = None
+        else:
+            employee_id = int(employee_id)
+
+        TransactionService.update_transaction(session, int(data[0]), int(data[1]), employee_id, data[3])
         return TransactionService.get_transaction_json(session, int(data[0]))
     except TemplateNotFound:
         abort(404)

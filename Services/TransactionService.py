@@ -70,6 +70,8 @@ class TransactionService:
 
         if emp is not None:
             emp_name = emp.name
+        else:
+            emp_name = ""
 
         my_json = {
             'id': tran.id,
