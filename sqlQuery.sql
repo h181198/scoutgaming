@@ -47,3 +47,12 @@ CREATE TABLE transactions (
     FOREIGN KEY (equipment_id) REFERENCES equipments (id),
     FOREIGN KEY (employee_id) REFERENCES employees (id)
 );
+
+INSERT INTO employees (employee_number, department_id, name, start_date, end_date) VALUES
+  ('N', NULL, 'None', NULL ,NULL ),
+  ('D', NULL, 'DELETED', NULL, NULL),
+  ('S', NULL, 'SOLD', NULL, NULL),
+  ('G', NULL, 'GONE', NULL, NULL);
+
+INSERT INTO receipts (comb_id, supplement, year) VALUES
+  ('None','',0000);
