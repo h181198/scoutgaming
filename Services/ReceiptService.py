@@ -1,4 +1,5 @@
 from Models.Receipt import Receipt as Model
+from Helpers.ServiceHelper import secure_text
 import json
 
 
@@ -55,7 +56,7 @@ class ReceiptService:
             'id': receipt.id,
             'comb_id': receipt.comb_id,
             'year': receipt.year,
-            'supplement': receipt.supplement
+            'supplement': secure_text(receipt.supplement)
         }
         return json.dumps(result_json, indent=4, sort_keys=False, default=str)
 

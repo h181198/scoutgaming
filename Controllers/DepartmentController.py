@@ -3,7 +3,7 @@ from jinja2 import TemplateNotFound
 from Services.DepartmentService import DepartmentService
 from Services.DeleteService import DeleteService
 from Controllers import session
-from Helpers.HelpMethods import create_data, create_single_id
+from Helpers.ControllerHelper import create_data, create_single_id
 
 department_page = Blueprint('department', __name__)
 

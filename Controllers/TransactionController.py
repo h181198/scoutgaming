@@ -5,7 +5,7 @@ from Services.EquipmentService import EquipmentService
 from Services.EmployeeService import EmployeeService
 from Services.DeleteService import DeleteService
 from Controllers import session
-from Helpers.HelpMethods import string_to_list, create_data, create_single_id
+from Helpers.ControllerHelper import string_to_list, create_data, create_single_id
 
 transaction_page = Blueprint('transaction', __name__)
 

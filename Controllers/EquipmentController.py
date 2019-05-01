@@ -6,7 +6,7 @@ from Services.EquipmentService import EquipmentService
 from Services.ReceiptService import ReceiptService
 from Services.DeleteService import DeleteService
 from Controllers import session
-from Helpers.HelpMethods import create_data, string_to_list
+from Helpers.ControllerHelper import create_data, string_to_list
 
 equipment_page = Blueprint('equipment', __name__)
 
