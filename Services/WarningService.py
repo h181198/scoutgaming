@@ -36,7 +36,7 @@ class WarningService:
         interval = datetime.timedelta(days=-1461)
 
         for emp in current_employees:
-            if emp.id != 1 and emp.id != 2 and emp.id != 3:
+            if emp.id != 1 and emp.id != 2 and emp.id != 3 and emp.id != 4:
                 curr_eq_trans = TS.find_current_equipment_transaction(session, emp.id)
 
                 for trans in curr_eq_trans:
@@ -83,7 +83,7 @@ class WarningService:
             last_tran = TS.find_last_equipment_transaction(session, eq.id)
             is_gone = False
             if last_tran is not None:
-                is_gone = last_tran.employee_id == 1 or last_tran.employee_id == 2 or last_tran.employee_id == 3
+                is_gone = last_tran.employee_id == 2 or last_tran.employee_id == 3 or last_tran.employee_id == 4
             if (eq.buy_date - current_date) < interval and not is_gone:
                 result.append(eq)
 

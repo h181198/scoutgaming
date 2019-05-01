@@ -1,6 +1,7 @@
 from Models.Transaction import Transaction as Model
 from Services.EquipmentService import EquipmentService as EqS
 from Services.EmployeeService import EmployeeService as EmS
+from Helpers.ServiceHelper import secure_text
 import json
 
 
@@ -68,7 +69,7 @@ class TransactionService:
             eq_description = eq.description
             eq_buy = eq.buy_date
 
-        if emp is not None:
+        if emp is not None and emp.id != 1:
             emp_name = emp.name
         else:
             emp_name = ""
@@ -76,9 +77,9 @@ class TransactionService:
         my_json = {
             'id': tran.id,
             'equipment_id': "id" + str(eq.id),
-            'equipment_description': eq_description,
+            'equipment_description': secure_text(eq_description),
             'buy_date': eq_buy,
-            'employee_id': emp_name,
+            'employee_name': secure_text(emp_name),
             'transfer_date': tran.transfer_date
         }
         return json.dumps(my_json, indent=4, sort_keys=False, default=str)

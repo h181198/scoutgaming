@@ -1,4 +1,5 @@
 from Models.Department import Department as Model
+from Helpers.ServiceHelper import secure_text
 import json
 
 
@@ -43,8 +44,8 @@ class DepartmentService:
         my_json = {
             'id': department.id,
             'display_id': department.id,
-            'country': department.country,
-            'unit': department.unit
+            'country': secure_text(department.country),
+            'unit': secure_text(department.unit)
         }
         return json.dumps(my_json, indent=4, sort_keys=False, default=str)
 

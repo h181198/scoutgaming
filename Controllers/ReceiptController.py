@@ -3,7 +3,7 @@ from jinja2 import TemplateNotFound
 from Controllers import session
 from Services.ReceiptService import ReceiptService
 from Services.DeleteService import DeleteService
-from Helpers.HelpMethods import create_data, create_single_id
+from Helpers.ControllerHelper import create_data, create_single_id
 
 receipt_page = Blueprint('receipt', __name__)
 

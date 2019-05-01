@@ -1,4 +1,5 @@
 from Services.DepartmentService import DepartmentService as DS
+from Helpers.ServiceHelper import secure_text
 from Models.Employee import Employee as Model
 import datetime
 import json
@@ -8,7 +9,7 @@ class EmployeeService:
     # Add employee return employee if successful
     @staticmethod
     def add_employee(session, employee_number=None, name=None, department_id=None, start_date=None, end_date=None,
-                    employee=None):
+                     employee=None):
         is_correct_instance = (isinstance(name, str) and isinstance(department_id, int) and
                                isinstance(employee_number, str) and isinstance(start_date, (str, type(None)))
                                and isinstance(end_date, (str, type(None))))
@@ -73,9 +74,9 @@ class EmployeeService:
 
         my_json = {
             'id': emp.id,
-            'employee_number': emp.employee_number,
-            'name': emp.name,
-            'department_id': department_unit,
+            'employee_number': secure_text(emp.employee_number),
+            'name': secure_text(emp.name),
+            'department_id': secure_text(department_unit),
             'start_date': emp.start_date,
             'end_date': emp.end_date
         }

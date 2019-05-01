@@ -5,7 +5,7 @@ from Services.EmployeeService import EmployeeService
 from Services.EquipmentService import EquipmentService
 from Services.DepartmentService import DepartmentService
 from Services.TransactionService import TransactionService
-from Helpers.HelpMethods import create_data, create_single_id, string_to_list
+from Helpers.ControllerHelper import create_data, create_single_id, string_to_list
 from Controllers import session, database
 
 employee_page = Blueprint('employee', __name__)
@@ -50,11 +50,9 @@ def update_employee():
 @employee_page.route('/employee/add', methods=['POST'])
 def add_employee():
     try:
-        employee = EmployeeService.add_employee(session=session, employee_number=request.form['id'],
-                                                name=request.form['name'],
-                                                department_id=int(request.form['department']),
-                                                start_date=request.form['start-date'],
-                                                end_date=request.form['end-date'])
+        EmployeeService.add_employee(session=session, employee_number=request.form['id'],
+                                     name=request.form['name'], department_id=int(request.form['department']),
+                                     start_date=request.form['start-date'], end_date=request.form['end-date'])
         return redirect(url_for('employee.employee'))
     except TemplateNotFound:
         abort(404)

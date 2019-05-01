@@ -32,3 +32,7 @@ def string_to_list(session, data):
             results.append(TrS.find_transaction(session, identity))
 
     return results
+
+
+def secure_text(input_text):
+    return input_text.replace("<", "&lt;").replace(">", "&gt;").replace("\"", "&quot;")

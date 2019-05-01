@@ -1,5 +1,6 @@
 from Models.Equipment import Equipment as Model
 from Services.ReceiptService import ReceiptService as RS
+from Helpers.ServiceHelper import secure_text
 import json
 
 
@@ -78,12 +79,12 @@ class EquipmentService:
         my_json = {
             'id': eq.id,
             'price': eq.price,
-            'currency': eq.currency,
-            'model': eq.model,
+            'currency': secure_text(eq.currency),
+            'model': secure_text(eq.model),
             'buy_date': eq.buy_date,
             'receipt_id': rec_id,
-            'description': eq.description,
-            'note': eq.note
+            'description': secure_text(eq.description),
+            'note': secure_text(eq.note)
         }
         return json.dumps(my_json, indent=4, sort_keys=False, default=str)
 
