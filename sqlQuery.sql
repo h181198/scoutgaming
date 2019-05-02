@@ -56,3 +56,13 @@ INSERT INTO employees (employee_number, department_id, name, start_date, end_dat
 
 INSERT INTO receipts (comb_id, supplement, year) VALUES
   ('None','',0000);
+
+CREATE TABLE users(
+  id SERIAL PRIMARY KEY,
+  username VARCHAR (32),
+  password VARCHAR (512)
+
+);
+
+INSERT INTO users(username, password) VALUE
+  ('Stian', 'e1f057cd9938e3d993688d99cb3bd507fa83c4651aa606a5f4327b763bfd6335');
