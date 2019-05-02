@@ -3,6 +3,7 @@ DROP TABLE IF EXISTS employees CASCADE;
 DROP TABLE IF EXISTS equipments CASCADE;
 DROP TABLE IF EXISTS departments CASCADE;
 DROP TABLE IF EXISTS receipts CASCADE;
+DROP TABLE IF EXISTS users CASCADE;
 
 CREATE TABLE departments (
     id SERIAL PRIMARY KEY,
@@ -64,5 +65,5 @@ CREATE TABLE users(
 
 );
 
-INSERT INTO users(username, password) VALUE
+INSERT INTO users (username, password) VALUES
   ('Stian', 'e1f057cd9938e3d993688d99cb3bd507fa83c4651aa606a5f4327b763bfd6335');
