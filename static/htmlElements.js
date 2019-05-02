@@ -31,6 +31,9 @@ function createDateField(date = null) {
 function createTextField(text = null) {
     let textField = document.createElement("input");
     if (text !== null) {
+        console.log(text);
+        text = text.replace(/&gt;/g, ">").replace(/&lt;/g, "<");
+        console.log(text);
         textField.setAttribute("placeholder", text);
         textField.setAttribute("value", text);
          textField.setAttribute("maxlength", 100);
