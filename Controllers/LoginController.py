@@ -38,3 +38,8 @@ def login():
 def logout():
     logout_user()
     return redirect('login')
+
+
+@login_page.errorhandler(401)
+def page_not_found(e):
+    return render_template('Views/Login/login.html'), 401

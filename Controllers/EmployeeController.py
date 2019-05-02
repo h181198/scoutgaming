@@ -77,3 +77,8 @@ def find_equipment_employee(emp_id):
         return equipment_json
     except TemplateNotFound:
         abort(404)
+
+
+@employee_page.errorhandler(401)
+def page_not_found(e):
+    return redirect('login')

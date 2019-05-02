@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, abort
+from flask import Blueprint, render_template, abort, redirect
 from flask_login import login_required
 from jinja2 import TemplateNotFound
 from Services.WarningService import WarningService
@@ -27,3 +27,8 @@ def warning():
                                old_employee_equipment=old_employee_equipment, has_warnings=has_warnings)
     except TemplateNotFound:
         abort(404)
+
+
+@warning_page.errorhandler(401)
+def page_not_found(e):
+    return redirect('login')

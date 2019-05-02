@@ -50,3 +50,8 @@ def delete_receipt():
     except TemplateNotFound:
         abort(404)
     return ""
+
+
+@receipt_page.errorhandler(401)
+def page_not_found(e):
+    return redirect('login')
