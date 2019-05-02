@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, abort
+from flask_login import login_required
 from jinja2 import TemplateNotFound
 from Services.WarningService import WarningService
 from Controllers import session
@@ -6,7 +7,8 @@ from Controllers import session
 warning_page = Blueprint('warning', __name__)
 
 
-@warning_page.route('/')
+@warning_page.route('/warning')
+@login_required
 def warning():
     try:
         missing_equ = WarningService.get_missing_equipment(session)

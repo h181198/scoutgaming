@@ -2,6 +2,7 @@ from Models.Equipment import Equipment as Model
 from Services.ReceiptService import ReceiptService as RS
 from Helpers.ServiceHelper import secure_text
 import json
+import datetime
 
 
 class EquipmentService:
@@ -106,3 +107,34 @@ class EquipmentService:
 
         return has_missing
 
+    # Find amount of money each month in the last year
+    @staticmethod
+    def money_spent(session):
+        equipment_list = EquipmentService.get_all_equipments(session)
+        bought_last_year = []
+        current_date = datetime.datetime.now().date()
+        interval = datetime.timedelta(days=-365)
+        for equ in equipment_list:
+            if (equ.buy_date - current_date) <= interval:
+                bought_last_year.append(equ)
+
+        # place in a dict for the month, create private method for that
+        return EquipmentService.__create_dict(bought_last_year)
+
+    # Creates a dict for the month and the value spent
+    @staticmethod
+    def __create_dict(equ_list):
+        nok_result = dict()
+        uah_result = dict()
+        current_date = datetime.datetime.now().date()
+        for equ in equ_list:
+            month = equ.buy_date.strftime("%m")
+            year = equ.buy_date.strftime("%y")
+            same_month = (month == current_date.strftime("%m")) and (year != current_date.strftime("%y"))
+
+            if not same_month and equ.currency == "NOK":
+                nok_result[month] += equ.price
+            elif not same_month and equ.currency == "UAH":
+                uah_result[month] += equ.price
+
+        return {nok_result, uah_result}

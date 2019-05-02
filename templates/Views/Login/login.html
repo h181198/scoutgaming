@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Equipment list</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='Pictures/favicon.ico') }}">
+</head>
+<body>
+    <div>
+        <form method="post" action="/login">
+            <div>{{ form.username.label }}: {{ form.username }}</div>
+            <div>{{ form.password.label }}: {{ form.password }}</div>
+            <button type="submit">Login</button>
+        </form>
+    </div>
+</body>
+</html>
