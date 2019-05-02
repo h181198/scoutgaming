@@ -1,6 +1,5 @@
 from flask import Flask
 from Controllers import session
-from flask_hashing import Hashing
 from flask_login import LoginManager
 from Services.UserService import UserService
 from Controllers.LoginController import login_page
@@ -15,8 +14,6 @@ app = Flask(__name__)
 
 login_manager = LoginManager()
 login_manager.init_app(app)
-
-hashing = Hashing(app)
 
 
 @login_manager.user_loader

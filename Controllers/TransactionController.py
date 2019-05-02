@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, abort, request, redirect, url_for
+from flask_login import login_required
 from jinja2 import TemplateNotFound
 from Services.TransactionService import TransactionService
 from Services.EquipmentService import EquipmentService
@@ -11,6 +12,7 @@ transaction_page = Blueprint('transaction', __name__)
 
 
 @transaction_page.route('/transaction', methods=['POST', 'GET'])
+@login_required
 def transaction():
     try:
         data = request.form.get('data')
@@ -32,6 +34,7 @@ def transaction():
 
 
 @transaction_page.route('/transaction/add', methods=['POST'])
+@login_required
 def add_transaction():
     try:
         TransactionService.add_transaction(session=session, equipment_id=int(request.form['equipment']),
@@ -44,6 +47,7 @@ def add_transaction():
 
 
 @transaction_page.route('/transaction/update', methods=['POST'])
+@login_required
 def update_transaction():
     try:
         data = create_data(str(request.data.decode('utf8')))
@@ -60,6 +64,7 @@ def update_transaction():
 
 
 @transaction_page.route('/transaction/delete', methods=['POST'])
+@login_required
 def delete_transaction():
     try:
         DeleteService.delete_transaction(session=session, tra_id=int(create_single_id(str(request.data))[0]))

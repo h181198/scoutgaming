@@ -5,6 +5,7 @@ from Services.EmployeeService import EmployeeService
 from Services.EquipmentService import EquipmentService
 from Services.DepartmentService import DepartmentService
 from Services.TransactionService import TransactionService
+from flask_login import login_required
 from Helpers.ControllerHelper import create_data, create_single_id, string_to_list
 from Controllers import session, database
 
@@ -12,6 +13,7 @@ employee_page = Blueprint('employee', __name__)
 
 
 @employee_page.route('/employee', methods=['POST', 'GET'])
+@login_required
 def employee():
     try:
         data = request.form.get('data')
@@ -29,6 +31,7 @@ def employee():
 
 
 @employee_page.route('/employee/delete', methods=['POST'])
+@login_required
 def delete_employee():
     try:
         DeleteService.delete_employee(session=session, emp_id=int(create_single_id(str(request.data))[0]))
@@ -38,6 +41,7 @@ def delete_employee():
 
 
 @employee_page.route('/employee/update', methods=['POST'])
+@login_required
 def update_employee():
     try:
         data = create_data(str(request.data.decode('utf8')))
@@ -48,6 +52,7 @@ def update_employee():
 
 
 @employee_page.route('/employee/add', methods=['POST'])
+@login_required
 def add_employee():
     try:
         EmployeeService.add_employee(session=session, employee_number=request.form['id'],
@@ -60,6 +65,7 @@ def add_employee():
 
 
 @employee_page.route('/employee/equipment/<int:emp_id>', methods=['GET'])
+@login_required
 def find_equipment_employee(emp_id):
     try:
         eq_list = TransactionService.find_current_equipment(session=session, emp_id=emp_id)

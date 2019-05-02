@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, abort, request, redirect, url_for
+from flask_login import login_required
 from jinja2 import TemplateNotFound
 from Services.DepartmentService import DepartmentService
 from Services.DeleteService import DeleteService
@@ -9,6 +10,7 @@ department_page = Blueprint('department', __name__)
 
 
 @department_page.route('/department')
+@login_required
 def department():
     try:
         data = DepartmentService.get_all_departments(session=session)
@@ -18,6 +20,7 @@ def department():
 
 
 @department_page.route('/department/add', methods=['POST'])
+@login_required
 def add_department():
     try:
         DepartmentService.add_department(session=session, unit=request.form['unit'], country=request.form['country'])
@@ -28,6 +31,7 @@ def add_department():
 
 
 @department_page.route('/department/update', methods=['POST'])
+@login_required
 def update_department():
     try:
         data = create_data(str(request.data.decode('utf8')))
@@ -38,6 +42,7 @@ def update_department():
 
 
 @department_page.route('/department/delete', methods=['POST'])
+@login_required
 def delete_department():
     try:
         DeleteService.delete_department(session=session, dep_id=int(create_single_id(str(request.data))[0]))

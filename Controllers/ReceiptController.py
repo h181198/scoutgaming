@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, abort, request, redirect, url_for
+from flask_login import login_required
 from jinja2 import TemplateNotFound
 from Controllers import session
 from Services.ReceiptService import ReceiptService
@@ -9,6 +10,7 @@ receipt_page = Blueprint('receipt', __name__)
 
 
 @receipt_page.route('/receipt')
+@login_required
 def receipt():
     try:
         data = ReceiptService.get_all_receipts(session)
@@ -18,6 +20,7 @@ def receipt():
 
 
 @receipt_page.route('/receipt/add', methods=['POST'])
+@login_required
 def add_receipt():
     try:
         ReceiptService.add_receipt(session=session, supplement=request.form['supplement'],
@@ -29,6 +32,7 @@ def add_receipt():
 
 
 @receipt_page.route('/receipt/update', methods=['POST'])
+@login_required
 def update_receipt():
     try:
         data = create_data(str(request.data.decode('utf8')))
@@ -39,6 +43,7 @@ def update_receipt():
 
 
 @receipt_page.route('/receipt/delete', methods=['POST'])
+@login_required
 def delete_receipt():
     try:
         DeleteService.delete_receipt(session=session, rec_id=int(create_single_id(str(request.data))[0]))
