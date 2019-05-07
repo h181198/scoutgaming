@@ -9,7 +9,8 @@ class Receipt(Base):
     comb_id = Column(String)
     supplement = Column(String)
     year = Column(Integer)
+    link = Column(String)
 
     def __repr__(self):
-        return "<Receipt (id='%r', comp_id='%s' supplement='%s', year='%r') >" % (self.id, self.comb_id,
-                                                                                  self.supplement, self.year)
+        return "<Receipt (id='%r', comp_id='%s' supplement='%s', year='%r', link='%s') >" % (self.id, self.comb_id,
+                                                                                  self.supplement, self.year, self.link)

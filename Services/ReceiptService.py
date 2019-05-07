@@ -6,13 +6,14 @@ import json
 class ReceiptService:
     # Add a receipt return receipt if successful
     @staticmethod
-    def add_receipt(session, supplement=None, year=None, receipt=None):
+    def add_receipt(session, supplement=None, year=None, link=None, receipt=None):
         is_none = supplement is None or year is None
         is_correct_instance = isinstance(supplement, str) and isinstance(year, int)
 
         if not is_none and is_correct_instance:
             receipt_id = str(year) + supplement
-            receipt = Model(comb_id=receipt_id, supplement=supplement, year=year)
+            receipt = Model(comb_id=receipt_id, supplement=supplement, year=year, link=link)
+            print(receipt)
             session.add(receipt)
             session.commit()
             return receipt
@@ -25,9 +26,10 @@ class ReceiptService:
 
     # Update receipt in database
     @staticmethod
-    def update_receipt(session, rec_id, supplement, year):
+    def update_receipt(session, rec_id, supplement, year, link):
         receipt = ReceiptService.find_receipt(session, rec_id)
         receipt.supplement = supplement
+        receipt.link = link
         if isinstance(year, int):
             receipt.year = year
             receipt.comb_id = str(year) + supplement
@@ -56,7 +58,8 @@ class ReceiptService:
             'id': receipt.id,
             'comb_id': receipt.comb_id,
             'year': receipt.year,
-            'supplement': secure_text(receipt.supplement)
+            'supplement': secure_text(receipt.supplement),
+            'link': receipt.link
         }
         return json.dumps(result_json, indent=4, sort_keys=False, default=str)
 

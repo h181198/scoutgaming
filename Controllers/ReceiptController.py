@@ -24,7 +24,7 @@ def receipt():
 def add_receipt():
     try:
         ReceiptService.add_receipt(session=session, supplement=request.form['supplement'],
-                                   year=int(request.form['year']))
+                                   year=int(request.form['year']), link=request.form['link'])
         return redirect(url_for('receipt.receipt'))
     except TemplateNotFound:
         abort(404)
@@ -36,7 +36,7 @@ def add_receipt():
 def update_receipt():
     try:
         data = create_data(str(request.data.decode('utf8')))
-        ReceiptService.update_receipt(session, int(data[0]), data[2], int(data[1]))
+        ReceiptService.update_receipt(session, int(data[0]), data[2], int(data[1]), data[3])
         return ReceiptService.get_receipt_json(session, int(data[0]))
     except TemplateNotFound:
         abort(404)

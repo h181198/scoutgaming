@@ -10,6 +10,9 @@
         <th>
             Supplement
         </th>
+        <th class="link">
+            Link
+        </th>
         <th class="sorting_disabled" style="width: 6em;"></th>
         <th class="sorting_disabled" style="width: 4em;"></th>
     </tr>
@@ -24,6 +27,14 @@
             </td>
             <td>
                 {{ rec.supplement }}
+            </td>
+            <td>
+                {% if rec.link|string == 'None'|string %}
+                    {{ rec.link }}
+
+                {% else %}
+                    <a href="{{ rec.link }}">Link</a>
+                {% endif %}
             </td>
             <td>
                 <button type="button" class="edit btn btn-secondary"

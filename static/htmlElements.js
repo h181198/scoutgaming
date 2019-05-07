@@ -31,12 +31,29 @@ function createDateField(date = null) {
 function createTextField(text = null) {
     let textField = document.createElement("input");
     if (text !== null) {
+        text = text.replace(/&gt;/g, ">").replace(/&lt;/g, "<").replace(/&amp;/g, "&");
         textField.setAttribute("placeholder", text);
         textField.setAttribute("value", text);
-         textField.setAttribute("maxlength", 100);
+        textField.setAttribute("maxlength", '100');
     }
     return textField;
 }
+/**
+ * Create a Url field
+ * @param text
+ * @returns {HTMLElement}
+ */
+function createUrlField(text = null) {
+    let textField = document.createElement("input");
+    if (text !== null) {
+        text = text.replace(/&gt;/g, ">").replace(/&lt;/g, "<").replace(/&amp;/g, "&");
+        textField.setAttribute("placeholder", text);
+        textField.setAttribute("value", text);
+        textField.setAttribute("maxlength", '512');
+    }
+    return textField;
+}
+
 
 /**
  * Create a dropdown menu, you should be able to find the data as an json file in a meta-tag in html
@@ -145,7 +162,14 @@ function setRowToText(id, row, url, delurl, json) {
     }
 
     for (let i = 1; i < array.length; i++) {
-        row[i - 1].innerHTML = array[i];
+        if (document.getElementById("table").rows[0].cells[i - 1].classList.contains("link") && isURL(array[i])) {
+            row[i - 1].innerHTML = '<a href=' + array[i] + '> Link </a>';
+        } else if (document.getElementById("table").rows[0].cells[i - 1].classList.contains("link") && !isURL(array[i])) {
+            row[i - 1].innerHTML = "None"
+        } else {
+            row[i - 1].innerHTML = array[i];
+
+        }
     }
 
     let button = createButton("Edit");
@@ -156,4 +180,12 @@ function setRowToText(id, row, url, delurl, json) {
 
     row[row.length - 2].innerHTML = "";
     row[row.length - 2].appendChild(button);
+}
+
+function createLinkField(link) {
+    if (link !== "None") {
+        link = link.substr(0, link.indexOf('">'));
+        link = link.substr(link.indexOf('http'));
+    }
+    return createUrlField(link);
 }

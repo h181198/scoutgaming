@@ -37,6 +37,9 @@ function editRow(id, url, deleteUrl) {
         } else if (table.rows[0].cells[i].classList.contains("date")) {
             row[i].innerHTML = "";
             row[i].appendChild(createDateField(value));
+        } else if (table.rows[0].cells[i].classList.contains("link")) {
+            row[i].innerHTML = "";
+            row[i].appendChild(createLinkField(value));
         } else {
             row[i].innerHTML = "";
             row[i].appendChild(createTextField(value))
@@ -129,7 +132,13 @@ Create a cancel button
         }
         for (let i = 0; i < row.length - 2; i++) {
             if (defaultValues[i] !== null) {
-                if (defaultValues[i] !== "")
+                if (table.rows[0].cells[i].classList.contains("link"))
+                    if (isURL(defaultValues[i])) {
+                        row[i].innerHTML = '<a href=' + defaultValues[i] + '> Link </a>';
+                    } else {
+                        row[i].innerHTML = "None"
+                    }
+                else if (defaultValues[i] !== "")
                     row[i].innerHTML = defaultValues[i];
                 else
                     row[i].innerHTML = "None";
@@ -152,4 +161,18 @@ Create a cancel button
     row[row.length - 1].innerHTML = '';
     row[row.length - 1].appendChild(cancelButton);
 
+}
+
+/*
+https://stackoverflow.com/questions/5717093/check-if-a-javascript-string-is-a-url
+ */
+function isURL(str) {
+    var pattern = new RegExp('^((ft|htt)ps?:\\/\\/)?' + // protocol
+        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name and extension
+        '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
+        '(\\:\\d+)?' + // port
+        '(\\/[-a-z\\d%@_.~+&:]*)*' + // path
+        '(\\?[;&a-z\\d%@_.,~+&:=-]*)?' + // query string
+        '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
+    return pattern.test(str);
 }

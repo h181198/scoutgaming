@@ -81,6 +81,7 @@ class EquipmentService:
 
         my_json = {
             'id': eq.id,
+            'display_id': eq.id,
             'price': eq.price,
             'currency': secure_text(eq.currency),
             'model': secure_text(eq.model),
