@@ -1,5 +1,4 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, DATE
-from sqlalchemy.types import TIMESTAMP
 from Models.BaseModel import Base
 
 

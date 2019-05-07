@@ -66,7 +66,7 @@ def update_equipment():
 
 @equipment_page.route('/equipment/add', methods=['POST'])
 @login_required
-def add_employee():
+def add_equipment():
     try:
         receipt = request.form['receipt']
         if receipt == "None":
