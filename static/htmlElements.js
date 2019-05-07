@@ -31,7 +31,7 @@ function createDateField(date = null) {
 function createTextField(text = null) {
     let textField = document.createElement("input");
     if (text !== null) {
-        text = text.replace(/&gt;/g, ">").replace(/&lt;/g, "<");
+        text = text.replace(/&gt;/g, ">").replace(/&lt;/g, "<").replace(/&amp;/g, "&");
         textField.setAttribute("placeholder", text);
         textField.setAttribute("value", text);
         textField.setAttribute("maxlength", '100');
@@ -46,7 +46,7 @@ function createTextField(text = null) {
 function createUrlField(text = null) {
     let textField = document.createElement("input");
     if (text !== null) {
-        text = text.replace(/&gt;/g, ">").replace(/&lt;/g, "<");
+        text = text.replace(/&gt;/g, ">").replace(/&lt;/g, "<").replace(/&amp;/g, "&");
         textField.setAttribute("placeholder", text);
         textField.setAttribute("value", text);
         textField.setAttribute("maxlength", '512');
