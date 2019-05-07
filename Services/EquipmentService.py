@@ -3,6 +3,8 @@ from Services.ReceiptService import ReceiptService as RS
 from Helpers.ServiceHelper import secure_text
 import json
 import datetime
+from Controllers import converter
+from collections import defaultdict
 
 
 class EquipmentService:
@@ -115,7 +117,7 @@ class EquipmentService:
         current_date = datetime.datetime.now().date()
         interval = datetime.timedelta(days=-365)
         for equ in equipment_list:
-            if (equ.buy_date - current_date) <= interval:
+            if (equ.buy_date - current_date) >= interval:
                 bought_last_year.append(equ)
 
         # place in a dict for the month, create private method for that
@@ -124,17 +126,31 @@ class EquipmentService:
     # Creates a dict for the month and the value spent
     @staticmethod
     def __create_dict(equ_list):
-        nok_result = dict()
-        uah_result = dict()
+        result = dict()
+        # Add default values manually so they appear in correct order, and with all instances
+        result['Jan'] = 0.0
+        result['Feb'] = 0.0
+        result['Mar'] = 0.0
+        result['Apr'] = 0.0
+        result['May'] = 0.0
+        result['Jun'] = 0.0
+        result['Jul'] = 0.0
+        result['Aug'] = 0.0
+        result['Sep'] = 0.0
+        result['Oct'] = 0.0
+        result['Nov'] = 0.0
+        result['Dec'] = 0.0
+
         current_date = datetime.datetime.now().date()
         for equ in equ_list:
-            month = equ.buy_date.strftime("%m")
+            month = equ.buy_date.strftime("%b")
             year = equ.buy_date.strftime("%y")
-            same_month = (month == current_date.strftime("%m")) and (year != current_date.strftime("%y"))
+            same_month = (month == current_date.strftime("%b")) and (year != current_date.strftime("%y"))
 
             if not same_month and equ.currency == "NOK":
-                nok_result[month] += equ.price
+                result[month] = result[month] + equ.price
             elif not same_month and equ.currency == "UAH":
-                uah_result[month] += equ.price
+                result[month] = result[month] + converter.uah_to_nok(equ.price)
 
-        return {nok_result, uah_result}
+        return result
+
