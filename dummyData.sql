@@ -4,6 +4,9 @@
   ('Ukraina', 'Lviv Development'),
   ('Ukraina', 'Lviv Stat Center');
 
+  INSERT INTO receipts (comb_id, supplement, year, link) VALUES
+  ('201459-1', '59', 2014, 'https://www.google.com/');
+
   INSERT INTO receipts (comb_id, supplement, year) VALUES
   ('201459-1', '59', 2014),
   ('201459-2', '59', 2014),

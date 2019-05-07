@@ -15,6 +15,7 @@ CREATE TABLE receipts (
     id SERIAL PRIMARY KEY,
     comb_id VARCHAR(128),
     supplement VARCHAR(128),
+    link VARCHAR(512),
     year INTEGER NOT NULL
 );
 
