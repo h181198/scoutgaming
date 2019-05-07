@@ -34,10 +34,26 @@ function createTextField(text = null) {
         text = text.replace(/&gt;/g, ">").replace(/&lt;/g, "<");
         textField.setAttribute("placeholder", text);
         textField.setAttribute("value", text);
-        textField.setAttribute("maxlength", 100);
+        textField.setAttribute("maxlength", '100');
     }
     return textField;
 }
+/**
+ * Create a Url field
+ * @param text
+ * @returns {HTMLElement}
+ */
+function createUrlField(text = null) {
+    let textField = document.createElement("input");
+    if (text !== null) {
+        text = text.replace(/&gt;/g, ">").replace(/&lt;/g, "<");
+        textField.setAttribute("placeholder", text);
+        textField.setAttribute("value", text);
+        textField.setAttribute("maxlength", '512');
+    }
+    return textField;
+}
+
 
 /**
  * Create a dropdown menu, you should be able to find the data as an json file in a meta-tag in html
@@ -171,5 +187,5 @@ function createLinkField(link) {
         link = link.substr(0, link.indexOf('">'));
         link = link.substr(link.indexOf('http'));
     }
-    return createTextField(link);
+    return createUrlField(link);
 }
