@@ -8,6 +8,6 @@ MarkupSafe
 WTForms
 Werkzeug
 itsdangerous
-pip
+requests
 psycopg2
 setuptools
