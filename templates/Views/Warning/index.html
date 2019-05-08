@@ -8,7 +8,7 @@
         <p>Click a warning to see the objects</p>
     </div><br/>
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-12">
             {% if old_equipment|length > 0 %}
             <form action="/equipment" method="post" style="padding-bottom: 5px;">
                 <button type="submit" class="btn btn-danger" style="width:100%; display:block;">
@@ -90,7 +90,7 @@
             {% endif %}
 
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 invisible">
             <div style="text-align: center; margin:0;">
                 <h5>Money spent in the last year</h5>
             </div>
