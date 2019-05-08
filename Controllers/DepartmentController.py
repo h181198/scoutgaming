@@ -9,7 +9,7 @@ from Helpers.ControllerHelper import create_data, create_single_id
 department_page = Blueprint('department', __name__)
 
 
-@department_page.route('/department')
+@department_page.route('/departments')
 @login_required
 def department():
     try:
