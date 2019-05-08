@@ -1,0 +1,13 @@
+Click
+SQLAlchemy
+Flask
+Flask-Hashing
+Flask-Login
+Jinja2
+MarkupSafe
+WTForms
+Werkzeug
+itsdangerous
+pip
+psycopg2
+setuptools
