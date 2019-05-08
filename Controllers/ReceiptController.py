@@ -13,7 +13,7 @@ receipt_page = Blueprint('receipt', __name__)
 @login_required
 def receipt():
     try:
-        data = ReceiptService.get_all_receipts(session)
+        data = ReceiptService.get_all_receipts(session)[1:]
         return render_template('Views/Receipt/index.html', data=data)
     except TemplateNotFound:
         abort(404)

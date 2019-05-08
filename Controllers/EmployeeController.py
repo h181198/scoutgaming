@@ -21,7 +21,7 @@ def employee():
         if data is not None and len(data) > 0:
             data = string_to_list(session, data)
         else:
-            data = EmployeeService.get_all_employees(session=session)[3:]
+            data = EmployeeService.get_all_employees(session=session)[4:]
         department_data = DepartmentService.get_all_departments(session)
         department_list = DepartmentService.get_all_departments_json(database=database)
         return render_template('Views/Employee/index.html', data=data, department_data=department_data,
