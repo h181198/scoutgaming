@@ -14,7 +14,7 @@ department_page = Blueprint('department', __name__)
 def department():
     try:
         data = DepartmentService.get_all_departments(session=session)
-        return render_template('Views/department/index.html', data=data)
+        return render_template('Views/Department/index.html', data=data)
     except TemplateNotFound:
         abort(404)
 
