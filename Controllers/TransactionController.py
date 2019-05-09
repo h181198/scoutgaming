@@ -23,7 +23,14 @@ def transaction():
             data = TransactionService.get_all_transactions(session)
 
         equipment_data = EquipmentService.get_all_equipments(session)
-        equipment_dict = TransactionService.create_current_owner_dict(session, equipment_data)
+        latest_transaction = TransactionService.create_current_owner_dict(session, equipment_data)
+        equipment_dict = dict()
+
+        for equ in equipment_data:
+            description = "None"
+            if equ.description is not None:
+                description = equ.description
+            equipment_dict[equ.id] = description + ", Owner: " + str(latest_transaction[equ.id])
         employee_data = EmployeeService.get_all_employees(session)
         employee_dict = EmployeeService.create_employee_dropdown(session)
 

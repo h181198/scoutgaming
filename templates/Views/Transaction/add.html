@@ -1,7 +1,7 @@
 <!-- Modal -->
 <div class="modal fade" id="addModal" tabindex="-1" role="dialog"
      aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-lg modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Add Transaction</h4>
@@ -23,7 +23,7 @@
                         <label for="equipments">Equipment</label><br/>
                         <select id="equipments" name="equipment">
                             {% for equ in equipment_data %}
-                            <option value="{{ equ.id }}">{{ equ.description + ", Owner: " + equipment_dict[equ.id]}}</option>
+                            <option value="{{ equ.id }}">{{ equipment_dict[equ.id]}}</option>
                             {% endfor %}
                         </select>
                     </div>
