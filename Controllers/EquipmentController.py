@@ -26,15 +26,7 @@ def equipment():
         else:
             data = EquipmentService.get_all_equipments(session=session)
 
-        latest_transaction = dict()
-        for equip in data:
-            transaction = TransactionService.find_last_equipment_transaction(session, equip.id)
-            if transaction is not None:
-                emp = EmployeeService.find_employee(session, transaction.employee_id)
-                if emp is not None:
-                    latest_transaction[equip.id] = emp.name
-            else:
-                latest_transaction[equip.id] = "None"
+        latest_transaction = TransactionService.create_current_owner_dict(session, data)
 
         return render_template('Views/Equipment/index.html', data=data, latest_transaction=latest_transaction,
                                employee_data=employee_data, receipt_data=receipt_data, receipt_list=receipt_list)

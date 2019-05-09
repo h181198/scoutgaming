@@ -1,6 +1,6 @@
 <!-- Modal -->
 <div class="modal fade" id="addModal" tabindex="-1" role="dialog"
-      aria-hidden="true">
+     aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -12,18 +12,18 @@
             <form action="/transaction/add" method="post">
                 <div class="modal-body">
                     <div class="mb-3">
-                        <label for="employees">Employee</label><br />
+                        <label for="employees">Employee</label><br/>
                         <select id="employees" name="employee">
                             {% for emp in employee_data %}
-                                <option value="{{ emp.id }}">{{ emp.name }}</option>
+                            <option value="{{ emp.id }}">{{ employee_dict[emp.id] }}</option>
                             {% endfor %}
                         </select>
                     </div>
                     <div class="mb-3">
-                        <label for="equipments">Equipment</label><br />
+                        <label for="equipments">Equipment</label><br/>
                         <select id="equipments" name="equipment">
                             {% for equ in equipment_data %}
-                                <option value="{{ equ.id }}">{{ equ.description }}</option>
+                            <option value="{{ equ.id }}">{{ equ.description + ", Owner: " + equipment_dict[equ.id]}}</option>
                             {% endfor %}
                         </select>
                     </div>

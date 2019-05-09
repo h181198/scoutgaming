@@ -82,6 +82,15 @@ class EmployeeService:
         }
         return json.dumps(my_json, indent=4, sort_keys=False, default=str)
 
+    @staticmethod
+    def create_employee_dropdown(session):
+        data = EmployeeService.get_all_employees(session)
+        result = dict()
+        for emp in data:
+            result[emp.id] = 'Id: ' + emp.employee_number + ', Name: ' + emp.name
+
+        return result
+
     # Find an employee from id
     @staticmethod
     def find_employee(session, emp_id):
