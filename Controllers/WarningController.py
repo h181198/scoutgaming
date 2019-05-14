@@ -21,16 +21,19 @@ def warning():
         no_equipment = WarningService.get_employees_without_equipment(session)
         no_location = WarningService.get_equipment_without_employee(session)
         old_equipment = WarningService.get_old_equipment(session)
+        emp_duplicates = WarningService.get_duplicate_employeeids(session)
 
         create_economy_statistics()
 
         has_warnings = len(missing_equ) > 0 or len(quit_with_equipment) > 0 or len(old_employee_equipment) > 0 or \
-                       len(no_equipment) > 0 or len(no_location) > 0 or len(old_equipment) > 0
+                       len(no_equipment) > 0 or len(no_location) > 0 or len(old_equipment) > 0 or \
+                       len(emp_duplicates) > 0
 
         return render_template('Views/Warning/index.html', missing_equipment=missing_equ,
                                quit_with_equipment=quit_with_equipment, old_equipment=old_equipment,
                                no_equipment=no_equipment, no_location=no_location,
-                               old_employee_equipment=old_employee_equipment, has_warnings=has_warnings)
+                               old_employee_equipment=old_employee_equipment, has_warnings=has_warnings,
+                               emp_duplicates=emp_duplicates)
     except TemplateNotFound:
         abort(404)
 
