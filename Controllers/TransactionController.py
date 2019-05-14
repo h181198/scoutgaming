@@ -23,12 +23,23 @@ def transaction():
             data = TransactionService.get_all_transactions(session)
 
         equipment_data = EquipmentService.get_all_equipments(session)
+        latest_transaction = TransactionService.create_current_owner_dict(session, equipment_data)
+        equipment_dict = dict()
+
+        for equ in equipment_data:
+            description = "None"
+            if equ.description is not None:
+                description = equ.description
+            equipment_dict[equ.id] = str(equ.id) + ", " + description + ", (" +\
+                                     str(latest_transaction[equ.id]) + ")"
         employee_data = EmployeeService.get_all_employees(session)
+        employee_dict = EmployeeService.create_employee_dropdown(session)
 
         employee_list = EmployeeService.get_all_employees_json(session)
         equipment_list = EquipmentService.get_all_equipments_json(session)
         return render_template('Views/Transaction/index.html', data=data, equipment_data=equipment_data,
-                               employee_data=employee_data, equipment_list=equipment_list, employee_list=employee_list)
+                               employee_data=employee_data, equipment_list=equipment_list, employee_list=employee_list,
+                               employee_dict=employee_dict, equipment_dict=equipment_dict)
     except TemplateNotFound:
         abort(404)
 
