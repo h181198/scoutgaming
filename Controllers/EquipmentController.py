@@ -70,7 +70,11 @@ def add_equipment():
         if employee == '1':
             employee = None
 
-        new_equipment = EquipmentService.add_equipment(session=session, price=int(request.form['price']),
+        price = request.form['price']
+        if price == "":
+            price = "0"
+
+        new_equipment = EquipmentService.add_equipment(session=session, price=int(price),
                                                        currency=request.form['currency'],
                                                        model=request.form['model'], buy_date=request.form['buy-date'],
                                                        receipt_id=receipt, description=request.form['description'],

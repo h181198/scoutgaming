@@ -87,7 +87,7 @@ class EmployeeService:
         data = EmployeeService.get_all_employees(session)
         result = dict()
         for emp in data:
-            result[emp.id] = 'Id: ' + emp.employee_number + ', Name: ' + emp.name
+            result[emp.id] = emp.employee_number + ', ' + emp.name
 
         return result
 

@@ -30,7 +30,8 @@ def transaction():
             description = "None"
             if equ.description is not None:
                 description = equ.description
-            equipment_dict[equ.id] = description + ", Owner: " + str(latest_transaction[equ.id])
+            equipment_dict[equ.id] = str(equ.id) + ", " + description + ", (" +\
+                                     str(latest_transaction[equ.id]) + ")"
         employee_data = EmployeeService.get_all_employees(session)
         employee_dict = EmployeeService.create_employee_dropdown(session)
 
