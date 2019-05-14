@@ -130,3 +130,18 @@ class TransactionService:
     @staticmethod
     def find_transaction(session, tra_id):
         return session.query(Model).filter_by(id=tra_id).first()
+
+    # Create a dictionary of current owners stored on equipment ID
+    @staticmethod
+    def create_current_owner_dict(session, equipment_list):
+        latest_transaction = dict()
+        for equip in equipment_list:
+            transaction = TransactionService.find_last_equipment_transaction(session, equip.id)
+            if transaction is not None:
+                emp = EmS.find_employee(session, transaction.employee_id)
+                if emp is not None:
+                    latest_transaction[equip.id] = emp.name
+            else:
+                latest_transaction[equip.id] = "None"
+
+        return latest_transaction
