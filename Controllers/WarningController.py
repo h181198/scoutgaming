@@ -5,7 +5,7 @@ from Services.WarningService import WarningService
 from Controllers import session
 # Remove when testing is done
 from collections import defaultdict
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 from Services.EquipmentService import EquipmentService
 
 warning_page = Blueprint('warning', __name__)
