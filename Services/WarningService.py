@@ -89,27 +89,3 @@ class WarningService:
                 result.append(eq)
 
         return result
-
-    # Method that finds and return if any users have duplicate IDs
-    # Return list of employees
-    @staticmethod
-    def get_duplicate_employeeids(session):
-        employee_list = EmS.get_all_employees(session).all()[4:]
-        result=[]
-        for i in range(len(employee_list)):
-            duplicate = WarningService.__find_duplicate(employee_list[i], employee_list[:i])
-            if duplicate is not None:
-                result.append(employee_list[i])
-                result.append(duplicate)
-
-        return result
-
-    # Method to find if there is duplicate in rest of list
-    # return the duplicates
-    @staticmethod
-    def __find_duplicate(item, emp_list):
-        for equ in emp_list:
-            if equ.employee_number == item.employee_number:
-                return equ
-
-        return None

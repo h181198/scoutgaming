@@ -89,22 +89,6 @@
             </form>
             {% endif %}
 
-            {% if emp_duplicates|length > 0 %}
-            <form action="/employee" method="post" style="padding-bottom: 5px;">
-                <button type="submit" class="btn btn-danger" style="width:100%; display:block;">
-                    <input type="hidden" name="data" value="{{ emp_duplicates }}">
-                    <div class="row">
-                        <div class="col-md-1">
-                            <img src="/static/Pictures/Warning_icon.png" alt="" style="width:50px;height:50px;" />
-                        </div>
-                        <div class="col-md-11">
-                            <h3> Employees with duplicate ids: {{ emp_duplicates|length }}</h3>
-                        </div>
-                    </div>
-                </button>
-            </form>
-            {% endif %}
-
         </div>
         <div class="col-md-3 invisible">
             <div style="text-align: center; margin:0;">

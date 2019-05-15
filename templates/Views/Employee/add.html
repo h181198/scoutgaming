@@ -9,7 +9,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <form action="/employee/add" method="post" data-toggle="validator">
+            <form action="/employee/add" method="post" name="addEmployeeForm" onsubmit="return(validate());">
                 <div class="modal-body">
                     <div class="row">
                         <div class="col-md-6 mb-3">
@@ -50,3 +50,4 @@
         </div>
     </div>
 </div>
+<meta id="everyEmployee" content="{{ all_employee }}">

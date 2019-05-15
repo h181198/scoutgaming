@@ -24,8 +24,9 @@ def employee():
             data = EmployeeService.get_all_employees(session=session)[4:]
         department_data = DepartmentService.get_all_departments(session)
         department_list = DepartmentService.get_all_departments_json(database=database)
+        all_employee = EmployeeService.get_all_employees_json(session)
         return render_template('Views/Employee/index.html', data=data, department_data=department_data,
-                               department_list=department_list)
+                               department_list=department_list, all_employee=all_employee)
     except TemplateNotFound:
         abort(404)
 
