@@ -66,11 +66,13 @@
                 {{ latest_transaction[equ.id] }}
             </td>
             <td>
-                <button type="button" class="edit btn btn-secondary"
-                        onclick="editRow({{ equ.id }}, '/equipment/update',  '/equipment/delete')">
+                {% include 'Views/Equipment/edit.html' %}
+
+                <button id="addButton" type="button" class="edit btn btn-secondary" data-toggle="modal" data-target='#editModal{{ equ.id }}'>
                     Edit
                 </button>
             </td>
+
             <th>
                 <button type="button" class="btn btn-danger" onclick="deleteRow({{ equ.id }}, '/equipment/delete')">
                     Delete
