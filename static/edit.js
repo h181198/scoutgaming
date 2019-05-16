@@ -132,12 +132,8 @@ Create a cancel button
         }
         for (let i = 0; i < row.length - 2; i++) {
             if (defaultValues[i] !== null) {
-                if (table.rows[0].cells[i].classList.contains("link"))
-                    if (isURL(defaultValues[i])) {
-                        row[i].innerHTML = '<a href=' + defaultValues[i] + '> Link </a>';
-                    } else {
-                        row[i].innerHTML = "None"
-                    }
+                if (table.rows[0].cells[i].classList.contains("link") && isURL(defaultValues[i]))
+                    row[i].innerHTML = '<a target="_blank" href=' + defaultValues[i] + '> Link </a>';
                 else if (defaultValues[i] !== "")
                     row[i].innerHTML = defaultValues[i];
                 else
@@ -164,15 +160,9 @@ Create a cancel button
 }
 
 /*
-https://stackoverflow.com/questions/5717093/check-if-a-javascript-string-is-a-url
+https://www.w3resource.com/javascript-exercises/javascript-regexp-exercise-9.php
  */
 function isURL(str) {
-    var pattern = new RegExp('^((ft|htt)ps?:\\/\\/)?' + // protocol
-        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|' + // domain name and extension
-        '((\\d{1,3}\\.){3}\\d{1,3}))' + // OR ip (v4) address
-        '(\\:\\d+)?' + // port
-        '(\\/[-a-z\\d%@_.~+&:]*)*' + // path
-        '(\\?[;&a-z\\d%@_.,~+&:=-]*)?' + // query string
-        '(\\#[-a-z\\d_]*)?$', 'i'); // fragment locator
+    let pattern = /^(?:(?:https?|ftp):\/\/)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/;
     return pattern.test(str);
 }

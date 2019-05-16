@@ -9,11 +9,12 @@ class ReceiptService:
     def add_receipt(session, supplement=None, year=None, link=None, receipt=None):
         is_none = supplement is None or year is None
         is_correct_instance = isinstance(supplement, str) and isinstance(year, int)
+        if link == "":
+            link = None
 
         if not is_none and is_correct_instance:
             receipt_id = str(year) + supplement
             receipt = Model(comb_id=receipt_id, supplement=supplement, year=year, link=link)
-            print(receipt)
             session.add(receipt)
             session.commit()
             return receipt
@@ -29,7 +30,10 @@ class ReceiptService:
     def update_receipt(session, rec_id, supplement, year, link):
         receipt = ReceiptService.find_receipt(session, rec_id)
         receipt.supplement = supplement
-        receipt.link = link
+        if link == "":
+            receipt.link = None
+        else:
+            receipt.link = link
         if isinstance(year, int):
             receipt.year = year
             receipt.comb_id = str(year) + supplement

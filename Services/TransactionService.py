@@ -76,8 +76,7 @@ class TransactionService:
 
         my_json = {
             'id': tran.id,
-            'equipment_id': "id" + str(eq.id),
-            'equipment_description': secure_text(eq_description),
+            'equipment_description': "Id: " + str(eq.id) + ", " + secure_text(eq_description),
             'buy_date': eq_buy,
             'employee_name': secure_text(emp_name),
             'transfer_date': tran.transfer_date

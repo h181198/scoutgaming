@@ -3,7 +3,7 @@ function validate() {
     let input = document.addEmployeeForm.id.value;
 
     for(i = 0; i < data.length; i++) {
-        if (input == data[i].employee_number) {
+        if (input === data[i].employee_number) {
             alert("Id already exist, please choose a new one");
             return false;
         }

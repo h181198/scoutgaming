@@ -77,6 +77,9 @@ function createDropdown(model, dropdownType, currentValue = null) {
                     break;
                 case "equipment":
                     option.text = "Id: " + result.id + ", " + result.description;
+                   if(currentValue.includes(result.description) && currentValue.includes(result.id)) {
+                        option.setAttribute("selected", "selected");
+                    }
                     break;
                 case "receipt":
                     option.text = result.comb_id;
@@ -85,17 +88,13 @@ function createDropdown(model, dropdownType, currentValue = null) {
                     option.text = result.name;
                     break;
             }
+            if(currentValue === option.text) {
+                option.setAttribute("selected", "selected");
+            }
             dropdownField.appendChild(option);
         }
     );
-    if (currentValue != null) {
-        for (let j = 0; j < dropdownField.options.length; j++) {
-            if (dropdownField.options[j].text === currentValue) {
-                dropdownField.selectedIndex = j;
-                break;
-            }
-        }
-    }
+
 
     return dropdownField;
 }
@@ -122,7 +121,7 @@ function createNormalText(model, dropdownType, currentValue = null) {
                     break;
                 case "equipment":
                     if (parseInt(result.id) === parseInt(currentValue)) {
-                        myString = result.description;
+                        myString = "Id: " + result.id + ", " + result.description;
                     }
                     break;
                 case "employee":
@@ -152,6 +151,7 @@ function createNormalText(model, dropdownType, currentValue = null) {
  * @param json
  */
 function setRowToText(id, row, url, delurl, json) {
+    console.log(json);
     let array = [];
     for (let key in json) {
         if (json[key] === null) {
@@ -162,8 +162,9 @@ function setRowToText(id, row, url, delurl, json) {
     }
 
     for (let i = 1; i < array.length; i++) {
+        console.log(isURL(array[i]));
         if (document.getElementById("table").rows[0].cells[i - 1].classList.contains("link") && isURL(array[i])) {
-            row[i - 1].innerHTML = '<a href=' + array[i] + '> Link </a>';
+            row[i - 1].innerHTML = '<a target="_blank" href=' + array[i] + '> Link </a>';
         } else if (document.getElementById("table").rows[0].cells[i - 1].classList.contains("link") && !isURL(array[i])) {
             row[i - 1].innerHTML = "None"
         } else {
@@ -184,8 +185,17 @@ function setRowToText(id, row, url, delurl, json) {
 
 function createLinkField(link) {
     if (link !== "None") {
-        link = link.substr(0, link.indexOf('">'));
         link = link.substr(link.indexOf('http'));
+        link = link.substr(0,  link.indexOf('">'));
     }
     return createUrlField(link);
+}
+
+Date.prototype.toDateInputValue = (function () {
+    let local = new Date(this);
+    local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+    return local.toJSON().slice(0, 10);
+});
+function setDefaultDate(id) {
+    document.getElementById(id).value = new Date().toDateInputValue();
 }

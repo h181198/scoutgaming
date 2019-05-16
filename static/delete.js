@@ -1,6 +1,7 @@
-/*
-Delete row from database if confirmed by user
-@param id, url
+/**
+ * Delete row from database if confirmed by user
+ * @param id
+ * @param url
  */
 function deleteRow(id, url) {
     if (confirm("Are you sure you want to delete this row?")) {
@@ -19,3 +20,4 @@ function deleteRow(id, url) {
     }
 
 }
+
