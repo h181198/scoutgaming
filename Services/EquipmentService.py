@@ -75,7 +75,7 @@ class EquipmentService:
     def get_equipment_json(session, emp_id):
         eq = EquipmentService.find_equipment(session, int(emp_id))
         curr_rec = RS.find_receipt(session, eq.receipt_id)
-        rec_id = None
+        rec_id = "None"
         if curr_rec is not None:
             rec_id = curr_rec.comb_id
 

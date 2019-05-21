@@ -61,8 +61,13 @@ def update_equipment():
 def add_equipment():
     try:
         receipt = request.form['receipt']
-        if receipt == "None":
-            receipt = None
+        supplement = request.form['supplement']
+        year = request.form['year']
+        link = request.form['link']
+
+        if receipt == "1" and supplement != "" and year != "":
+            new_receipt = ReceiptService.add_receipt(session=session, supplement=supplement, year=int(year), link=link)
+            receipt = new_receipt.id
         else:
             receipt = int(receipt)
 

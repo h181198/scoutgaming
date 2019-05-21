@@ -32,17 +32,6 @@
                         </div>
                     </div>
                     <div class="row">
-
-                        <div class="col-md-6 mb-3">
-                            <label for="receipt">Receipt</label><br/>
-                            <select id="receipt" name="receipt">
-                                {% for rec in receipt_data %}
-                                    <option value="{{ rec.id }}">{{ rec.comb_id }}</option>
-                                {% endfor %}
-                            </select>
-                        </div>
-                    </div>
-                    <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="description">Description</label><br/>
                             <textarea type="text" name="description" id="description"></textarea>
@@ -52,7 +41,35 @@
                             <textarea type="text" name="note" id="note"></textarea>
                         </div>
                     </div>
-                    </br>
+
+                    <h5>Receipt:</h5>
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <select id="receipt" name="receipt">
+                                {% for rec in receipt_data %}
+                                <option value="{{ rec.id }}">{{ rec.comb_id }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <h5>or create new receipt</h5>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="supplement">Receipt number</label><br />
+                            <input type="text" name="supplement" id="supplement">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="year">Year</label><br />
+                            <input type="number" id="year" name="year">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12 mb-3">
+                            <label for="link">Link</label><br />
+                            <input type="text" id="link" name="link">
+                        </div>
+                    </div>
+
                     <h5>Transaction:</h5>
                     <div class="row">
                         <div class="col-md-6 mb-3">
