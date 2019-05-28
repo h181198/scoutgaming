@@ -51,7 +51,9 @@
             </td>
             <td>
                 {% for rec in receipt_data %}
-                    {% if equ.receipt_id == rec.id %}
+                    {% if equ.receipt_id == rec.id and rec.link and rec.link != 'None' %}
+                        <a target="_blank" href="{{ rec.link }}">{{ rec.comb_id }}</a>
+                    {% elif equ.receipt_id == rec.id %}
                         {{ rec.comb_id }}
                     {% endif %}
                 {% endfor %}
@@ -68,7 +70,8 @@
             <td>
                 {% include 'Views/Equipment/edit.html' %}
 
-                <button id="addButton" type="button" class="edit btn btn-secondary" data-toggle="modal" data-target='#editModal{{ equ.id }}'>
+                <button id="addButton" type="button" class="edit btn btn-secondary" data-toggle="modal"
+                        data-target='#editModal{{ equ.id }}'>
                     Edit
                 </button>
             </td>
