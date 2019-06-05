@@ -140,6 +140,8 @@ class TransactionService:
                 emp = EmS.find_employee(session, transaction.employee_id)
                 if emp is not None:
                     latest_transaction[equip.id] = emp.name
+                else:
+                    latest_transaction[equip.id] = "None"
             else:
                 latest_transaction[equip.id] = "None"
 

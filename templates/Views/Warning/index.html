@@ -41,22 +41,6 @@
             </form>
             {% endif %}
 
-            {% if missing_equipment|length > 0 %}
-            <form action="/equipment" method="post" style="padding-bottom: 5px;">
-                <button type="submit" class="btn btn-warning" style="width:100%; display:block;">
-                    <input type="hidden" name="data" value="{{ missing_equipment }}">
-                    <div class="row">
-                        <div class="col-md-1">
-                            <img src="/static/Pictures/Warning_icon.png" alt="" style="width:50px;height:50px;" />
-                        </div>
-                        <div class="col-md-11">
-                            <h3> Equipment missing buydate, model or receipt: {{ missing_equipment|length }}</h3>
-                        </div>
-                    </div>
-             </button>
-            </form>
-            {% endif %}
-
             {% if no_equipment|length > 0 %}
             <form action="/employee" method="post" style="padding-bottom: 5px;">
                 <button type="submit" class="btn btn-warning" style="width:100%; display:block;">
@@ -82,19 +66,13 @@
                             <img src="/static/Pictures/Warning_icon.png" alt="" style="width:50px;height:50px;" />
                         </div>
                         <div class="col-md-11">
-                            <h3> Equipment that does not have a person: {{ no_location|length }}</h3>
+                            <h3> Equipment that's not assigned to a person: {{ no_location|length }}</h3>
                         </div>
                     </div>
                 </button>
             </form>
             {% endif %}
 
-        </div>
-        <div class="col-md-3 invisible">
-            <div style="text-align: center; margin:0;">
-                <h5>Money spent in the last year</h5>
-            </div>
-            <img src="/static/Pictures/Money_spent.png" alt="money spent" style="height:70%;width:auto;"/>
         </div>
     </div>
     {% else %}

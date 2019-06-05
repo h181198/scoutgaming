@@ -41,6 +41,7 @@ class DepartmentService:
     @staticmethod
     def get_department_json(session, dep_id):
         department = DepartmentService.find_department(session, dep_id)
+
         my_json = {
             'id': department.id,
             'display_id': department.id,

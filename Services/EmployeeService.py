@@ -1,6 +1,7 @@
 from Services.DepartmentService import DepartmentService as DS
 from Helpers.ServiceHelper import secure_text
 from Models.Employee import Employee as Model
+import sqlalchemy.orm.exc as exce
 import datetime
 import json
 
@@ -68,7 +69,12 @@ class EmployeeService:
         emp = EmployeeService.find_employee(session, int(emp_id))
 
         department_unit = "None"
-        department = DS.find_department(session, emp.department_id)
+        department = None
+        try:
+            department = DS.find_department(session, emp.department_id)
+        except exce.NoResultFound:
+            print("Something went wrong")
+
         if department is not None:
             department_unit = department.unit
 
